@@ -34,3 +34,15 @@ To contribute as an external tester: run the collector on your own machine for
   same commands on their own machine for 3-7 days.
 
 All three run the identical collector, identical thresholds, identical gates.
+
+## github-actions collector specifics (data caveats)
+
+- Each Actions run starts with an EMPTY workspace: the github-actions sample is
+  STATELESS — it measures the signal funnel (scan -> candidates -> gate
+  rejects) but cannot hold paper positions across cycles, so it contributes
+  no entry/exit/hold/PnL lifecycle data. Position lifecycle data comes only
+  from persistent collectors (sandbox / external tester).
+- The heartbeat trigger fires repository_dispatch every ~5 min from the
+  sandbox dev-server (fork cron-schedule registration lags; dispatch is
+  immediate). If the sandbox dies, GitHub-side cycles stop until the cron
+  schedule arms itself or the sandbox returns.
