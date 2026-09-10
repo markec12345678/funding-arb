@@ -38,6 +38,11 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from backtest.funding_providers import get_funding_provider
+from core.funding_history import (
+    load_recent_snapshots,
+    pair_history_metrics,
+    record_scan_rates,
+)
 from market.futures_depth import depth_usd_within, fetch_futures_depth
 from market.parallel_fetch import run_io_parallel
 
@@ -243,8 +248,13 @@ def _scan_spreads(
     min_edge: float,
     fee_cache: dict[tuple[str, str], dict[str, float]] | None = None,
     max_mark_spread_pct: float = 1.0,
+    history_snapshots: list[dict[str, Any]] | None = None,
 ) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
-    """Compute pairwise perp-perp spreads across venues, return (forward, reverse)."""
+    """Compute pairwise perp-perp spreads across venues, return (forward, reverse).
+
+    history_snapshots (from core.funding_history.load_recent_snapshots) attaches
+    trailing spread-stability metrics to each entry when enough history exists.
+    """
     forward: list[dict[str, Any]] = []
     reverse: list[dict[str, Any]] = []
 
@@ -401,6 +411,18 @@ def _scan_spreads(
                     "spread_source": model["spread_source"],
                 }
 
+                # Trailing stability metrics (attached only when the pair has
+                # enough recorded history — row shape unchanged otherwise).
+                if history_snapshots:
+                    entry["history"] = pair_history_metrics(
+                        base,
+                        long_venue,
+                        short_venue,
+                        spread,
+                        min_spread,
+                        history_snapshots,
+                    )
+
                 if direction == "forward":
                     forward.append(entry)
                 else:
@@ -499,6 +521,7 @@ def scan_pure_futures_spreads(
     with_depth: bool = True,
     depth_top_n: int = DEFAULT_DEPTH_TOP_N,
     depth_window_pct: float = DEFAULT_DEPTH_WINDOW_PCT,
+    record_history: bool = True,
 ) -> dict[str, Any]:
     """Main entry point — scan and return structured results."""
     if venues is None:
@@ -509,8 +532,18 @@ def scan_pure_futures_spreads(
     policy = parse_fee_policy(fee_policy)
     fee_cache = build_policy_futures_cache(by_base, policy, workers=workers)
 
+    # Persist the full rate matrix (throttled ~1/h) and load the trailing
+    # window once so every pair gets stability metrics from the same data.
+    recorded = record_scan_rates(by_base) if record_history else False
+    history_snapshots = load_recent_snapshots() if record_history else []
+
     forward, reverse = _scan_spreads(
-        by_base, min_spread, min_edge, fee_cache, max_mark_spread_pct
+        by_base,
+        min_spread,
+        min_edge,
+        fee_cache,
+        max_mark_spread_pct,
+        history_snapshots=history_snapshots,
     )
 
     # Liquidity context — only fetched for the top-N entries to bound latency.
@@ -539,6 +572,11 @@ def scan_pure_futures_spreads(
             [{"pair": k, "count": v} for k, v in venue_pairs.items()],
             key=lambda x: -x["count"],
         ),
+        "history": {
+            "recorded": recorded,
+            "snapshots": len(history_snapshots),
+            "window_days": 7,
+        },
         "timestamp": datetime.now(TZ_UTC).isoformat(),
     }
 
@@ -731,6 +769,14 @@ def main() -> None:
         default=DEFAULT_JSONL_FILE,
         help=f"JSONL output file (default {DEFAULT_JSONL_FILE})",
     )
+    parser.add_argument(
+        "--no-history",
+        action="store_true",
+        help=(
+            "Skip recording the hourly funding-rate snapshot and pair stability "
+            "metrics (file: <FARB_HOME>/funding_history.jsonl)"
+        ),
+    )
     args = parser.parse_args()
 
     _DEFAULT_CEX = ["binance", "bitget", "bybit", "okx"]
@@ -760,6 +806,7 @@ def main() -> None:
                     workers=args.workers,
                     with_depth=args.with_depth,
                     depth_top_n=args.depth_top,
+                    record_history=not args.no_history,
                 )
                 result["min_spread"] = args.min_spread
                 result["min_edge"] = args.min_edge
@@ -794,6 +841,7 @@ def main() -> None:
         workers=args.workers,
         with_depth=args.with_depth,
         depth_top_n=args.depth_top,
+        record_history=not args.no_history,
     )
     elapsed = time.time() - t0
     result["min_spread"] = args.min_spread
@@ -819,6 +867,7 @@ def main() -> None:
                     "min_spread": args.min_spread,
                     "min_edge": args.min_edge,
                     "elapsed_sec": elapsed,
+                    "history": result.get("history"),
                     "spreads": out_rows,
                 },
                 ensure_ascii=False,

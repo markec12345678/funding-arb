@@ -171,6 +171,12 @@ async def lifespan(app: FastAPI):
 # ---------------------------------------------------------------------------
 app = FastAPI(title="funding-arb API", version="0.1.0", lifespan=lifespan)
 
+# Optional bearer-token auth: active only when FARB_API_TOKEN is set.
+# Protects /api/* and /ws/*; static assets and docs stay public.
+from server.auth import AuthMiddleware  # noqa: E402
+
+app.add_middleware(AuthMiddleware)
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[

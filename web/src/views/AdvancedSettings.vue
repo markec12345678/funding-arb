@@ -1,16 +1,40 @@
 <script setup lang="ts">
-import { onMounted } from 'vue'
-import { NCard, NText, NIcon, NDivider, NSpin } from 'naive-ui'
-import { CheckmarkCircleOutline, CloseCircleOutline } from '@vicons/ionicons5'
-import { getCredentialsStatus } from '@/composables/useApi'
+import { onMounted, ref, computed } from 'vue'
+import { NCard, NText, NIcon, NDivider, NSpin, NInput, NButton, NSpace, useMessage } from 'naive-ui'
+import { CheckmarkCircleOutline, CloseCircleOutline, LockClosedOutline } from '@vicons/ionicons5'
+import { getCredentialsStatus, getApiToken, setApiToken, clearApiToken } from '@/composables/useApi'
 import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
+const message = useMessage()
 const credentials = getCredentialsStatus()
 
+// ─── API access token (optional server auth) ───────────────────────
+const tokenInput = ref('')
+const tokenSaved = ref(false)
+
+const tokenConfigured = computed(() => tokenSaved.value || !!getApiToken())
+
 onMounted(async () => {
+  tokenSaved.value = !!getApiToken()
   await credentials.refresh()
 })
+
+function saveToken() {
+  const trimmed = tokenInput.value.trim()
+  if (!trimmed) return
+  setApiToken(trimmed)
+  tokenInput.value = ''
+  tokenSaved.value = true
+  message.success(t('settings.apiTokenSaved'))
+}
+
+function removeToken() {
+  clearApiToken()
+  tokenInput.value = ''
+  tokenSaved.value = false
+  message.success(t('settings.apiTokenCleared'))
+}
 </script>
 
 <template>
@@ -36,6 +60,37 @@ onMounted(async () => {
         </div>
       </n-spin>
     </n-card>
+
+    <n-card :title="t('settings.apiToken')" size="small" style="margin-top: 16px">
+      <div class="token-status">
+        <n-icon :color="tokenConfigured ? '#18a058' : '#d03050'" size="18">
+          <LockClosedOutline v-if="tokenConfigured" />
+          <CloseCircleOutline v-else />
+        </n-icon>
+        <n-text depth="2" style="font-size: 12px">
+          {{ tokenConfigured ? t('settings.apiTokenSet') : t('settings.apiTokenNotSet') }}
+        </n-text>
+      </div>
+      <n-space style="margin-top: 12px" :wrap="false" :size="8">
+        <n-input
+          v-model:value="tokenInput"
+          type="password"
+          show-password-on="click"
+          :placeholder="t('settings.apiTokenPlaceholder')"
+          style="flex: 1"
+          @keyup.enter="saveToken"
+        />
+        <n-button size="small" type="primary" :disabled="!tokenInput.trim()" @click="saveToken">
+          {{ t('settings.apiTokenSave') }}
+        </n-button>
+        <n-button v-if="tokenConfigured" size="small" quaternary type="error" @click="removeToken">
+          {{ t('settings.apiTokenClear') }}
+        </n-button>
+      </n-space>
+      <n-text depth="3" style="font-size: 11px; display: block; margin-top: 8px">
+        {{ t('settings.apiTokenHint') }}
+      </n-text>
+    </n-card>
   </div>
 </template>
 
@@ -57,6 +112,14 @@ onMounted(async () => {
 }
 .backend-left { display: flex; align-items: center; gap: 8px; }
 .backend-summary { font-weight: 500; }
+.token-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 6px;
+}
 
 @media (max-width: 700px) {
   .backend-item {

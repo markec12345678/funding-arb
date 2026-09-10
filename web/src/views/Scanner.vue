@@ -141,7 +141,7 @@
               </n-card>
             </n-gi>
           </n-grid>
-          <n-data-table v-if="pureRows.length > 0" :columns="pureColumns" :data="pureRows" :bordered="false" :scroll-x="1480" :max-height="600" virtual size="small" striped />
+          <n-data-table v-if="pureRows.length > 0" :columns="pureColumns" :data="pureRows" :bordered="false" :scroll-x="1575" :max-height="600" virtual size="small" striped />
           <n-empty v-else :description="t('scanner.noPureFutures')" style="padding:40px 0" />
         </template>
 
@@ -1073,7 +1073,9 @@ async function confirmOpenWallet(tgt: OpenTarget) {
 
 // ---- Pure Futures ----
 type BasisRiskLevel = 'clean' | 'caution' | 'high'
-interface PureRow { base: string; direction: string; long_venue: string; short_venue: string; net_edge_pct: number; mark_spread_pct: number; real_edge_pct: number; annual_apy_pct: number; net_apy_pct: number; long_interval_h: number; short_interval_h: number; settle_mismatch: boolean; basis_risk_level: BasisRiskLevel }
+interface HistoryMetrics { samples: number; spread_mean_pct: number; spread_std_pct: number; spread_z: number | null; stable_pct: number }
+
+interface PureRow { base: string; direction: string; long_venue: string; short_venue: string; net_edge_pct: number; mark_spread_pct: number; real_edge_pct: number; annual_apy_pct: number; net_apy_pct: number; long_interval_h: number; short_interval_h: number; settle_mismatch: boolean; basis_risk_level: BasisRiskLevel; history?: HistoryMetrics | null }
 
 function toPureRow(i: import('@/composables/useApi').OpportunityItem, direction: string): PureRow {
   return {
@@ -1084,6 +1086,7 @@ function toPureRow(i: import('@/composables/useApi').OpportunityItem, direction:
     long_interval_h: i.long_interval_h ?? 8, short_interval_h: i.short_interval_h ?? 8,
     settle_mismatch: i.settle_mismatch ?? (i.same_interval === false),
     basis_risk_level: inferBasisRiskLevel(i),
+    history: i.history ?? null,
   }
 }
 
@@ -1180,6 +1183,19 @@ const pureColumns = computed<DataTableColumns<PureRow>>(() => [
     render: (row) => h(NText, { type: row.real_edge_pct > 0.05 ? 'success' : row.real_edge_pct > 0 ? 'warning' : 'error', strong: true }, { default: () => (row.real_edge_pct > 0 ? '+' : '') + row.real_edge_pct.toFixed(4) + '%' }) },
   { title: colTitle('scanner.basisRisk', 'scanner.basisRiskTip', '/docs/fees-and-edge#fe-edges'), key: 'basis_risk_level', width: 100,
     render: (row) => basisRiskTag(row.basis_risk_level) },
+  { title: colTitle('scanner.stability', 'scanner.stabilityTip'), key: 'history_stable_pct', width: 95, sorter: (a, b) => (a.history?.stable_pct ?? -1) - (b.history?.stable_pct ?? -1),
+    render: (row) => {
+      const hist = row.history
+      if (!hist) return h(NText, { depth: 3, style: 'font-size: 11px' }, { default: () => t('scanner.stabilityNoData') })
+      const type = hist.stable_pct >= 70 ? 'success' : hist.stable_pct >= 30 ? 'warning' : 'default'
+      return h(NTooltip, { trigger: 'hover' }, {
+        trigger: () => h(NTag, { size: 'small', type, bordered: false }, { default: () => hist.stable_pct.toFixed(0) + '%' }),
+        default: () => h('span', { style: 'white-space: pre-line; font-size: 12px' }, t('scanner.stabilityDetail', {
+          samples: hist.samples, mean: hist.spread_mean_pct.toFixed(4),
+          std: hist.spread_std_pct.toFixed(4), z: hist.spread_z === null || hist.spread_z === undefined ? '—' : hist.spread_z.toFixed(2),
+        })),
+      })
+    } },
   { title: t('scanner.apy'), key: 'annual_apy_pct', width: 75, sorter: (a, b) => a.annual_apy_pct - b.annual_apy_pct,
     render: (row) => h(NText, { strong: true }, { default: () => row.annual_apy_pct.toFixed(0) + '%' }) },
   { title: colTitle('scanner.netApy', 'scanner.netApyTip'), key: 'net_apy_pct', width: 90, sorter: (a, b) => a.net_apy_pct - b.net_apy_pct,

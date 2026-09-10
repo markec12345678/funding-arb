@@ -26,6 +26,14 @@
     "marginAlertDistancePct": 20.0,
     "maxLossVsFundingMult": 3.0,
 
+    "riskEngine": true,
+    "_riskEngineNote": "risk snapshots (SAFE/WARNING/REDUCE/EMERGENCY) per open position, persisted to the ledger and shown in the dashboard",
+    "riskAutoAct": false,
+    "_riskAutoActNote": "when true, EMERGENCY state auto-closes the pair (live positions only); REDUCE always notifies for manual action",
+    "riskMarginWarnPct": 30.0,
+    "riskMarginReducePct": 20.0,
+    "riskMarginEmergencyPct": 10.0,
+
     "depthCheckEnabled": true,
     "depthMaxDevPct": 0.3,
     "depthMinMultiple": 3.0,

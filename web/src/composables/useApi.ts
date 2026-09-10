@@ -8,6 +8,43 @@ import {
 
 const API_BASE = "/api";
 
+// ─── API access token (optional server auth) ───────────────────────
+//
+// When the server is started with FARB_API_TOKEN set, every /api/* call and
+// the /ws/events socket must present it. The token lives in localStorage —
+// entered once on the Advanced settings page — and is attached to requests
+// here so all existing call sites stay unchanged.
+
+const API_TOKEN_KEY = "farb_api_token";
+
+export function getApiToken(): string | null {
+  if (typeof window === "undefined") return null;
+  return window.localStorage.getItem(API_TOKEN_KEY);
+}
+
+export function setApiToken(token: string) {
+  if (typeof window === "undefined") return;
+  window.localStorage.setItem(API_TOKEN_KEY, token);
+}
+
+export function clearApiToken() {
+  if (typeof window === "undefined") return;
+  window.localStorage.removeItem(API_TOKEN_KEY);
+}
+
+/** Merged into every fetch so auth is transparent to call sites. */
+function _authHeaders(): Record<string, string> {
+  const token = getApiToken();
+  return token ? { "X-Api-Token": token } : {};
+}
+
+function _friendlyError(status: number): string {
+  if (status === 401) {
+    return "API 401: unauthorized — the server requires an access token (FARB_API_TOKEN). Set it on the Advanced settings page.";
+  }
+  return `API ${status}`;
+}
+
 // In demo mode, prime the snapshot cache on module load so the very first
 // `useApi(...)` call already has data to resolve against.
 if (isDemoMode) {
@@ -52,6 +89,15 @@ export interface OpportunityItem {
   short_interval_h?: number;
   /** clean | caution | high — mark/basis risk vs strategy real-edge bar */
   basis_risk_level?: "clean" | "caution" | "high";
+  /** Trailing 7d stability metrics — present once funding_history.jsonl has ≥12 hourly snapshots for the pair */
+  history?: {
+    samples: number;
+    spread_mean_pct: number;
+    spread_std_pct: number;
+    spread_z: number | null;
+    stable_pct: number;
+    window_last_ts?: number;
+  } | null;
 }
 
 export interface ScannerOpportunities {
@@ -61,6 +107,7 @@ export interface ScannerOpportunities {
   forward: OpportunityItem[];
   reverse: OpportunityItem[];
   venue_pair_stats: Array<{ pair: string; count: number }>;
+  history?: { recorded: boolean; snapshots: number; window_days: number };
   timestamp: string;
 }
 
@@ -116,6 +163,24 @@ export interface PositionItem {
   spot_price?: number;
   /** Whether legs were opened in parallel */
   parallel_legs?: boolean;
+  /** Watcher risk-engine snapshot (persisted per position; SAFE/WARNING/REDUCE/EMERGENCY) */
+  risk?: {
+    action: string; // HOLD | REDUCE | CLOSE
+    state: string; // SAFE | WARNING | REDUCE | EMERGENCY
+    reason: string;
+    risk?: {
+      state?: string;
+      reasons?: string[];
+      margin_distance_min_pct?: number | null;
+      notional_skew_pct?: number;
+      estimated_net_pnl_usd?: number;
+      estimated_funding_usd?: number;
+      estimated_fees_usd?: number;
+      price_spread_pnl_usd?: number;
+    };
+  } | null;
+  /** When the risk snapshot was last refreshed (ms) */
+  risk_ts?: number;
 }
 
 export interface BacktestSummary {
@@ -242,9 +307,11 @@ async function request<T>(url: string): Promise<T> {
       return demoData as T;
     }
   }
-  const response = await fetch(`${API_BASE}${url}`);
+  const response = await fetch(`${API_BASE}${url}`, {
+    headers: _authHeaders(),
+  });
   if (!response.ok) {
-    throw new Error(`API ${response.status}: ${response.statusText}`);
+    throw new Error(_friendlyError(response.status));
   }
   const json = await response.json();
   if (json && typeof json === "object" && "success" in json && "data" in json) {
@@ -264,11 +331,11 @@ export async function post<T>(
 ): Promise<T> {
   const response = await fetch(`${API_BASE}${url}`, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: { "Content-Type": "application/json", ..._authHeaders() },
     body: JSON.stringify(body),
   });
   if (!response.ok) {
-    throw new Error(`API ${response.status}: ${response.statusText}`);
+    throw new Error(_friendlyError(response.status));
   }
   const json = await response.json();
   if (json && typeof json === "object" && "success" in json && "data" in json) {
@@ -491,7 +558,10 @@ function _wsConnect() {
 
   const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
   const host = window.location.host;
-  const url = `${protocol}//${host}/ws/events`;
+  // Browsers cannot set headers on WebSocket — the optional API token is
+  // appended as a query param instead (server accepts both transports).
+  const token = getApiToken();
+  const url = `${protocol}//${host}/ws/events${token ? `?token=${encodeURIComponent(token)}` : ""}`;
 
   _wsState.ws = new WebSocket(url);
 

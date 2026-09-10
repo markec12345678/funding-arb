@@ -32,8 +32,12 @@ Default scanner venues are **CEX-only**; DEX venues are opt-in via the UI or `--
 | `mark_spread_pct` | Mark-price gap between venues (entry slippage risk) |
 | `real_edge_pct` | `net_edge_pct − mark_spread_pct` (conservative edge) |
 | `settle_mismatch` | Different funding intervals (e.g. HL 1h vs CEX 8h) |
+| `history.stable_pct` | Share of the trailing 7d hourly snapshots where the pair's spread cleared the entry threshold — sustained vs one-scan spikes |
+| `history.spread_z` | (current spread − trailing mean) / trailing std — how stretched the entry is vs its own history |
 
 Cross-interval pairs use a **basis-blend model** (mark vs index, weighted by settlement progress). See [`docs/en/cross-interval.md`](docs/en/cross-interval.md).
+
+**Funding history:** every scan records the full rate matrix to `<FARB_HOME>/funding_history.jsonl` (throttled to ~1 snapshot/hour; disable with `FARB_FUNDING_HISTORY=0` or `--no-history`). After ~12h of history, scanner rows and the dashboard get a **Stability** column ranking pairs by sustained differentials.
 
 ---
 
@@ -280,6 +284,16 @@ Configure in **Settings → Strategy**: `fee_mode`, `venue_fee_tiers`, scan thre
 | `POST /api/positions/open` | Open hedge (dry-run default) |
 | `POST /api/backtest/run` | Run backtest from history or JSONL |
 | `WS /ws/events` | `scanner.update` push events |
+
+### Optional API authentication
+
+Set `FARB_API_TOKEN` in the environment (or `.env`) to require a token on every `/api/*` route and the `/ws/events` WebSocket:
+
+- **HTTP:** `Authorization: Bearer <token>`, `X-Api-Token: <token>`, or `?token=<token>`
+- **WebSocket:** `?token=<token>` (browsers cannot set WS headers)
+- **Dashboard:** Settings → Advanced → *API access token* (stored per-browser, sent automatically)
+
+Unset/empty → auth disabled (identical to previous behaviour). Static assets and `/docs` stay public; token comparison is timing-safe. Recommended whenever the server is reachable beyond `localhost`.
 
 ---
 

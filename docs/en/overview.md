@@ -162,6 +162,8 @@ Configure in Settings → Strategy: fee_mode, venue_fee_tiers, scan thresholds (
 | POST /api/backtest/run | Run backtest |
 | WS /ws/events | scanner.update push |
 
+Optional auth: set `FARB_API_TOKEN` (env or .env) to require a token on all /api/* routes and /ws/events — `Authorization: Bearer`, `X-Api-Token` header, or `?token=`; the dashboard stores it under Settings → Advanced. Unset → auth off.
+
 ## Configuration
 
 <!-- id: config -->
