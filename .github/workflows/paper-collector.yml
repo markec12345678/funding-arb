@@ -40,6 +40,7 @@ jobs:
         # CRITICAL: without this file DEFAULT_STRATEGY silently raises notional
         # from 500 to 5000 USD per pair (known silent-override gotcha).
         run: |
+          mkdir -p scripts/data
           printf '{"trade_usd": 500.0}' > scripts/data/strategy_config.json
 
       - name: Run one paper cycle
