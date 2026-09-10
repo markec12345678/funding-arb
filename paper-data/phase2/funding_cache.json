@@ -1,0 +1,58 @@
+{
+ "pf-RVN-okx-bybit-1789053113-c4b85d": {
+  "symbol": "RVNUSDT",
+  "hold_window_utc": [
+   "2026-09-10 15:11:53Z",
+   "2026-09-10 16:01:53Z"
+  ],
+  "legs": {
+   "okx": {
+    "settlements": [
+     {
+      "ts": "2026-09-10 16:00:00Z",
+      "rate_pct": -1.0
+     }
+    ],
+    "cash_usd": 5.0
+   },
+   "bybit": {
+    "settlements": [
+     {
+      "ts": "2026-09-10 16:00:00Z",
+      "rate_pct": -0.2121
+     }
+    ],
+    "cash_usd": -1.06
+   }
+  },
+  "funding_usd": 3.94
+ },
+ "pf-RVN-okx-bitget-1789050960-1f2651": {
+  "symbol": "RVNUSDT",
+  "hold_window_utc": [
+   "2026-09-10 14:36:00Z",
+   "2026-09-10 16:21:41Z"
+  ],
+  "legs": {
+   "okx": {
+    "settlements": [
+     {
+      "ts": "2026-09-10 16:00:00Z",
+      "rate_pct": -1.0
+     }
+    ],
+    "cash_usd": 5.0
+   },
+   "bitget": {
+    "settlements": [
+     {
+      "ts": "2026-09-10 16:00:00Z",
+      "rate_pct": -0.2538
+     }
+    ],
+    "cash_usd": -1.26
+   }
+  },
+  "funding_usd": 3.74
+ }
+}
