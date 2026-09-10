@@ -123,3 +123,5 @@ open GPRO long@okx short@bybit edge=0.1577% state=aborted
 open GPRO long@okx short@bybit edge=0.1575% state=aborted
 open GPRO long@okx short@bybit edge=0.1563% state=aborted
 open CL long@bybit short@bitget edge=0.1609% state=simulated
+close pf-ONG-bybit-bitget-1789075913-2e9b71 edge=0.0054% state=simulated
+open NEWT long@bybit short@bitget edge=0.2523% state=simulated
