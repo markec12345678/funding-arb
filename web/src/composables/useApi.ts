@@ -163,6 +163,24 @@ export interface PositionItem {
   spot_price?: number;
   /** Whether legs were opened in parallel */
   parallel_legs?: boolean;
+  /** Watcher risk-engine snapshot (persisted per position; SAFE/WARNING/REDUCE/EMERGENCY) */
+  risk?: {
+    action: string; // HOLD | REDUCE | CLOSE
+    state: string; // SAFE | WARNING | REDUCE | EMERGENCY
+    reason: string;
+    risk?: {
+      state?: string;
+      reasons?: string[];
+      margin_distance_min_pct?: number | null;
+      notional_skew_pct?: number;
+      estimated_net_pnl_usd?: number;
+      estimated_funding_usd?: number;
+      estimated_fees_usd?: number;
+      price_spread_pnl_usd?: number;
+    };
+  } | null;
+  /** When the risk snapshot was last refreshed (ms) */
+  risk_ts?: number;
 }
 
 export interface BacktestSummary {

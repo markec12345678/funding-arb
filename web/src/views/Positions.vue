@@ -3,6 +3,7 @@ import { h, onMounted, computed, ref } from 'vue'
 import {
   NCard, NGrid, NGi, NDataTable, NButton, NIcon, NSpin, NEmpty, NTag,
     NSelect, NModal, NSpace, NText, NDivider, NDescriptions, NDescriptionsItem,
+    NTooltip,
     useMessage,
     type DataTableColumns,
 } from 'naive-ui'
@@ -487,6 +488,27 @@ const tableColumns = computed<DataTableColumns<PositionItem>>(() => [
       const v = annualizedReturn(row)
       if (v === null) return '—'
       return h(NText, { type: pnlColor(v) }, { default: () => fmtPct(v, 1) })
+    },
+  },
+  {
+    title: t('positions.risk'),
+    key: 'risk_state',
+    width: 100,
+    render: (row) => {
+      const r = row.risk
+      if (row.status !== 'open' || !r) return h(NText, { depth: 3, style: 'font-size: 11px' }, { default: () => '—' })
+      const tagType = r.state === 'SAFE' ? 'success' : r.state === 'WARNING' ? 'warning' : r.state === 'REDUCE' ? 'warning' : 'error'
+      const snap = r.risk ?? {}
+      const lines: string[] = [r.reason || r.state]
+      if (typeof snap.estimated_net_pnl_usd === 'number') lines.push(`${t('positions.riskNetPnl')}: ${fmtUsd(snap.estimated_net_pnl_usd, true)}`)
+      if (typeof snap.estimated_funding_usd === 'number') lines.push(`${t('positions.riskFunding')}: ${fmtUsd(snap.estimated_funding_usd, true)}`)
+      if (typeof snap.margin_distance_min_pct === 'number') lines.push(`${t('positions.riskMargin')}: ${snap.margin_distance_min_pct.toFixed(1)}%`)
+      if (typeof snap.notional_skew_pct === 'number') lines.push(`${t('positions.riskSkew')}: ${snap.notional_skew_pct.toFixed(2)}%`)
+      if (row.risk_ts) lines.push(`${t('positions.riskUpdated')}: ${formatTime(row.risk_ts)}`)
+      return h(NTooltip, { trigger: 'hover' }, {
+        trigger: () => h(NTag, { size: 'small', type: tagType, bordered: false, strong: r.state === 'EMERGENCY' }, { default: () => r.state }),
+        default: () => h('span', { style: 'white-space: pre-line; font-size: 12px' }, lines.join('\n')),
+      })
     },
   },
   {

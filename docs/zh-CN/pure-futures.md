@@ -110,7 +110,7 @@ templates/config.pure_futures.spread.json 仍保留执行细节（parallelLegs�
 - 仪表盘：Scanner → Pure Futures 表格「开仓」，默认 dry-run；scan-only venue 按钮禁用
 - 手动交易：pure_futures_trade.py open / list / close（默认 dry-run）
 - 自动执行：run_pure_futures_spread.py --once / --watch（合并 strategy_config.json）
-- 持仓监控：pure_futures_watcher.py；parallelLegs 默认 true，双腿并发下单；内置风险引擎快照（SAFE/WARNING/REDUCE/EMERGENCY），持久化到账本并经 /positions 展示（riskAutoAct=true 时 EMERGENCY 自动平仓）
+- 持仓监控：pure_futures_watcher.py；parallelLegs 默认 true，双腿并发下单；内置风险引擎快照（SAFE/WARNING/REDUCE/EMERGENCY），持久化到账本并在仪表盘 Positions 表格以 风险 列展示（SAFE/WARNING/REDUCE/EMERGENCY，悬停显示预估净盈亏/费率收益/清算距离；riskAutoAct=true 时 EMERGENCY 自动平仓）
 - 开仓前深度检查：futures_depth.py，DEX 订单簿拉取失败则阻止开仓（depthCheckFailOpen=false）
 
 > ⚠️ 跨周期对在执行/回测中会经 settle_mismatch_planner 叠加现金流惩罚（在 scanner 的 net_edge 之上）；planner 与 unified pool 已与扫描层共用 pair_pure_futures_spread 做 basis blend。
