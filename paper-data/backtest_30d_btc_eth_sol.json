@@ -1,0 +1,14 @@
+{
+  "total_return_pct": 0.0,
+  "annual_return_pct": 0.0,
+  "max_drawdown_pct": 0.0,
+  "sharpe_ratio": 0.0,
+  "trade_count": 0,
+  "win_count": 0,
+  "win_rate_pct": 0.0,
+  "avg_holding_hours": 0.0,
+  "avg_pnl_per_trade_pct": 0.0,
+  "total_funding_collected_pct": 0,
+  "total_fees_paid_pct": 0,
+  "trades": []
+}

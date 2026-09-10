@@ -1,0 +1,1 @@
+[{"id":"pf-RVN-okx-bitget-1789050960-1f2651","status":"open","strategy":"pure_futures_spread","dry_run":true,"base":"RVN","direction":"reverse","quote":"USDT","long_venue":"okx","short_venue":"bitget","qty":214408.0,"long_price":0.002332,"short_price":0.002318,"trade_usd":500.0,"mark_spread_pct":0.600343,"opened_at":1789050960653}]
