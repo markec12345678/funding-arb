@@ -18,3 +18,19 @@ Files:
 
 To contribute as an external tester: run the collector on your own machine for
 3-7 days, then send/PR your `scripts/data/pure-futures/journal.jsonl`.
+
+## Collectors writing to this branch (3 independent samples)
+
+- `journal.jsonl` + `positions.json` (top level) — snapshots pushed from the
+  SANDBOX collector (manual periodic snapshots; append-only).
+- `github-actions/journal.jsonl` + `github-actions/positions.json` — continuous
+  collection by the scheduled `paper-collector` workflow (cron every 5 min on
+  GitHub runners; each cycle appends one journal line). CAVEAT: GitHub runners
+  see a reduced symbol universe (~290 vs ~2500 scan rows per cycle, shared-IP
+  venue rate limiting) — every line records its own `scan_total`, so normalize
+  per-row rates when comparing samples. Highest-edge signals (RVN, KR200) still
+  surface in the reduced universe.
+- (planned) `tester/` — journal from an external crypto-user tester running the
+  same commands on their own machine for 3-7 days.
+
+All three run the identical collector, identical thresholds, identical gates.
