@@ -97,3 +97,15 @@ open GPRO long@okx short@bybit edge=0.2655% state=aborted
 open GPRO long@okx short@bybit edge=0.2574% state=aborted
 open GPRO long@okx short@bybit edge=0.2530% state=aborted
 open GPRO long@bitget short@bybit edge=0.2087% state=aborted
+open MOVE long@bybit short@bitget edge=0.2687% state=aborted
+open GPRO long@okx short@bybit edge=0.2294% state=aborted
+open GPRO long@bitget short@bybit edge=0.2033% state=aborted
+open GPRO long@okx short@bybit edge=0.2565% state=aborted
+open GPRO long@okx short@bybit edge=0.2643% state=aborted
+open GPRO long@okx short@bybit edge=0.2627% state=aborted
+open GPRO long@okx short@bybit edge=0.2578% state=aborted
+open GPRO long@okx short@bybit edge=0.2443% state=aborted
+open GPRO long@okx short@bybit edge=0.2289% state=aborted
+open GPRO long@okx short@bybit edge=0.2160% state=aborted
+open GPRO long@okx short@bybit edge=0.2060% state=aborted
+open GPRO long@okx short@bybit edge=0.2005% state=aborted
