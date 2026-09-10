@@ -351,6 +351,57 @@ def open_pure_futures_pair(
     long_market = {base: long_mkt}
     short_market = {base: short_mkt}
 
+    # Order book depth pre-check: skip if insufficient depth within deviation window
+    # (small-cap slippage can eat multiple periods of spread profit).
+    # Runs in BOTH live and paper/dry-run mode (public market data, no keys
+    # needed) so paper trading measures the same gate funnel. Only enabled
+    # when config contains pureFuturesArbitrage (injected venue tests skip
+    # network).
+    pfa_cfg = (config or {}).get("pureFuturesArbitrage") or {}
+    if pfa_cfg and bool(pfa_cfg.get("depthCheckEnabled", True)):
+        from market.futures_depth import check_pair_depth
+
+        depth_ok, depth_detail = check_pair_depth(
+            long_venue_id,
+            short_venue_id,
+            base,
+            trade_usd,
+            quote=quote,
+            max_dev_pct=float(pfa_cfg.get("depthMaxDevPct", 0.3)),
+            min_multiple=float(pfa_cfg.get("depthMinMultiple", 3.0)),
+            fail_open=bool(pfa_cfg.get("depthCheckFailOpen", True)),
+        )
+        logs.append(f"depth check: {depth_detail}")
+        if not depth_ok:
+            return CrossVenueResult(False, "aborted", logs=logs)
+
+    # ── Pre-submit funding re-check ──────────────────────────────────────────
+    # The scanner decision may be based on funding data 30s+ stale by fill
+    # time; re-fetch both legs' current rates and verify the spread still
+    # clears the floor. Same gating as the depth pre-check (only when the
+    # config carries a pureFuturesArbitrage block; injected venue tests skip
+    # network). Runs in BOTH live and paper/dry-run mode (public funding
+    # data): live mode is fail-closed by default; dry-run defaults to
+    # fail-open so paper testing is not blocked on flaky APIs.
+    if pfa_cfg and bool(cfg_lookup(config, "fundingRecheck", True)):
+        fr = recheck_funding_edge(
+            long_venue_id,
+            short_venue_id,
+            base,
+            quote,
+            min_spread_pct=float(
+                cfg_lookup(
+                    config,
+                    "fundingRecheckMinSpreadPct",
+                    cfg_lookup(config, "minSpreadPct", 0.02),
+                )
+            ),
+            fail_open=bool(cfg_lookup(config, "fundingRecheckFailOpen", dry_run)),
+        )
+        logs.append(f"funding re-check: {fr.get('reason')}")
+        if not fr.get("ok"):
+            return CrossVenueResult(False, "aborted", "", executed, logs)
+
     if dry_run:
         executed.extend(lv.execute_trades([long_trade], long_market, dry_run=True))
         executed.extend(sv.execute_trades([short_trade], short_market, dry_run=True))
@@ -379,32 +430,14 @@ def open_pure_futures_pair(
         )
         return CrossVenueResult(True, "simulated", position_id, executed, logs)
 
-    # Order book depth pre-check: skip if insufficient depth within deviation window
-    # (small-cap slippage can eat multiple periods of spread profit).
-    # Only enabled when config contains pureFuturesArbitrage (injected venue tests skip network).
-    pfa_cfg = (config or {}).get("pureFuturesArbitrage") or {}
-    if pfa_cfg and bool(pfa_cfg.get("depthCheckEnabled", True)):
-        from market.futures_depth import check_pair_depth
-
-        depth_ok, depth_detail = check_pair_depth(
-            long_venue_id,
-            short_venue_id,
-            base,
-            trade_usd,
-            quote=quote,
-            max_dev_pct=float(pfa_cfg.get("depthMaxDevPct", 0.3)),
-            min_multiple=float(pfa_cfg.get("depthMinMultiple", 3.0)),
-            fail_open=bool(pfa_cfg.get("depthCheckFailOpen", True)),
-        )
-        logs.append(f"depth check: {depth_detail}")
-        if not depth_ok:
-            return CrossVenueResult(False, "aborted", logs=logs)
-
+    # ── Live-only credential gate ───────────────────────────────────────────
+    # Margin pre-check needs authenticated balance APIs, so it cannot run in
+    # paper mode (no keys); it stays on the live path, fail-closed by default:
+    # a balance-API error aborts the open instead of submitting orders with
+    # unverified margin (marginCheckFailOpen=true opts out).
     margin_usd = (
         trade_usd * MARGIN_BUFFER + trade_usd * max(capital_buffer_pct, 0.0) / 100.0
     )
-    # Fail-closed by default: a balance-API error aborts the open instead of
-    # submitting orders with unverified margin (marginCheckFailOpen=true opts out).
     margin_fail_open = bool(cfg_lookup(config, "marginCheckFailOpen", False))
     ok_long = _check_futures_margin(
         lv, long_venue_id, quote, margin_usd, logs, fail_open=margin_fail_open
@@ -415,32 +448,6 @@ def open_pure_futures_pair(
     if not (ok_long and ok_short):
         # Abort before first order to avoid single-leg fill and rollback
         return CrossVenueResult(False, "aborted", "", executed, logs)
-
-    # ── Pre-submit funding re-check ──────────────────────────────────────────
-    # The scanner decision may be based on funding data 30s+ stale by fill
-    # time; re-fetch both legs' current rates and verify the spread still
-    # clears the floor. Same gating as the depth pre-check (only when the
-    # config carries a pureFuturesArbitrage block; injected venue tests skip
-    # network). Live mode is fail-closed by default; dry-run defaults to
-    # fail-open so paper testing is not blocked on flaky APIs.
-    if pfa_cfg and bool(cfg_lookup(config, "fundingRecheck", True)):
-        fr = recheck_funding_edge(
-            long_venue_id,
-            short_venue_id,
-            base,
-            quote,
-            min_spread_pct=float(
-                cfg_lookup(
-                    config,
-                    "fundingRecheckMinSpreadPct",
-                    cfg_lookup(config, "minSpreadPct", 0.02),
-                )
-            ),
-            fail_open=bool(cfg_lookup(config, "fundingRecheckFailOpen", dry_run)),
-        )
-        logs.append(f"funding re-check: {fr.get('reason')}")
-        if not fr.get("ok"):
-            return CrossVenueResult(False, "aborted", "", executed, logs)
 
     for venue, mkt in ((lv, long_mkt), (sv, short_mkt)):
         try:
