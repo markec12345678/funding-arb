@@ -5,6 +5,12 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
+  # Manual + nightly triggers: on this fork, push events have been observed
+  # not to enqueue workflow runs (dispatch works reliably); these keep the
+  # 535-test matrix validating even if the push hook misbehaves.
+  workflow_dispatch:
+  schedule:
+    - cron: "7 3 * * *"
 
 jobs:
   test:
