@@ -1,0 +1,95 @@
+name: paper-collector
+
+# GitHub-side paper data collection. Runs the paper-mode collector (public market
+# data only, no API keys, dry-run execution) for ONE cycle on a GitHub runner and
+# appends the resulting journal line + positions snapshot to the `paper-data`
+# branch under paper-data/github-actions/. This is an INDEPENDENT sample from the
+# sandbox collector and any external-tester collector.
+#
+# Note: on this fork, push events do not enqueue workflow runs, but
+# workflow_dispatch and schedules do (verified with ci.yml nightly).
+
+on:
+  schedule:
+    # Every 5 minutes, offset by :03 to avoid top-of-hour Actions congestion.
+    - cron: "3,8,13,18,23,28,33,38,43,48,53,58 * * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: paper-collector
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+
+jobs:
+  cycle:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: python -m pip install --quiet --disable-pip-version-check -r requirements.txt
+
+      - name: Prepare local paper config
+        # CRITICAL: without this file DEFAULT_STRATEGY silently raises notional
+        # from 500 to 5000 USD per pair (known silent-override gotcha).
+        run: |
+          printf '{"trade_usd": 500.0}' > scripts/data/strategy_config.json
+
+      - name: Run one paper cycle
+        run: |
+          python scripts/execution/run_pure_futures_spread.py \
+            --config templates/config.pure_futures.spread.json --once --verbose
+
+      - name: Append cycle to paper-data branch
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          J="scripts/data/pure-futures/journal.jsonl"
+          P="scripts/data/pure-futures/positions.json"
+          if [ ! -s "$J" ]; then
+            echo "no journal produced — nothing to persist"
+            exit 0
+          fi
+          git config --global user.name "paper-collector-bot"
+          git config --global user.email "actions@github.com"
+          REMOTE="https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          rm -rf /tmp/pd
+          if git clone --quiet --branch paper-data --single-branch "$REMOTE" /tmp/pd; then
+            echo "cloned paper-data branch"
+          else
+            mkdir -p /tmp/pd/paper-data/github-actions
+            git init --quiet /tmp/pd
+            git -C /tmp/pd remote add origin "$REMOTE"
+          fi
+          DEST="/tmp/pd/paper-data/github-actions"
+          mkdir -p "$DEST"
+          # APPEND semantics: each Actions run starts with an empty workspace,
+          # so merge this cycle's lines into the accumulated journal (the branch
+          # history is the accumulation). Lines carry their own timestamps;
+          # analysis sorts by ts and dedupes if a delayed run double-appends.
+          if [ -s "$DEST/journal.jsonl" ]; then
+            cat "$DEST/journal.jsonl" "$J" > "$DEST/journal.merged" && mv "$DEST/journal.merged" "$DEST/journal.jsonl"
+          else
+            cp "$J" "$DEST/journal.jsonl"
+          fi
+          # Positions are a snapshot (current ledger state), overwrite is correct.
+          if [ -f "$P" ]; then
+            cp "$P" "$DEST/positions.json"
+          fi
+          git -C /tmp/pd add -A
+          if git -C /tmp/pd diff --cached --quiet; then
+            echo "no changes — nothing to push"
+            exit 0
+          fi
+          TS=$(date -u +"%Y-%m-%dT%H:%MZ")
+          git -C /tmp/pd commit --quiet -m "github-actions paper cycle ${TS}"
+          git -C /tmp/pd push --quiet origin HEAD:paper-data
+          echo "persisted github-actions paper cycle ${TS}"
