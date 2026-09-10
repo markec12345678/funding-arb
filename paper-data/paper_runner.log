@@ -109,3 +109,17 @@ open GPRO long@okx short@bybit edge=0.2289% state=aborted
 open GPRO long@okx short@bybit edge=0.2160% state=aborted
 open GPRO long@okx short@bybit edge=0.2060% state=aborted
 open GPRO long@okx short@bybit edge=0.2005% state=aborted
+open GPRO long@okx short@bybit edge=0.2022% state=aborted
+open GPRO long@okx short@bybit edge=0.2026% state=aborted
+open GPRO long@okx short@bybit edge=0.1952% state=aborted
+open GPRO long@okx short@bybit edge=0.1899% state=aborted
+open GPRO long@okx short@bybit edge=0.1806% state=aborted
+open GPRO long@okx short@bybit edge=0.1716% state=aborted
+close pf-GPRO-binance-bybit-1789068703-fe5195 edge=-999.0000% state=simulated
+open ONG long@bybit short@bitget edge=0.1964% state=simulated
+open GPRO long@okx short@bybit edge=0.1640% state=aborted
+open GPRO long@okx short@bybit edge=0.1604% state=aborted
+open GPRO long@okx short@bybit edge=0.1577% state=aborted
+open GPRO long@okx short@bybit edge=0.1575% state=aborted
+open GPRO long@okx short@bybit edge=0.1563% state=aborted
+open CL long@bybit short@bitget edge=0.1609% state=simulated
