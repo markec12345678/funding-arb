@@ -147,7 +147,7 @@ def _current_block_height(node) -> int:
 在 `tests/test_dydx_venue.py` 中添加：
 
 ```python
-class TestLiveExecution:
+class TestLiveExecution:  # 已实现 — scripts/tests/test_dydx_venue.py::TestLiveExecution (mocked SDK: buy/sell build, happy path, SDK error, no-oracle guard)
     """Test the live order path with mocked SDK components."""
 
     def test_build_order_buy_side(self, monkeypatch):

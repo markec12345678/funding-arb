@@ -356,3 +356,182 @@ class TestLiveExecution:
         )
         assert results[0]["status"] == "failed"
         assert "no market metadata" in results[0]["error"]
+
+
+# ---------------------------------------------------------------------------
+# Live order path with fully mocked SDK components (plan: TestLiveExecution)
+# ---------------------------------------------------------------------------
+
+
+class _FakeOrderPb:
+    class Order:
+        SIDE_BUY = "SIDE_BUY"
+        SIDE_SELL = "SIDE_SELL"
+
+
+class _FakeMarket:
+    """Records every order built via the SDK Market helper."""
+
+    last_order: dict | None = None
+    last_order_id: dict | None = None
+
+    def __init__(self, market: dict):
+        self.market_info = market
+
+    def order_id(self, address, subaccount, client_id, flags):
+        _FakeMarket.last_order_id = {
+            "address": address,
+            "subaccount": subaccount,
+            "client_id": client_id,
+            "flags": flags,
+        }
+        return _FakeMarket.last_order_id
+
+    def order(self, **kwargs):
+        _FakeMarket.last_order = dict(kwargs)
+        return dict(kwargs)
+
+
+class _FakeFlags:
+    SHORT_TERM = "SHORT_TERM"
+
+
+class _FakeOrderType:
+    MARKET = "MARKET"
+
+
+class _FakeNode:
+    """latest_block_height=100, place_order returns a tx_response shape."""
+
+    def __init__(self, fail: bool = False):
+        self.fail = fail
+
+    async def latest_block_height(self):
+        return 100
+
+    async def place_order(self, wallet, order):
+        if self.fail:
+            raise RuntimeError("broadcast rejected: insufficient margin")
+        tx_response = type("TxResponse", (), {"txhash": "TESTTXHASH123"})()
+        return type("Result", (), {"tx_response": tx_response})()
+
+
+class _FakeWallet:
+    address = "dydx1testaddress"
+
+
+def _install_fake_sdk(monkeypatch, node=None):
+    """Point the module-level SDK globals at fakes; return the node."""
+    _FakeMarket.last_order = None
+    _FakeMarket.last_order_id = None
+    monkeypatch.setattr(dydx_mod, "_market_cls", _FakeMarket)
+    monkeypatch.setattr(dydx_mod, "_order_flags_cls", _FakeFlags)
+    monkeypatch.setattr(dydx_mod, "_order_type_cls", _FakeOrderType)
+    monkeypatch.setattr(dydx_mod, "_order_pb2_module", _FakeOrderPb)
+    fake_node = node or _FakeNode()
+    monkeypatch.setattr(
+        dydx_mod.DydxVenue,
+        "_ensure_wallet",
+        lambda self: (_FakeWallet(), fake_node),
+    )
+    return fake_node
+
+
+def _oracle(price: float = 100.0):
+    """Patch DydxFundingProvider.fetch_current to a fixed oracle price."""
+    return patch.object(
+        dydx_mod.DydxFundingProvider,
+        "fetch_current",
+        lambda self, symbol: {"mark_price": price},
+    )
+
+
+class TestLiveExecution:
+    def test_build_order_buy_side(self, monkeypatch):
+        """open_long → SIDE_BUY with +0.5% slippage buffer; good_til = height+20."""
+        monkeypatch.setenv("DYDX_ENABLE_LIVE", "1")
+        _install_fake_sdk(monkeypatch)
+        v = _fresh()
+        with _oracle(100.0):
+            res = v.execute_trades(
+                [{"symbol": "BTCUSDT", "type": "open_long", "amount_base": 0.5}],
+                {"BTCUSDT": {"price": 100.0}},
+                dry_run=False,
+            )
+        assert res[0]["status"] == "submitted"
+        order = _FakeMarket.last_order
+        assert order is not None
+        assert order["side"] == _FakeOrderPb.Order.SIDE_BUY
+        assert order["price"] == 100.0 * 1.005  # slippage buffer up
+        assert order["size"] == 0.5
+        assert order["order_type"] == _FakeOrderType.MARKET
+        assert order["good_til_block"] == 120  # height 100 + 20
+        assert order["reduce_only"] is False
+        assert _FakeMarket.last_order_id["address"] == "dydx1testaddress"
+
+    def test_build_order_sell_side(self, monkeypatch):
+        """open_short → SIDE_SELL with -0.5% slippage buffer."""
+        monkeypatch.setenv("DYDX_ENABLE_LIVE", "1")
+        _install_fake_sdk(monkeypatch)
+        v = _fresh()
+        with _oracle(200.0):
+            res = v.execute_trades(
+                [{"symbol": "BTCUSDT", "type": "open_short", "amount_base": 1.0}],
+                {"BTCUSDT": {"price": 200.0}},
+                dry_run=False,
+            )
+        assert res[0]["status"] == "submitted"
+        order = _FakeMarket.last_order
+        assert order["side"] == _FakeOrderPb.Order.SIDE_SELL
+        assert order["price"] == 200.0 * 0.995  # slippage buffer down
+
+    def test_live_order_success(self, monkeypatch):
+        """Full happy path: wallet → build → sign → broadcast → record."""
+        monkeypatch.setenv("DYDX_ENABLE_LIVE", "1")
+        _install_fake_sdk(monkeypatch)
+        v = _fresh()
+        with _oracle(100.0):
+            res = v.execute_trades(
+                [{"symbol": "BTCUSDT", "type": "open_long", "amount_base": 0.01}],
+                {"BTCUSDT": {"price": 100.0}},
+                dry_run=False,
+            )
+        r = res[0]
+        assert r["status"] == "submitted"
+        assert r["venue"] == "dydx"
+        assert r["order_id"].startswith("BTC-USD-")
+        assert r["tx_hash"] == "TESTTXHASH123"
+        assert r["exec_qty"] == 0.01
+        assert r["error"] is None
+        assert r["latency_ms"] >= 0
+
+    def test_live_order_sdk_error(self, monkeypatch):
+        """SDK raises on broadcast → record.status == 'failed', error surfaced."""
+        monkeypatch.setenv("DYDX_ENABLE_LIVE", "1")
+        _install_fake_sdk(monkeypatch, node=_FakeNode(fail=True))
+        v = _fresh()
+        with _oracle(100.0):
+            res = v.execute_trades(
+                [{"symbol": "BTCUSDT", "type": "open_long", "amount_base": 0.01}],
+                {"BTCUSDT": {"price": 100.0}},
+                dry_run=False,
+            )
+        r = res[0]
+        assert r["status"] == "failed"
+        assert r["order_id"] is None
+        assert "broadcast rejected" in r["error"]
+
+    def test_live_order_no_oracle_price(self, monkeypatch):
+        """Indexer returns no oracle price → builder refuses (never price=0)."""
+        monkeypatch.setenv("DYDX_ENABLE_LIVE", "1")
+        _install_fake_sdk(monkeypatch)
+        v = _fresh()
+        with _oracle(0.0):
+            res = v.execute_trades(
+                [{"symbol": "BTCUSDT", "type": "open_long", "amount_base": 0.01}],
+                {"BTCUSDT": {"price": 100.0}},
+                dry_run=False,
+            )
+        assert res[0]["status"] == "failed"
+        assert "no oracle price" in res[0]["error"]
+        assert _FakeMarket.last_order is None  # never built
