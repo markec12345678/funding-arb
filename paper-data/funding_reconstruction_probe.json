@@ -1,0 +1,15 @@
+{
+ "probe": "retroactive funding reconstruction feasibility (read-only, project's own funding providers)",
+ "position": "pf-RVN-okx-bybit-1789053113-c4b85d",
+ "hold_window_utc": ["2026-09-10T15:51:53Z", "2026-09-10T16:41:53Z"],
+ "settlements_in_window": {
+  "okx":  [{"ts": "2026-09-10T16:00:00Z", "rate_pct": -1.0}],
+  "bybit": [{"ts": "2026-09-10T16:00:00Z", "rate_pct": -0.2121}]
+ },
+ "entry_expectation_pct_per_cycle": {"long_rate_okx": -1.0, "short_rate_bybit": -0.365673, "net_edge": 0.529327},
+ "reconstructed_funding_usd": 3.9421,
+ "approximations": "mark at entry prices (RVN moved ~1% over 50min); FAZA 2 analysis should refine mark-at-settle",
+ "first_complete_lifecycle_pnl_usd": {"price": 0.64, "fees_rt_taker": -1.05, "funding": 3.94, "net": 3.53, "notional": 500, "hold_min": 50},
+ "method": "get_funding_provider(venue).fetch_since(symbol, start_ms) -> filter [opened_at, closed_at] -> long receives when rate<0, short receives when rate>0",
+ "conclusion": "FAZA 2 can populate the FUNDING PAYMENTS column for every closed position retroactively; no live-system changes required"
+}

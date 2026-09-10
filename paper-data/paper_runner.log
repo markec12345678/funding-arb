@@ -20,3 +20,25 @@ open KR200 long@bitget short@okx edge=0.4952% state=aborted
 open PUFFER long@bybit short@binance edge=0.4903% state=aborted
 open RVN long@okx short@bybit edge=0.5100% state=aborted
 open KR200 long@bitget short@okx edge=0.4948% state=aborted
+open RVN long@okx short@bybit edge=0.5293% state=simulated
+open KR200 long@bitget short@okx edge=0.4929% state=aborted
+open KR200 long@bitget short@okx edge=0.4928% state=aborted
+open KR200 long@bitget short@okx edge=0.4928% state=aborted
+open KR200 long@bitget short@okx edge=0.4918% state=aborted
+open KR200 long@bitget short@okx edge=0.4906% state=aborted
+open KR200 long@bitget short@okx edge=0.4866% state=aborted
+open KR200 long@bitget short@okx edge=0.4852% state=aborted
+open KR200 long@bitget short@okx edge=0.4826% state=aborted
+open KR200 long@bitget short@okx edge=0.4807% state=aborted
+open KR200 long@bitget short@okx edge=0.4776% state=aborted
+close pf-RVN-okx-bybit-1789053113-c4b85d edge=-999.0000% state=simulated
+open KR200 long@bitget short@okx edge=0.4762% state=aborted
+open SOPH long@bybit short@bitget edge=0.3562% state=simulated
+open KR200 long@bitget short@okx edge=0.4812% state=simulated
+close pf-RVN-okx-bitget-1789050960-1f2651 edge=0.0100% state=simulated
+open STORJ long@bybit short@binance edge=0.6388% state=aborted
+open STORJ long@bybit short@binance edge=0.5412% state=aborted
+open STORJ long@bybit short@binance edge=0.4727% state=aborted
+open GPRO long@bitget short@bybit edge=0.2383% state=aborted
+open GPRO long@bitget short@bybit edge=0.3354% state=aborted
+open STORJ long@bybit short@binance edge=0.4998% state=aborted
