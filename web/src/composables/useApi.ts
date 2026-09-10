@@ -89,6 +89,15 @@ export interface OpportunityItem {
   short_interval_h?: number;
   /** clean | caution | high — mark/basis risk vs strategy real-edge bar */
   basis_risk_level?: "clean" | "caution" | "high";
+  /** Trailing 7d stability metrics — present once funding_history.jsonl has ≥12 hourly snapshots for the pair */
+  history?: {
+    samples: number;
+    spread_mean_pct: number;
+    spread_std_pct: number;
+    spread_z: number | null;
+    stable_pct: number;
+    window_last_ts?: number;
+  } | null;
 }
 
 export interface ScannerOpportunities {
@@ -98,6 +107,7 @@ export interface ScannerOpportunities {
   forward: OpportunityItem[];
   reverse: OpportunityItem[];
   venue_pair_stats: Array<{ pair: string; count: number }>;
+  history?: { recorded: boolean; snapshots: number; window_days: number };
   timestamp: string;
 }
 

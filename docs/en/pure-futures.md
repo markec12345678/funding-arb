@@ -24,6 +24,16 @@ real_edge_pct = net_edge_pct − mark_spread_pct
 
 mark_spread_pct is the relative mark price gap between venues: one leg fills rich, the other cheap — a price mismatch you absorb at entry. real_edge deducts it, giving the most conservative executable edge; the Scanner sorts and filters by it by default.
 
+**Trailing stability** — every scan appends the full rate matrix to `<FARB_HOME>/funding_history.jsonl` (~1 snapshot/hour; `FARB_FUNDING_HISTORY=0` or `--no-history` to disable). Once a pair has ≥12 hourly snapshots, its rows gain a `history` block:
+
+| Field | Meaning |
+| --- | --- |
+| `history.stable_pct` | Share of trailing 7d snapshots where the spread cleared the entry threshold — sustained differential, not a one-scan spike |
+| `history.spread_mean_pct` / `spread_std_pct` | Trailing spread distribution |
+| `history.spread_z` | (current − mean) / std — how stretched today's entry is vs the pair's own history |
+
+The dashboard shows this as the **Stability** column on Scanner → Pure Futures.
+
 ## Forward vs Reverse
 
 <!-- id: pf-direction -->

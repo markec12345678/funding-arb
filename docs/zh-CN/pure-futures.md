@@ -24,6 +24,16 @@ real_edge_pct = net_edge_pct − mark_spread_pct
 
 mark_spread_pct 是两所标记价的相对偏差：开仓时一腿贵一腿便宜，相当于入场即承担的价格错配。real_edge 把它从边际中扣掉，是最保守的可执行边际，Scanner 默认按它排序与筛选。
 
+**价差稳定性（trailing）** — 每次扫描会把完整费率矩阵追加到 `<FARB_HOME>/funding_history.jsonl`（约每小时 1 条；`FARB_FUNDING_HISTORY=0` 或 `--no-history` 可关闭）。当某个货币对累计 ≥ 12 个小时快照后，其行会附带 `history` 字段：
+
+| 字段 | 含义 |
+| --- | --- |
+| `history.stable_pct` | 过去 7 天快照中价差达到入场阈值的比例 — 区分持续性价差与单次尖峰 |
+| `history.spread_mean_pct` / `spread_std_pct` | 价差 trailing 均值 / 标准差 |
+| `history.spread_z` | (当前 − 均值) / 标准差 — 当前入场相对自身历史的偏离 |
+
+仪表盘 Scanner → Pure Futures 表格中对应 **稳定性** 列。
+
 ## Forward 与 Reverse 的含义
 
 <!-- id: pf-direction -->
