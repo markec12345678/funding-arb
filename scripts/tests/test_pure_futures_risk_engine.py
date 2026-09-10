@@ -8,6 +8,9 @@ from core.pure_futures_risk_engine import (
     classify_risk,
 )
 
+import pytest
+
+
 
 def test_funding_uses_actual_interval():
     assert estimate_funding_usd(1000, 0.05, 24, 8) == 1.5
@@ -15,11 +18,11 @@ def test_funding_uses_actual_interval():
 
 
 def test_forward_spread_convergence_is_profit():
-    assert estimate_price_spread_pnl("forward", 1, 100, 101, 100.4, 100.6) == 0.8
+    assert estimate_price_spread_pnl("forward", 1, 100, 101, 100.4, 100.6) == pytest.approx(0.8)
 
 
 def test_reverse_spread_convergence_is_loss():
-    assert estimate_price_spread_pnl("reverse", 1, 101, 100, 100.6, 100.4) == -0.8
+    assert estimate_price_spread_pnl("reverse", 1, 101, 100, 100.6, 100.4) == pytest.approx(-0.8)
 
 
 def test_round_trip_fee_covers_four_fills():
@@ -61,8 +64,8 @@ def test_snapshot_combines_funding_price_and_fees():
         margin_distances_pct=[40.0, 45.0],
         thresholds=RiskThresholds(),
     )
-    assert snapshot.price_spread_pnl_usd == 0.4
-    assert snapshot.estimated_funding_usd == 0.5
-    assert snapshot.estimated_fees_usd == 2.0
-    assert snapshot.estimated_net_pnl_usd == -1.1
+    assert snapshot.price_spread_pnl_usd == pytest.approx(0.4)
+    assert snapshot.estimated_funding_usd == pytest.approx(0.5)
+    assert snapshot.estimated_fees_usd == pytest.approx(2.0)
+    assert snapshot.estimated_net_pnl_usd == pytest.approx(-1.1)
     assert snapshot.state == "SAFE"

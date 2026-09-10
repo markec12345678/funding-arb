@@ -277,3 +277,93 @@ def test_check_margin_distance_skips_unfetched_venue(monkeypatch):
     }
     alerts = check_margin_distance(pos, venue_positions, alert_distance_pct=20.0)
     assert len(alerts) == 1 and alerts[0]["leg"] == "short"
+
+
+# ---------------------------------------------------------------------------
+# evaluate_position_risk (risk-engine integration)
+# ---------------------------------------------------------------------------
+
+
+def _risk_pos(**overrides) -> dict:
+    pos = {
+        "base": "BTC",
+        "long_venue": "okx",
+        "short_venue": "bybit",
+        "qty": 1.0,
+        "direction": "forward",
+        "trade_usd": 1000.0,
+        "long_price": 100.0,
+        "short_price": 101.0,
+        "opened_at": 0,  # held_hours=0
+    }
+    pos.update(overrides)
+    return pos
+
+
+def _rates():
+    return {
+        "BTC": {
+            "okx": {"rate_pct": 0.03, "interval_h": 8.0},
+            "bybit": {"rate_pct": 0.15, "interval_h": 8.0},
+        },
+    }
+
+
+def test_evaluate_position_risk_safe(monkeypatch):
+    monkeypatch.setattr(
+        watcher_mod, "_get_mark_price", lambda v, b, q="USDT": 100.5 if v == "okx" else 101.5
+    )
+    venue_positions = {
+        "okx": [{"symbol": "BTCUSDT", "side": "long", "liq_price": 60.0}],
+        "bybit": [{"symbol": "BTCUSDT", "side": "short", "liq_price": 140.0}],
+    }
+    d = watcher_mod.evaluate_position_risk(_risk_pos(), _rates(), venue_positions, {})
+    assert d is not None
+    assert d["state"] == "SAFE"
+    assert d["action"] == "HOLD"
+    # margin distances both ~40% → min present in nested snapshot
+    assert d["risk"]["margin_distance_min_pct"] > 30.0
+
+
+def test_evaluate_position_risk_emergency_on_liquidation_distance(monkeypatch):
+    monkeypatch.setattr(watcher_mod, "_get_mark_price", lambda v, b, q="USDT": 100.0)
+    venue_positions = {
+        "okx": [{"symbol": "BTCUSDT", "side": "long", "liq_price": 95.0}],  # 5% away
+        "bybit": [{"symbol": "BTCUSDT", "side": "short", "liq_price": 140.0}],
+    }
+    d = watcher_mod.evaluate_position_risk(_risk_pos(), _rates(), venue_positions, {})
+    assert d is not None
+    assert d["state"] == "EMERGENCY"
+    assert d["action"] == "CLOSE"
+    assert d["reason"]
+
+
+def test_evaluate_position_risk_no_mark_price_returns_none(monkeypatch):
+    monkeypatch.setattr(watcher_mod, "_get_mark_price", lambda v, b, q="USDT": 0.0)
+    d = watcher_mod.evaluate_position_risk(_risk_pos(), _rates(), {}, {})
+    assert d is None
+
+
+def test_evaluate_position_risk_dry_run_no_margin_data(monkeypatch):
+    """Paper mode: no venue snapshot → engine degrades to PnL/skew states, still decides."""
+    monkeypatch.setattr(
+        watcher_mod, "_get_mark_price", lambda v, b, q="USDT": 100.5 if v == "okx" else 101.5
+    )
+    d = watcher_mod.evaluate_position_risk(_risk_pos(), _rates(), {}, {})
+    assert d is not None
+    assert d["risk"]["margin_distance_min_pct"] is None
+    assert d["state"] == "SAFE"
+
+
+def test_evaluate_position_risk_interval_from_rates(monkeypatch):
+    """Cross-interval pair: effective interval = min(1h, 8h) = 1h → 8x funding credit at 8h held."""
+    monkeypatch.setattr(
+        watcher_mod, "_get_mark_price", lambda v, b, q="USDT": 100.5 if v == "okx" else 101.5
+    )
+    rates = _rates()
+    rates["BTC"]["bybit"]["interval_h"] = 1.0
+    pos = _risk_pos(opened_at=watcher_mod._now_ms() - 8 * 3600_000)  # held 8h
+    d = watcher_mod.evaluate_position_risk(pos, rates, {}, {})
+    assert d is not None
+    # funding = trade_usd * spread/100 * (8h/1h) = 1000 * 0.0012 * 8 = 9.6
+    assert d["risk"]["estimated_funding_usd"] == pytest.approx(9.6)

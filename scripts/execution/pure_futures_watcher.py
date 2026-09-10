@@ -3,8 +3,13 @@
 
 Responsibilities:
   1. Spread collapse exit: auto-close when funding spread <= exitThreshold
+  1b. PnL stop-loss: close when spread loss > maxLossVsFundingMult x estimated funding
   2. Rebalance: alert on leg notional value skew; autoRebalance=true trims
      oversized leg on quantity mismatch (real delta exposure from partial liquidation/ADL)
+  2b. Per-leg liquidation-distance alerts
+  2c. Risk-engine evaluation: unified SAFE/WARNING/REDUCE/EMERGENCY snapshot per
+      position (persisted to the ledger + served by /api/positions); EMERGENCY can
+      auto-close when pureFuturesArbitrage.riskAutoAct=true
   3. Single-leg liquidation detection: when one leg is liquidated or abnormally closed, immediately close the other
 
 Usage:
@@ -36,13 +41,16 @@ if str(SCRIPTS_DIR) not in sys.path:
 
 from cli.scan_pure_futures_spreads import fetch_all_fee_rate_rows_by_base  # noqa: E402
 from core.notify import send_notification  # noqa: E402
+from core.pure_futures_risk_engine import RiskThresholds  # noqa: E402
 from core.strategy_config import apply_strategy_to_pure_futures_cfg  # noqa: E402
 from execution.pure_futures_executor import (  # noqa: E402
     close_pure_futures_leg,
     close_pure_futures_pair,
     load_pure_futures_positions,
     rebalance_pure_futures_pair,
+    update_pure_futures_position,
 )
+from execution.pure_futures_risk_controller import decide_position  # noqa: E402
 from market.parallel_fetch import run_io_parallel  # noqa: E402
 from venues import get_venue  # noqa: E402
 from venues.base import make_pair  # noqa: E402
@@ -302,6 +310,129 @@ def check_rebalance(
     return False, "", long_notional, short_notional
 
 
+# Risk snapshots older than this are refreshed in the ledger even when the state
+# is unchanged, so /api/positions never serves data that is too stale to act on.
+_RISK_SNAPSHOT_REFRESH_MS = 300_000
+
+
+def _funding_interval_hours(
+    base: str,
+    long_venue: str,
+    short_venue: str,
+    scan_rates: dict[str, dict[str, dict[str, Any]]],
+) -> float:
+    """Effective funding interval of a pair = min of the two legs (8h fallback).
+
+    Mirrors the scanner's effective-interval convention so cross-interval pairs
+    (e.g. Hyperliquid 1h vs CEX 8h) are not over-credited with funding periods.
+    """
+    hours: list[float] = []
+    for venue in (long_venue, short_venue):
+        info = scan_rates.get(base, {}).get(venue, {})
+        ih = float(info.get("interval_h", 0) or 0)
+        if ih > 0:
+            hours.append(ih)
+    return min(hours) if hours else 8.0
+
+
+def _leg_margin_distances_pct(
+    pos: dict[str, Any],
+    venue_positions: dict[str, list[dict[str, Any]]],
+) -> list[float]:
+    """Per-leg mark-price-to-liquidation distances (%) from a venue position snapshot.
+
+    Empty when the snapshot is unavailable (dry-run or fetch failure) — the risk
+    engine then degrades to PnL/skew states only, never fabricating margin data.
+    """
+    base = str(pos.get("base", "")).upper()
+    distances: list[float] = []
+    for leg in ("long", "short"):
+        venue_id = str(pos.get(f"{leg}_venue", ""))
+        rows = venue_positions.get(venue_id)
+        if rows is None:
+            continue
+        for p in rows:
+            sym = str(p.get("symbol", "")).upper()
+            if not sym.startswith(base) or str(p.get("side", "")).lower() != leg:
+                continue
+            liq_px = float(p.get("liq_price", 0) or 0)
+            mark = _get_mark_price(venue_id, base)
+            if liq_px > 0 and mark > 0:
+                distances.append(abs(mark - liq_px) / mark * 100.0)
+            break
+    return distances
+
+
+def evaluate_position_risk(
+    pos: dict[str, Any],
+    scan_rates: dict[str, dict[str, dict[str, Any]]],
+    venue_positions: dict[str, list[dict[str, Any]]],
+    pfa: dict[str, Any],
+) -> dict[str, Any] | None:
+    """Risk-engine evaluation of one open position (no orders placed).
+
+    Wraps execution.pure_futures_risk_controller.decide_position with the
+    watcher's live inputs: both mark prices, current funding spread
+    (short_rate - long_rate, the scanner convention, valid for forward AND
+    reverse because the scanner always assigns short = higher-rate venue),
+    per-leg liquidation distances, and mark-price notional skew.
+
+    Returns the RiskDecision dict, or None when mark prices are unavailable
+    (evaluation would be meaningless — same degradation as the PnL stop-loss).
+    """
+    base = str(pos.get("base", ""))
+    long_v = str(pos.get("long_venue", ""))
+    short_v = str(pos.get("short_venue", ""))
+    long_px = _get_mark_price(long_v, base)
+    short_px = _get_mark_price(short_v, base)
+    if long_px <= 0 or short_px <= 0:
+        return None
+
+    current_spread = _get_current_spread(base, long_v, short_v, scan_rates) or 0.0
+
+    opened_at = int(pos.get("opened_at", 0) or 0)
+    held_hours = max(0.0, (_now_ms() - opened_at) / 3600000.0) if opened_at > 0 else 0.0
+
+    qty = float(pos.get("qty", 0) or 0)
+    long_notional = qty * long_px
+    short_notional = qty * short_px
+    max_notional = max(long_notional, short_notional)
+    notional_skew = (
+        abs(long_notional - short_notional) / max_notional * 100.0
+        if max_notional > 0
+        else 0.0
+    )
+
+    # Taker fees per leg: manual overrides only; 0 keeps the engine's
+    # conservative "fees unknown" estimate (net PnL then excludes fee drag).
+    fee_rates = pfa.get("feeRates") or {}
+    long_fee = float(fee_rates.get(long_v, 0) or 0)
+    short_fee = float(fee_rates.get(short_v, 0) or 0)
+
+    thresholds = RiskThresholds(
+        margin_warning_pct=float(pfa.get("riskMarginWarnPct", 30.0)),
+        margin_reduce_pct=float(pfa.get("riskMarginReducePct", 20.0)),
+        margin_emergency_pct=float(pfa.get("riskMarginEmergencyPct", 10.0)),
+        max_notional_skew_pct=float(pfa.get("rebalanceSkewPct", 1.0)),
+        max_loss_vs_funding_mult=float(pfa.get("maxLossVsFundingMult", 3.0)),
+    )
+
+    decision = decide_position(
+        position=pos,
+        current_long_price=long_px,
+        current_short_price=short_px,
+        current_funding_spread_pct=current_spread,
+        held_hours=held_hours,
+        funding_interval_hours=_funding_interval_hours(base, long_v, short_v, scan_rates),
+        long_taker_fee_pct=long_fee,
+        short_taker_fee_pct=short_fee,
+        margin_distances_pct=_leg_margin_distances_pct(pos, venue_positions),
+        notional_skew_pct=notional_skew,
+        thresholds=thresholds,
+    )
+    return decision.to_dict()
+
+
 def check_leg_alive(
     pos: dict[str, Any],
     venue_positions: dict[str, list[dict[str, Any]]],
@@ -409,6 +540,8 @@ def watch_cycle(
     check_legs = bool(pfa.get("watcherCheckLegs", True))
     auto_rebalance = bool(pfa.get("autoRebalance", False))
     margin_alert_pct = float(pfa.get("marginAlertDistancePct", 20.0))
+    risk_engine = bool(pfa.get("riskEngine", True))
+    risk_auto_act = bool(pfa.get("riskAutoAct", False))
     workers = int(pfa.get("workers", 4))
 
     cycle_result: dict[str, Any] = {
@@ -417,6 +550,7 @@ def watch_cycle(
         "actions": [],
         "alerts": [],
         "checked": 0,
+        "risk": {},
     }
     actions: list[dict[str, Any]] = []
     alerts: list[Any] = []
@@ -631,6 +765,88 @@ def watch_cycle(
                     f"Add margin or reduce position.",
                     cfg,
                 )
+
+        # 2c. Risk-engine evaluation: unified snapshot per open position.
+        # Runs for paper positions too (market data only); margin distances are
+        # only available when the venue position snapshot was fetched (live).
+        # Snapshot is persisted to the ledger so /api/positions can serve it
+        # without re-running the evaluation on every poll.
+        if risk_engine:
+            risk_decision = evaluate_position_risk(
+                pos, scan_rates, venue_positions, pfa
+            )
+            if risk_decision is not None:
+                cycle_result["risk"][pos_id] = risk_decision
+                prev_state = str((pos.get("risk") or {}).get("state", ""))
+                prev_ts = int(pos.get("risk_ts", 0) or 0)
+                state_changed = prev_state != str(risk_decision.get("state", ""))
+                snapshot_stale = (_now_ms() - prev_ts) > _RISK_SNAPSHOT_REFRESH_MS
+                if state_changed or snapshot_stale:
+                    try:
+                        update_pure_futures_position(
+                            pos_id,
+                            {"risk": risk_decision, "risk_ts": _now_ms()},
+                        )
+                    except Exception as e:
+                        # Metadata-only write; never break the watch cycle.
+                        if verbose:
+                            print(
+                                f"[{_ts_str()}] risk snapshot persist failed "
+                                f"{pos_id}: {e}",
+                                file=sys.stderr,
+                            )
+
+                risk_state = str(risk_decision.get("state", ""))
+                if risk_state == "EMERGENCY":
+                    alerts.append(
+                        {
+                            "position_id": pos_id,
+                            "base": base,
+                            "alert": "risk_emergency",
+                            "reason": risk_decision.get("reason", ""),
+                        }
+                    )
+                    send_notification(
+                        "RISK EMERGENCY",
+                        f"Position {pos_id} {base}: {risk_decision.get('reason', '')}",
+                        cfg,
+                    )
+                    if risk_auto_act and not pos_dry_run:
+                        res = close_pure_futures_pair(pos_id, dry_run=False, config=cfg)
+                        actions.append(
+                            {
+                                "action": "risk_close",
+                                "position_id": pos_id,
+                                "base": base,
+                                "reason": risk_decision.get("reason", ""),
+                                "result": res.to_dict(),
+                            }
+                        )
+                        if not res.ok:
+                            send_notification(
+                                "RISK CLOSE FAILED",
+                                f"Position {pos_id} {base}: emergency close failed "
+                                f"(state={res.state}); manual intervention required",
+                                cfg,
+                            )
+                        continue
+                elif risk_state == "REDUCE":
+                    # No safe partial-close primitive exists (rebalance only trims
+                    # quantity skew); REDUCE notifies for manual action instead.
+                    alerts.append(
+                        {
+                            "position_id": pos_id,
+                            "base": base,
+                            "alert": "risk_reduce",
+                            "reason": risk_decision.get("reason", ""),
+                        }
+                    )
+                    send_notification(
+                        "RISK REDUCE",
+                        f"Position {pos_id} {base}: {risk_decision.get('reason', '')} "
+                        f"— reduce position or add margin.",
+                        cfg,
+                    )
 
         # 3. Check rebalance
         need_rebalance, rebal_reason, long_n, short_n = check_rebalance(

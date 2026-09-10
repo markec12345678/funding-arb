@@ -97,7 +97,7 @@ Full derivation, per-venue index sources, and a numerical example: see "Cross-In
 
 - Manual trading: pure_futures_trade.py open / list / close (dry-run default)
 - Automated: run_pure_futures_spread.py --once / --watch
-- Position monitoring: pure_futures_watcher.py tracks rates and edge, alerts on exit conditions
+- Position monitoring: pure_futures_watcher.py tracks rates and edge, alerts on exit conditions; risk-engine snapshots (SAFE/WARNING/REDUCE/EMERGENCY) per open position, persisted to the ledger and shown via /positions (riskAutoAct=true lets EMERGENCY auto-close)
 - Pre-open depth check: futures_depth.py; DEX order-book fetch failures block opens
 
 > ⚠️ Cross-interval pairs pass through settle_mismatch_planner for an extra cash-flow penalty on top of scanner net_edge. Planner and unified pool now share pair_pure_futures_spread with the scanner for basis blend.

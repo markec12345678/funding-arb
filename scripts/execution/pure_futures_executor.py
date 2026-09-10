@@ -144,6 +144,18 @@ def _update_position(
         lock_fd.close()
 
 
+def update_pure_futures_position(
+    position_id: str, updates: dict[str, Any], path: Path = POSITIONS_PATH
+) -> bool:
+    """Public metadata-only update for an open position (e.g. watcher risk snapshots).
+
+    Uses the same flock + atomic-write ledger path as the trading mutations, so it
+    is safe to call from the watcher while the executor opens/closes positions.
+    Returns True when an open position was found and updated.
+    """
+    return _update_position(position_id, updates, path)
+
+
 def _venue(venue_id: str, injected: Any = None):
     return injected or get_venue({"venue": {"type": venue_id}})
 

@@ -1,4 +1,4 @@
-from core.pure_futures_risk_controller import decide_position
+from execution.pure_futures_risk_controller import decide_position
 from core.pure_futures_risk_engine import RiskThresholds
 
 
