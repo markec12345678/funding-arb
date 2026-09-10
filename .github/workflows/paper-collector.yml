@@ -6,14 +6,20 @@ name: paper-collector
 # branch under paper-data/github-actions/. This is an INDEPENDENT sample from the
 # sandbox collector and any external-tester collector.
 #
-# Note: on this fork, push events do not enqueue workflow runs, but
-# workflow_dispatch and schedules do (verified with ci.yml nightly).
+# Note: scheduled workflows on public forks are disabled by default — enable
+# via Actions tab or the enable API (done; state=active). Registration of a
+# newly enabled cron can lag; repository_dispatch + workflow_dispatch work
+# immediately as manual bridges.
 
 on:
   schedule:
     # Every 5 minutes, offset by :03 to avoid top-of-hour Actions congestion.
     - cron: "3,8,13,18,23,28,33,38,43,48,53,58 * * * *"
   workflow_dispatch:
+  repository_dispatch:
+    # External/manual trigger bridge: POST /repos/{repo}/dispatches
+    # {"event_type":"paper-cycle"} — lets any machine fire a cycle on demand.
+    types: [paper-cycle]
 
 concurrency:
   group: paper-collector
