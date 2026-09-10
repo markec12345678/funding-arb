@@ -117,6 +117,13 @@ Two parallel execution paths coexist:
 
 ### Paper / live execution
 
+> **Required for comparable paper data:** create
+> `scripts/data/strategy_config.json` containing `{"trade_usd": 500}` before
+> running the pure-futures paper loop. Without this file the default strategy
+> silently raises notional to 5000 USD/pair (and the depth gate then requires
+> 3x that per leg), so your funnel numbers will not match the published
+> paper-validation baseline. No API keys are needed for paper mode.
+
 ```bash
 # Cash-and-Carry (dry-run default in config)
 .venv/bin/python scripts/execution/run_cash_and_carry.py \
