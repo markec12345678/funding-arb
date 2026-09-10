@@ -44,3 +44,22 @@ open GPRO long@bitget short@bybit edge=0.3354% state=aborted
 open STORJ long@bybit short@binance edge=0.4998% state=aborted
 open STORJ long@bybit short@binance edge=0.5255% state=aborted
 open STORJ long@bybit short@binance edge=0.5704% state=aborted
+open STORJ long@bybit short@binance edge=0.5948% state=aborted
+open STORJ long@bybit short@binance edge=0.6082% state=aborted
+open STORJ long@bybit short@binance edge=0.6098% state=aborted
+open STORJ long@bybit short@binance edge=0.6331% state=aborted
+close pf-SOPH-bybit-bitget-1789056114-84d742 edge=0.0093% state=simulated
+open GPRO long@okx short@bybit edge=0.3098% state=aborted
+open GPRO long@bitget short@bybit edge=0.3032% state=aborted
+open GPRO long@binance short@bybit edge=0.3500% state=aborted
+open GPRO long@okx short@bybit edge=0.3374% state=aborted
+open GPRO long@binance short@bybit edge=0.3437% state=aborted
+open GPRO long@okx short@bybit edge=0.3354% state=aborted
+open GPRO long@binance short@bybit edge=0.3408% state=aborted
+open GPRO long@bitget short@bybit edge=0.3148% state=aborted
+open GPRO long@okx short@bybit edge=0.3633% state=aborted
+open GPRO long@binance short@bybit edge=0.3599% state=aborted
+open GPRO long@okx short@bybit edge=0.3825% state=aborted
+open GPRO long@binance short@bybit edge=0.3736% state=simulated
+open GPRO long@okx short@bybit edge=0.3524% state=aborted
+open GPRO long@bitget short@bybit edge=0.3241% state=aborted
