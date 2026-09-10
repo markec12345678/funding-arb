@@ -281,6 +281,16 @@ Configure in **Settings → Strategy**: `fee_mode`, `venue_fee_tiers`, scan thre
 | `POST /api/backtest/run` | Run backtest from history or JSONL |
 | `WS /ws/events` | `scanner.update` push events |
 
+### Optional API authentication
+
+Set `FARB_API_TOKEN` in the environment (or `.env`) to require a token on every `/api/*` route and the `/ws/events` WebSocket:
+
+- **HTTP:** `Authorization: Bearer <token>`, `X-Api-Token: <token>`, or `?token=<token>`
+- **WebSocket:** `?token=<token>` (browsers cannot set WS headers)
+- **Dashboard:** Settings → Advanced → *API access token* (stored per-browser, sent automatically)
+
+Unset/empty → auth disabled (identical to previous behaviour). Static assets and `/docs` stay public; token comparison is timing-safe. Recommended whenever the server is reachable beyond `localhost`.
+
 ---
 
 ## Configuration

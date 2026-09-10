@@ -162,6 +162,8 @@ Scanner 的 net_edge 已扣除每腿 taker 手续费。费率解析逻辑位于 
 | POST /api/backtest/run | 运行回测 |
 | WS /ws/events | scanner.update 推送 |
 
+可选认证：设置 `FARB_API_TOKEN`（环境变量或 .env）后，所有 /api/* 路由与 /ws/events 均需携带令牌 — `Authorization: Bearer`、`X-Api-Token` 头或 `?token=`；仪表盘在 设置 → 高级 中保存令牌。未设置则不启用认证。
+
 ## 配置
 
 <!-- id: config -->
