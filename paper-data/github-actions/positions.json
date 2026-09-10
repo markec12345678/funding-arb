@@ -1,0 +1,1 @@
+[{"id":"pf-KR200-bitget-okx-1789058564-f21489","status":"open","strategy":"pure_futures_spread","dry_run":true,"base":"KR200","direction":"forward","quote":"USDT","long_venue":"bitget","short_venue":"okx","qty":0.468,"long_price":1066.45,"short_price":1067.8,"trade_usd":500.0,"mark_spread_pct":0.126428,"opened_at":1789058564872}]
