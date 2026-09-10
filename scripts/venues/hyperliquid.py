@@ -16,6 +16,7 @@ Live order placement raises a clear error if the SDK is not installed.
 from __future__ import annotations
 
 import os
+import threading
 import time
 from decimal import Decimal
 from pathlib import Path
@@ -115,58 +116,108 @@ def _make_exchange_client() -> Any:
     )
 
 
-def _make_exchange_with_tradesigner(base_url: str, wallet: str, signer_url: str) -> Any:
-    """Create Exchange client that delegates signing to trade-signer."""
+# ---------------------------------------------------------------------------
+# Trade-signer patch — module-global, must be installed exactly once
+# ---------------------------------------------------------------------------
+
+# HAZARD: the trade-signer delegation is implemented by monkey-patching
+# hyperliquid.utils.signing.sign_inner on the SDK MODULE. That patch is
+# process-global: once installed it affects every Exchange instance, including
+# later ones created with a local HYPERLIQUID_PRIVATE_KEY. Therefore:
+#   * install it exactly once (idempotent guard under a lock; concurrent
+#     scanner threads must not double-wrap the wrapper);
+#   * resolve TRADE_SIGNER_URL / TRADE_SIGNER_API_TOKEN from os.environ AT
+#     CALL TIME (not captured at patch time), and fall back to the ORIGINAL
+#     local sign_inner when TRADE_SIGNER_URL is unset/blank — this restores
+#     correct local-key signing after the env var is cleared.
+_SIGNER_PATCH_LOCK = threading.Lock()
+_signer_patched: bool = False
+_original_sign_inner: Any = None
+
+
+def _ensure_tradesigner_patch() -> None:
+    """Install the sign_inner -> trade-signer monkey-patch exactly once.
+
+    Thread-safe and idempotent. The patched wrapper reads
+    TRADE_SIGNER_URL / TRADE_SIGNER_API_TOKEN from os.environ on every call;
+    if TRADE_SIGNER_URL is empty/whitespace it delegates to the original
+    (local-key) sign_inner instead of the remote signer.
+    """
+    global _signer_patched, _original_sign_inner
     import hyperliquid.utils.signing as hl_signing
 
+    with _SIGNER_PATCH_LOCK:
+        if _signer_patched:
+            return
+        original = hl_signing.sign_inner
+        _original_sign_inner = original
+
+        def _patched_sign(wallet_obj: Any, data: dict[str, Any]) -> dict[str, str]:
+            signer_url = (os.environ.get("TRADE_SIGNER_URL") or "").strip()
+            if not signer_url:
+                # No remote signer configured at call time: sign locally with
+                # the original SDK implementation (correct behavior for
+                # HYPERLIQUID_PRIVATE_KEY-keyed Exchange instances).
+                return _original_sign_inner(wallet_obj, data)
+
+            api_token = os.environ.get("TRADE_SIGNER_API_TOKEN", "")
+
+            import requests as _requests
+
+            domain = data.get("domain", {})
+            types = data.get("types", {})
+            primary_type = data.get("primaryType", "")
+            message = data.get("message", {})
+            payload = {
+                "context": {
+                    "service": "hyperliquid",
+                    "chain": "arbitrum",
+                    "tokenIn": "USDC",
+                    "tokenOut": "USDC",
+                    "amount": "1000000",
+                    "kind": "hyperliquid_perp_order",
+                    "domain": domain,
+                },
+                "typedData": {
+                    "domain": domain,
+                    "types": types,
+                    "primaryType": primary_type,
+                    "message": message,
+                },
+            }
+            headers = {"Content-Type": "application/json"}
+            if api_token:
+                headers["Authorization"] = f"Bearer {api_token}"
+            resp = _requests.post(
+                f"{signer_url}/sign-typed-data",
+                json=payload,
+                headers=headers,
+                timeout=10,
+            )
+            if resp.status_code == 403:
+                raise PermissionError(f"trade-signer denied: {resp.json()}")
+            if resp.status_code != 200:
+                raise RuntimeError(
+                    f"trade-signer error: {resp.status_code} {resp.text}"
+                )
+            result = resp.json()
+            return {"r": result["r"], "s": result["s"], "v": result["v"]}
+
+        hl_signing.sign_inner = _patched_sign
+        _signer_patched = True
+
+
+def _make_exchange_with_tradesigner(base_url: str, wallet: str, signer_url: str) -> Any:
+    """Create Exchange client that delegates signing to trade-signer.
+
+    The actual monkey-patch is installed by _ensure_tradesigner_patch()
+    (idempotent, thread-safe). ``signer_url`` is kept for call-site
+    compatibility only; the patched signer resolves TRADE_SIGNER_URL /
+    TRADE_SIGNER_API_TOKEN from os.environ at call time.
+    """
+    _ensure_tradesigner_patch()
+
     sdk = _get_sdk()
-    api_token = os.environ.get("TRADE_SIGNER_API_TOKEN", "")
-
-    # Monkey-patch sign_inner to redirect to trade-signer
-    _original_sign = hl_signing.sign_inner
-
-    def _patched_sign(wallet_obj: Any, data: dict[str, Any]) -> dict[str, str]:
-
-        import requests as _requests
-
-        domain = data.get("domain", {})
-        types = data.get("types", {})
-        primary_type = data.get("primaryType", "")
-        message = data.get("message", {})
-        payload = {
-            "context": {
-                "service": "hyperliquid",
-                "chain": "arbitrum",
-                "tokenIn": "USDC",
-                "tokenOut": "USDC",
-                "amount": "1000000",
-                "kind": "hyperliquid_perp_order",
-                "domain": domain,
-            },
-            "typedData": {
-                "domain": domain,
-                "types": types,
-                "primaryType": primary_type,
-                "message": message,
-            },
-        }
-        headers = {"Content-Type": "application/json"}
-        if api_token:
-            headers["Authorization"] = f"Bearer {api_token}"
-        resp = _requests.post(
-            f"{signer_url}/sign-typed-data",
-            json=payload,
-            headers=headers,
-            timeout=10,
-        )
-        if resp.status_code == 403:
-            raise PermissionError(f"trade-signer denied: {resp.json()}")
-        if resp.status_code != 200:
-            raise RuntimeError(f"trade-signer error: {resp.status_code} {resp.text}")
-        result = resp.json()
-        return {"r": result["r"], "s": result["s"], "v": result["v"]}
-
-    hl_signing.sign_inner = _patched_sign
 
     class _DummyWallet:
         def __init__(self, address: str):

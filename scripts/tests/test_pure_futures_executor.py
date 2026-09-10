@@ -489,8 +489,8 @@ def test_open_margin_includes_capital_buffer():
     assert res2.ok
 
 
-def test_open_margin_check_skipped_when_api_fails():
-    """Balance API fails → skip check and allow through (don't block trading)."""
+def test_open_margin_check_api_fail_is_fail_closed_by_default():
+    """Balance API fails → open aborted by default (fail-closed, no unverified margin)."""
     path = _path("margin_api_fail")
     lv = FakeFuturesVenue("okx")
     sv = FakeFuturesVenue("bybit")
@@ -509,8 +509,251 @@ def test_open_margin_check_skipped_when_api_fails():
         short_venue=sv,
         positions_path=path,
     )
+    assert not res.ok and res.state == "aborted"
+    assert lv.trades == [] and sv.trades == []  # no orders with unverified margin
+    assert any("fail-closed" in log for log in res.logs)
+    assert any("marginCheckFailOpen" in log for log in res.logs)
+    assert load_pure_futures_positions(path) == []
+
+
+def test_open_margin_check_api_fail_open_opt_in():
+    """marginCheckFailOpen=true restores the old best-effort skip on API failure."""
+    path = _path("margin_api_fail_open")
+    lv = FakeFuturesVenue("okx")
+    sv = FakeFuturesVenue("bybit")
+
+    def _boom():
+        raise RuntimeError("api down")
+
+    lv.fetch_usdt_account_balances = _boom
+    res = open_pure_futures_pair(
+        "BTC",
+        "okx",
+        "bybit",
+        500,
+        dry_run=False,
+        long_venue=lv,
+        short_venue=sv,
+        positions_path=path,
+        config={"marginCheckFailOpen": True},
+    )
     assert res.ok and res.state == "filled"
     assert any("skipping check" in log for log in res.logs)
+
+
+def test_open_margin_check_api_fail_open_via_pfa_block():
+    """Same escape hatch read from the pureFuturesArbitrage config block."""
+    path = _path("margin_api_fail_open_pfa")
+    lv = FakeFuturesVenue("okx")
+    sv = FakeFuturesVenue("bybit")
+
+    def _boom():
+        raise RuntimeError("api down")
+
+    sv.fetch_usdt_account_balances = _boom
+    res = open_pure_futures_pair(
+        "BTC",
+        "okx",
+        "bybit",
+        500,
+        dry_run=False,
+        long_venue=lv,
+        short_venue=sv,
+        positions_path=path,
+        config={
+            "pureFuturesArbitrage": {
+                "marginCheckFailOpen": True,
+                "fundingRecheck": False,
+                "depthCheckEnabled": False,
+            }
+        },
+    )
+    assert res.ok and res.state == "filled"
+
+
+# ── pre-submit funding re-check integration ───────────────────────────────────
+
+_PFA_CFG = {"pureFuturesArbitrage": {"depthCheckEnabled": False}}
+
+
+def test_funding_recheck_not_ok_aborts_open(monkeypatch):
+    """Re-check reports spread collapse → open aborted with reason in logs, no orders."""
+    path = _path("recheck_abort")
+
+    def _not_ok(*args, **kwargs):
+        return {
+            "ok": False,
+            "spread_pct": 0.005,
+            "long_rate_pct": 0.04,
+            "short_rate_pct": 0.045,
+            "long_interval_h": 8.0,
+            "short_interval_h": 8.0,
+            "reason": "spread_collapse: spread 0.0050% < floor 0.0200%",
+            "source": "rate",
+        }
+
+    monkeypatch.setattr(
+        "execution.pure_futures_executor.recheck_funding_edge", _not_ok
+    )
+    lv, sv = FakeFuturesVenue("okx"), FakeFuturesVenue("bybit")
+    res = open_pure_futures_pair(
+        "BTC",
+        "okx",
+        "bybit",
+        500,
+        dry_run=False,
+        long_venue=lv,
+        short_venue=sv,
+        positions_path=path,
+        config=dict(_PFA_CFG),
+    )
+    assert not res.ok and res.state == "aborted"
+    assert any("funding re-check" in log and "spread_collapse" in log for log in res.logs)
+    assert lv.trades == [] and sv.trades == []  # aborted before order submission
+    assert load_pure_futures_positions(path) == []
+
+
+def test_funding_recheck_ok_proceeds_to_fill(monkeypatch):
+    path = _path("recheck_ok")
+
+    def _ok(*args, **kwargs):
+        return {
+            "ok": True,
+            "spread_pct": 0.05,
+            "long_rate_pct": 0.01,
+            "short_rate_pct": 0.06,
+            "long_interval_h": 8.0,
+            "short_interval_h": 8.0,
+            "reason": "spread 0.0500% >= floor 0.0200%",
+            "source": "rate",
+        }
+
+    monkeypatch.setattr("execution.pure_futures_executor.recheck_funding_edge", _ok)
+    lv, sv = FakeFuturesVenue("okx"), FakeFuturesVenue("bybit")
+    res = open_pure_futures_pair(
+        "BTC",
+        "okx",
+        "bybit",
+        500,
+        dry_run=False,
+        long_venue=lv,
+        short_venue=sv,
+        positions_path=path,
+        config=dict(_PFA_CFG),
+    )
+    assert res.ok and res.state == "filled"
+    assert any("funding re-check" in log for log in res.logs)
+
+
+def test_funding_recheck_default_on_without_key(monkeypatch):
+    """Config lacks fundingRecheck → re-check still called (default ON)."""
+    path = _path("recheck_default")
+    calls = []
+
+    def _ok(long_venue, short_venue, base, quote="USDT", **kwargs):
+        calls.append((long_venue, short_venue, base, kwargs.get("min_spread_pct")))
+        return {
+            "ok": True,
+            "spread_pct": 0.05,
+            "reason": "spread 0.0500% >= floor 0.0200%",
+            "source": "rate",
+        }
+
+    monkeypatch.setattr("execution.pure_futures_executor.recheck_funding_edge", _ok)
+    lv, sv = FakeFuturesVenue("okx"), FakeFuturesVenue("bybit")
+    res = open_pure_futures_pair(
+        "BTC",
+        "okx",
+        "bybit",
+        500,
+        dry_run=False,
+        long_venue=lv,
+        short_venue=sv,
+        positions_path=path,
+        config=dict(_PFA_CFG),
+    )
+    assert res.ok and res.state == "filled"
+    assert calls == [("okx", "bybit", "BTC", 0.02)]  # floor falls back to 0.02
+
+
+def test_funding_recheck_disabled_not_called(monkeypatch):
+    path = _path("recheck_disabled")
+    calls = []
+
+    def _never(*args, **kwargs):
+        calls.append(args)
+        return {"ok": True, "reason": "", "source": "rate"}
+
+    monkeypatch.setattr("execution.pure_futures_executor.recheck_funding_edge", _never)
+    lv, sv = FakeFuturesVenue("okx"), FakeFuturesVenue("bybit")
+    res = open_pure_futures_pair(
+        "BTC",
+        "okx",
+        "bybit",
+        500,
+        dry_run=False,
+        long_venue=lv,
+        short_venue=sv,
+        positions_path=path,
+        config={
+            "pureFuturesArbitrage": {"fundingRecheck": False, "depthCheckEnabled": False}
+        },
+    )
+    assert res.ok and res.state == "filled"
+    assert calls == []
+
+
+def test_funding_recheck_floor_falls_back_to_min_spread_pct(monkeypatch):
+    """fundingRecheckMinSpreadPct absent → falls back to minSpreadPct from cfg."""
+    path = _path("recheck_floor")
+    seen = {}
+
+    def _ok(long_venue, short_venue, base, quote="USDT", **kwargs):
+        seen["min_spread_pct"] = kwargs.get("min_spread_pct")
+        return {"ok": True, "spread_pct": 0.05, "reason": "fine", "source": "rate"}
+
+    monkeypatch.setattr("execution.pure_futures_executor.recheck_funding_edge", _ok)
+    lv, sv = FakeFuturesVenue("okx"), FakeFuturesVenue("bybit")
+    res = open_pure_futures_pair(
+        "BTC",
+        "okx",
+        "bybit",
+        500,
+        dry_run=False,
+        long_venue=lv,
+        short_venue=sv,
+        positions_path=path,
+        config={
+            "pureFuturesArbitrage": {
+                "minSpreadPct": 0.07,
+                "depthCheckEnabled": False,
+            }
+        },
+    )
+    assert res.ok and res.state == "filled"
+    assert seen["min_spread_pct"] == 0.07
+
+
+# ── corrupt ledger quarantine ─────────────────────────────────────────────────
+
+
+def test_load_corrupt_positions_quarantined(tmp_path, capsys):
+    path = tmp_path / "positions.json"
+    path.write_text('[{"id": "pf-1", ', encoding="utf-8")  # truncated mid-write
+    assert load_pure_futures_positions(path) == []
+    backups = list(tmp_path.glob("positions.corrupt-*.json"))
+    assert len(backups) == 1
+    assert not path.exists()
+    err = capsys.readouterr().err
+    assert "[POSITIONS]" in err and "quarantined" in err
+
+
+def test_load_non_list_positions_returns_empty_no_quarantine(tmp_path):
+    path = tmp_path / "positions.json"
+    path.write_text('{"not": "a list"}', encoding="utf-8")
+    assert load_pure_futures_positions(path) == []
+    assert path.exists()
+    assert list(tmp_path.glob("positions.corrupt-*.json")) == []
 
 
 def test_close_spread_normal_no_warning():

@@ -668,10 +668,20 @@ _WALLET_SCHEMAS: dict[str, dict[str, Any]] = {
 
 
 def _mask(value: str, visible: int = 4) -> str:
-    """Mask a secret, showing only first and last few chars."""
-    if not value or len(value) <= visible * 2:
-        return "***" if value else ""
-    return f"{value[:visible]}...{value[-visible:]}"
+    """Return a constant placeholder for any configured secret.
+
+    Security: this previously echoed `first4...last4` of each secret —
+    including the dYdX 24-word mnemonic — which is an information leak
+    (key prefixes/suffixes fingerprint credentials and short secrets were
+    nearly fully revealed). The placeholder is now a constant,
+    length-independent string: it reveals nothing about the value's
+    content *or* length. The `connected` booleans and field names are
+    unchanged, so the UI can still tell what is configured; callers keep
+    empty values as "" to distinguish "unset".
+
+    `visible` is accepted for backwards compatibility and is ignored.
+    """
+    return "••••••••"
 
 
 @router.get("/settings/wallet/schema")

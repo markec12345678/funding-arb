@@ -230,6 +230,35 @@ export interface ApiResponse<T> {
 
 // ─── Request helpers ────────────────────────────────────────────────
 
+/**
+ * Shared-secret API token (mirrors the server's FARB_API_TOKEN).
+ * Stored in localStorage under "farb_api_token" (set once per browser via
+ * devtools: localStorage.setItem("farb_api_token", "<token>")) or baked in
+ * at build time with VITE_API_TOKEN. Empty string = server auth disabled.
+ */
+function _apiToken(): string {
+  return (
+    localStorage.getItem("farb_api_token") ||
+    (import.meta.env.VITE_API_TOKEN as string | undefined) ||
+    ""
+  );
+}
+
+/** Headers carrying the API token, when one is configured. */
+function _authHeaders(): Record<string, string> {
+  const token = _apiToken();
+  return token ? { "X-Api-Token": token } : {};
+}
+
+/** Clear, actionable message when the server rejects our token (or none is set). */
+function _unauthorizedMessage(): string {
+  return (
+    "Unauthorized (401): the server requires an API token. " +
+    'Set it in the browser: localStorage.setItem("farb_api_token", "<token>") ' +
+    "matching the server's FARB_API_TOKEN, or build with VITE_API_TOKEN."
+  );
+}
+
 async function request<T>(url: string): Promise<T> {
   // Demo mode: short-circuit known GET paths against the snapshot cache.
   // Falls through for unknown paths (POST endpoints, write APIs, etc.) so
@@ -242,8 +271,13 @@ async function request<T>(url: string): Promise<T> {
       return demoData as T;
     }
   }
-  const response = await fetch(`${API_BASE}${url}`);
+  const response = await fetch(`${API_BASE}${url}`, {
+    headers: _authHeaders(),
+  });
   if (!response.ok) {
+    if (response.status === 401) {
+      throw new Error(_unauthorizedMessage());
+    }
     throw new Error(`API ${response.status}: ${response.statusText}`);
   }
   const json = await response.json();
@@ -264,10 +298,13 @@ export async function post<T>(
 ): Promise<T> {
   const response = await fetch(`${API_BASE}${url}`, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: { "Content-Type": "application/json", ..._authHeaders() },
     body: JSON.stringify(body),
   });
   if (!response.ok) {
+    if (response.status === 401) {
+      throw new Error(_unauthorizedMessage());
+    }
     throw new Error(`API ${response.status}: ${response.statusText}`);
   }
   const json = await response.json();
@@ -491,7 +528,12 @@ function _wsConnect() {
 
   const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
   const host = window.location.host;
-  const url = `${protocol}//${host}/ws/events`;
+  // Browsers cannot set custom WS handshake headers, so the shared-secret
+  // token is passed as a query parameter (see the /ws/events server handler).
+  const token = _apiToken();
+  const url = token
+    ? `${protocol}//${host}/ws/events?token=${encodeURIComponent(token)}`
+    : `${protocol}//${host}/ws/events`;
 
   _wsState.ws = new WebSocket(url);
 

@@ -32,6 +32,17 @@
     "depthCheckFailOpen": false,
     "_depthNote": "depthCheckFailOpen=false blocks opens when the order book fetch fails (recommended for thin DEX books)",
 
+    "marginCheckFailOpen": false,
+    "_marginCheckNote": "marginCheckFailOpen=false aborts opens when the balance API fails (fail-closed, recommended); true restores best-effort skip",
+
+    "fundingRecheck": true,
+    "fundingRecheckMinSpreadPct": 0.02,
+    "fundingRecheckFailOpen": false,
+    "_fundingRecheckNote": "re-fetch current funding rates right before order submission; abort when the spread collapsed below fundingRecheckMinSpreadPct (falls back to minSpreadPct) or the fetch fails while fundingRecheckFailOpen=false",
+
+    "feeAwareExit": true,
+    "_feeAwareExitNote": "watcher exits on NET edge (spread - taker fees) like the runner/backtest; false restores the legacy raw-spread exit",
+
     "parallelLegs": true,
     "_parallelLegsNote": "open/close both perp legs concurrently to reduce mark_spread skew",
 

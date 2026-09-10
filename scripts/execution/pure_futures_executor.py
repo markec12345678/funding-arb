@@ -35,7 +35,9 @@ from execution.cross_venue_executor import (  # noqa: E402
     _filled,
     _floor_qty,
     _leg_market,
+    quarantine_corrupt_positions,
 )
+from execution.funding_recheck import cfg_lookup, recheck_funding_edge  # noqa: E402
 from venues import get_venue  # noqa: E402
 
 POSITIONS_PATH = SCRIPTS_DIR / "data" / "pure-futures" / "positions.json"
@@ -48,9 +50,12 @@ def load_pure_futures_positions(path: Path = POSITIONS_PATH) -> list[dict[str, A
         return []
     try:
         data = json.loads(path.read_text(encoding="utf-8"))
-        return data if isinstance(data, list) else []
     except Exception:
+        # Corrupt (e.g. truncated mid-write) ledger: quarantine instead of
+        # silently returning [] so live positions are not orphaned invisibly.
+        quarantine_corrupt_positions(path)
         return []
+    return data if isinstance(data, list) else []
 
 
 def _save_positions(
@@ -149,19 +154,35 @@ def _venue(venue_id: str, injected: Any = None):
 
 
 def _check_futures_margin(
-    venue: Any, venue_id: str, quote: str, required_usd: float, logs: list[str]
+    venue: Any,
+    venue_id: str,
+    quote: str,
+    required_usd: float,
+    logs: list[str],
+    *,
+    fail_open: bool = False,
 ) -> bool:
     """Verify futures USDT >= required; if insufficient, attempt earn->spot->futures chain.
 
     Chain: futures low -> transfer from spot -> spot low -> redeem from earn -> transfer again.
     Returns False if margin is confirmed insufficient (should abort opening).
-    On balance API errors, skip verification (don't block trades on transient API failures).
+
+    Fail-closed by default (fail_open=False): when the balance API raises, the
+    check returns False so no position opens with genuinely unverified margin.
+    Set fail_open=True (config key marginCheckFailOpen=true) to restore the old
+    best-effort behavior of skipping verification on transient API failures.
     """
     try:
         balances = venue.fetch_usdt_account_balances()
     except Exception as e:
-        logs.append(f"{venue_id}: margin query failed, skipping check ({e})")
-        return True
+        if fail_open:
+            logs.append(f"{venue_id}: margin query failed, skipping check ({e})")
+            return True
+        logs.append(
+            f"{venue_id}: margin query failed, aborting "
+            f"(fail-closed; set marginCheckFailOpen=true to override) ({e})"
+        )
+        return False
     futures_avail = float(balances.get("futures", 0) or 0)
     if futures_avail >= required_usd:
         return True
@@ -382,11 +403,45 @@ def open_pure_futures_pair(
     margin_usd = (
         trade_usd * MARGIN_BUFFER + trade_usd * max(capital_buffer_pct, 0.0) / 100.0
     )
-    ok_long = _check_futures_margin(lv, long_venue_id, quote, margin_usd, logs)
-    ok_short = _check_futures_margin(sv, short_venue_id, quote, margin_usd, logs)
+    # Fail-closed by default: a balance-API error aborts the open instead of
+    # submitting orders with unverified margin (marginCheckFailOpen=true opts out).
+    margin_fail_open = bool(cfg_lookup(config, "marginCheckFailOpen", False))
+    ok_long = _check_futures_margin(
+        lv, long_venue_id, quote, margin_usd, logs, fail_open=margin_fail_open
+    )
+    ok_short = _check_futures_margin(
+        sv, short_venue_id, quote, margin_usd, logs, fail_open=margin_fail_open
+    )
     if not (ok_long and ok_short):
         # Abort before first order to avoid single-leg fill and rollback
         return CrossVenueResult(False, "aborted", "", executed, logs)
+
+    # ── Pre-submit funding re-check ──────────────────────────────────────────
+    # The scanner decision may be based on funding data 30s+ stale by fill
+    # time; re-fetch both legs' current rates and verify the spread still
+    # clears the floor. Same gating as the depth pre-check (only when the
+    # config carries a pureFuturesArbitrage block; injected venue tests skip
+    # network). Live mode is fail-closed by default; dry-run defaults to
+    # fail-open so paper testing is not blocked on flaky APIs.
+    if pfa_cfg and bool(cfg_lookup(config, "fundingRecheck", True)):
+        fr = recheck_funding_edge(
+            long_venue_id,
+            short_venue_id,
+            base,
+            quote,
+            min_spread_pct=float(
+                cfg_lookup(
+                    config,
+                    "fundingRecheckMinSpreadPct",
+                    cfg_lookup(config, "minSpreadPct", 0.02),
+                )
+            ),
+            fail_open=bool(cfg_lookup(config, "fundingRecheckFailOpen", dry_run)),
+        )
+        logs.append(f"funding re-check: {fr.get('reason')}")
+        if not fr.get("ok"):
+            return CrossVenueResult(False, "aborted", "", executed, logs)
+
     for venue, mkt in ((lv, long_mkt), (sv, short_mkt)):
         try:
             venue.initialize_futures_symbol(mkt["pair"])

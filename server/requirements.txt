@@ -1,3 +1,5 @@
 fastapi>=0.110.0
 uvicorn[standard]>=0.29.0
 websockets>=12.0
+# Required by fastapi.testclient.TestClient (used by scripts/tests/test_server_auth.py)
+httpx>=0.27.0

@@ -488,14 +488,16 @@ class OkxTransferProvider(TransferProvider):
                     break
             if trading_avail >= amount:
                 return steps
-            # Trading account -> Funding account (18=funding, 6=trading etc., OKX internal transfer)
+            # Trading account -> Funding account (OKX v5 /api/v5/asset/transfer:
+            # 6 = Funding account, 18 = Trading account). Funds must sit in
+            # the Funding account before /api/v5/asset/withdrawal.
             xfer = amount - trading_avail + 0.01
             _api_call(
                 "POST",
                 "/api/v5/asset/transfer",
                 body={
-                    "from": "18",
-                    "to": "18",
+                    "from": "18",  # Trading account
+                    "to": "6",  # Funding account
                     "type": "0",
                     "ccy": coin.upper(),
                     "amt": f"{xfer:.8f}".rstrip("0").rstrip("."),

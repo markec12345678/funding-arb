@@ -13,6 +13,7 @@ import time
 import urllib.error
 import urllib.parse
 import urllib.request
+import uuid
 from typing import Any, Optional
 
 from core.config import resolve_timeframes
@@ -290,11 +291,13 @@ class BybitSpotVenue:
     def transfer_asset(
         self, asset: str, amount: float, from_account: str, to_account: str
     ) -> bool:
-        transfer_idx = None
+        # Bybit v5 inter-transfer requires fromAccountType/toAccountType + a
+        # unique transferId; the old body sent a single transferAccountType and
+        # was identical for both directions, so the API rejected every call.
         if from_account == "spot" and to_account == "futures":
-            transfer_idx = "UNIFIED"
+            from_acct, to_acct = "SPOT", "UNIFIED"
         elif from_account == "futures" and to_account == "spot":
-            transfer_idx = "UNIFIED"
+            from_acct, to_acct = "UNIFIED", "SPOT"
         else:
             return False
         try:
@@ -302,9 +305,11 @@ class BybitSpotVenue:
                 "POST",
                 "/v5/asset/transfer/inter-transfer",
                 body={
-                    "transferAccountType": transfer_idx,
+                    "transferId": str(uuid.uuid4()),
                     "coin": asset.upper(),
                     "amount": f"{amount:.8f}".rstrip("0").rstrip("."),
+                    "fromAccountType": from_acct,
+                    "toAccountType": to_acct,
                 },
             )
             return True
@@ -741,17 +746,23 @@ class BybitSpotVenue:
         self.initialize_futures_symbol(pair)
 
         try:
+            body = {
+                "category": "linear",
+                "symbol": pair,
+                "side": bybit_side,
+                "orderType": "Market",
+                "qty": sz,
+                "orderLinkId": client_oid,
+            }
+            if side in ("close_long", "close_short"):
+                # Reduce-only on closes: an oversized close must clamp at zero
+                # instead of flipping the position direction (one-way mode;
+                # mirrors Binance behavior).
+                body["reduceOnly"] = True
             result = _api_call(
                 "POST",
                 "/v5/order/create",
-                body={
-                    "category": "linear",
-                    "symbol": pair,
-                    "side": bybit_side,
-                    "orderType": "Market",
-                    "qty": sz,
-                    "orderLinkId": client_oid,
-                },
+                body=body,
             )
             fill_ts = time.time()
             order_id = result.get("result", {}).get("orderId", "?")

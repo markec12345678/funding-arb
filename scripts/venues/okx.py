@@ -751,7 +751,13 @@ class OkxSpotVenue:
             )
             od = detail.get("data", [{}])[0]
             exec_price = float(od.get("avgPx", 0) or ref_price)
-            exec_quote = float(od.get("fillCxqFee", od.get("fillSzQuote", sz)))
+            # For a spot market buy with tgtCcy=quote_ccy, sz / accFillSz /
+            # fillSz are denominated in the quote ccy. fillCxqFee / fillSzQuote
+            # are not OKX v5 order-detail fields (phantom fallback chain that
+            # silently degraded to the *requested* size, never the fill).
+            exec_quote = float(
+                od.get("accFillSz", 0) or od.get("fillSz", 0) or float(sz)
+            )
             exec_qty = exec_quote / exec_price if exec_price > 0 else 0
             slippage = (
                 round((exec_price - ref_price) / ref_price, 6)
@@ -844,17 +850,23 @@ class OkxSpotVenue:
 
         okx_side = "buy" if side in ("open_long", "close_short") else "sell"
         try:
+            body = {
+                "instId": swap,
+                "tdMode": "isolated",
+                "side": okx_side,
+                "ordType": "market",
+                "sz": sz,
+                "clOrdId": client_oid,
+            }
+            if side in ("close_long", "close_short"):
+                # Reduce-only on closes: an oversized close must clamp at zero
+                # instead of flipping the position direction (net position mode;
+                # mirrors Binance behavior and the margin repay path above).
+                body["reduceOnly"] = True
             result = _api_call(
                 "POST",
                 "/api/v5/trade/order",
-                body={
-                    "instId": swap,
-                    "tdMode": "isolated",
-                    "side": okx_side,
-                    "ordType": "market",
-                    "sz": sz,
-                    "clOrdId": client_oid,
-                },
+                body=body,
             )
             fill_ts = time.time()
             order_id = result.get("data", [{}])[0].get("ordId", "?")

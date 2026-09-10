@@ -167,7 +167,10 @@ class BinanceSpotVenue:
         if _futures_ticker_prices and (now - _futures_ticker_loaded_at) < cache_sec:
             return dict(_futures_ticker_prices)
         try:
-            data = _api_call("GET", "https://fapi.binance.com/fapi/v1/ticker/price")
+            # Path form (not absolute URL): _api_call routes "/fapi/..." to
+            # https://fapi.binance.com; an absolute URL here would be
+            # double-prefixed into an invalid URL and silently swallowed.
+            data = _api_call("GET", "/fapi/v1/ticker/price", {})
             if isinstance(data, dict):
                 rows = [data]
             else:

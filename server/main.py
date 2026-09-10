@@ -5,12 +5,17 @@ from __future__ import annotations
 
 import asyncio
 import json
+import logging
+import os
+import secrets
 import sys
 from contextlib import asynccontextmanager
 from pathlib import Path
 
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
+from starlette.responses import JSONResponse
+from starlette.types import ASGIApp, Receive, Scope, Send
 
 # ---------------------------------------------------------------------------
 # Make the project root and scripts/ importable so we can use existing
@@ -27,6 +32,118 @@ for _p in (str(_ROOT_DIR), str(_SCRIPTS_DIR)):
 # Routers
 # ---------------------------------------------------------------------------
 from server.routes import backtest, positions, scanner, settings  # noqa: E402
+
+# ---------------------------------------------------------------------------
+# API authentication (shared-secret token)
+# ---------------------------------------------------------------------------
+#
+# When FARB_API_TOKEN is set in the environment, every /api/* HTTP request
+# and the /ws/events WebSocket must present the same shared secret. The
+# token is read LAZILY on every request (not cached at import time) so it
+# can be provided after startup — e.g. by core.credentials.ensure_env(),
+# which runs in the lifespan below. When the token is unset the server
+# behaves exactly as before (open API, loopback bind by default) and a
+# single warning is logged at startup.
+
+_LOG = logging.getLogger("funding-arb.server")
+
+_TOKEN_ENV = "FARB_API_TOKEN"
+_ALLOW_UNAUTH_ENV = "FARB_ALLOW_UNAUTHENTICATED"
+_LOOPBACK_HOSTS = {"127.0.0.1", "localhost", "::1"}
+
+
+def _configured_token() -> str:
+    """Current shared-secret token (lazily read from the environment)."""
+    return os.environ.get(_TOKEN_ENV, "").strip()
+
+
+def _token_matches(provided: str, expected: str) -> bool:
+    """Constant-time token comparison; never raises on odd encodings."""
+    try:
+        return secrets.compare_digest(
+            provided.encode("utf-8"), expected.encode("utf-8")
+        )
+    except (UnicodeEncodeError, TypeError):
+        return False
+
+
+def _request_tokens(scope: Scope) -> list[str]:
+    """Extract `Authorization: Bearer` / `X-Api-Token` candidates from headers."""
+    tokens: list[str] = []
+    for name, value in scope.get("headers", []):
+        try:
+            text = value.decode("latin-1")
+        except UnicodeDecodeError:
+            continue
+        if name == b"x-api-token":
+            if text.strip():
+                tokens.append(text.strip())
+        elif name == b"authorization":
+            scheme, _, param = text.partition(" ")
+            if scheme.lower() == "bearer" and param.strip():
+                tokens.append(param.strip())
+    return tokens
+
+
+class ApiTokenMiddleware:
+    """Require the shared-secret token on ``/api/*`` HTTP requests (pure ASGI).
+
+    HTTP scopes only — anything else (WebSocket, lifespan) is passed through
+    untouched; ``/ws/events`` authenticates itself via a ``?token=`` query
+    parameter inside the endpoint handler because browsers cannot set
+    custom headers on the WS handshake.
+
+    Registered so that CORSMiddleware stays the outermost layer
+    (starlette's ``add_middleware`` puts the last-added middleware
+    outermost, so this one is added first): browser-visible 401 responses
+    still carry CORS headers, and OPTIONS preflights are answered by CORS
+    directly.
+    """
+
+    def __init__(self, app: ASGIApp) -> None:
+        self.app = app
+
+    async def __call__(self, scope: Scope, receive: Receive, send: Send) -> None:
+        if scope["type"] == "http" and scope.get("path", "").startswith("/api/"):
+            token = _configured_token()
+            if token and not any(
+                _token_matches(candidate, token)
+                for candidate in _request_tokens(scope)
+            ):
+                response = JSONResponse(
+                    {"success": False, "error": "unauthorized"}, status_code=401
+                )
+                await response(scope, receive, send)
+                return
+        await self.app(scope, receive, send)
+
+
+def _validate_bind_host(host: str, token: str, allow_unauth: str) -> str | None:
+    """Return an error message if binding non-loopback without auth, else None.
+
+    Pure function (unit-tested in scripts/tests/test_server_auth.py):
+    ``host`` is the ``--host`` argument, ``token`` the currently configured
+    shared secret ("" if none) and ``allow_unauth`` the raw value of
+    FARB_ALLOW_UNAUTHENTICATED ("1" = explicit risk acceptance).
+    """
+    normalized = host.strip().strip("[]").lower()
+    if (
+        normalized in _LOOPBACK_HOSTS
+        # the whole 127.0.0.0/8 block is loopback per RFC 1122
+        or normalized.startswith("127.")
+    ):
+        return None
+    if token:
+        return None
+    if allow_unauth == "1":
+        return None
+    return (
+        f"refusing to bind {host!r} without authentication: anyone who can "
+        f"reach this interface could open live positions and read or inject "
+        f"credentials. Set {_TOKEN_ENV} (or bind --host 127.0.0.1), or set "
+        f"{_ALLOW_UNAUTH_ENV}=1 to explicitly accept the risk."
+    )
+
 
 # ---------------------------------------------------------------------------
 # WebSocket connection manager
@@ -148,6 +265,11 @@ async def lifespan(app: FastAPI):
         ensure_env()
     except Exception as e:
         print(f"[credentials] ensure_env failed: {e}")
+    if not _configured_token():
+        _LOG.warning(
+            "API authentication disabled — set %s to secure /api and /ws",
+            _TOKEN_ENV,
+        )
     task = asyncio.create_task(_background_scanner_loop())
 
     def _log_task_crash(t: asyncio.Task) -> None:
@@ -170,6 +292,13 @@ async def lifespan(app: FastAPI):
 # App
 # ---------------------------------------------------------------------------
 app = FastAPI(title="funding-arb API", version="0.1.0", lifespan=lifespan)
+
+# Token auth for /api/* — registered BEFORE CORS (starlette's add_middleware
+# puts the last-added middleware outermost), so CORS stays the outermost
+# layer: browser-visible 401 responses still carry CORS headers and OPTIONS
+# preflights are answered by CORS directly. Must be registered before the
+# app starts serving.
+app.add_middleware(ApiTokenMiddleware)
 
 app.add_middleware(
     CORSMiddleware,
@@ -197,6 +326,15 @@ app.include_router(settings.router, prefix="/api")
 
 @app.websocket("/ws/events")
 async def ws_events(ws: WebSocket):
+    # Browsers cannot set custom headers on the WS handshake, so the shared
+    # secret is accepted as a ?token=<t> query parameter. Closing *before*
+    # accept() rejects the handshake outright (uvicorn answers with an HTTP
+    # 403; starlette's TestClient surfaces WebSocketDisconnect with our
+    # custom close code 4401).
+    token = _configured_token()
+    if token and not _token_matches(ws.query_params.get("token", "").strip(), token):
+        await ws.close(code=4401)
+        return
     await manager.connect(ws)
     try:
         while True:
@@ -270,6 +408,27 @@ if __name__ == "__main__":
     )
     parser.add_argument("--no-reload", action="store_true", help="Disable hot reload")
     args = parser.parse_args()
+
+    # Populate the credentials store into os.environ (the lifespan will do
+    # this again, cached) so a FARB_API_TOKEN stored there counts for the
+    # bind guard below.
+    try:
+        from core.credentials import ensure_env  # noqa: E402
+
+        ensure_env()
+    except Exception:
+        pass
+
+    bind_error = _validate_bind_host(
+        args.host,
+        _configured_token(),
+        os.environ.get(_ALLOW_UNAUTH_ENV, ""),
+    )
+    if bind_error:
+        # Binding a non-loopback interface without auth is a hard failure:
+        # it would expose live trading + credential injection to the network.
+        print(f"\n  FATAL: {bind_error}\n", file=sys.stderr)
+        sys.exit(2)
 
     mode_info = "Desktop + Web UI" if _HAS_WEB_UI else "API Only (Web UI not built)"
     print("\n  Funding Arb Dashboard")

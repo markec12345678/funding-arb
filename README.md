@@ -281,6 +281,18 @@ Configure in **Settings → Strategy**: `fee_mode`, `venue_fee_tiers`, scan thre
 | `POST /api/backtest/run` | Run backtest from history or JSONL |
 | `WS /ws/events` | `scanner.update` push events |
 
+### API authentication
+
+The dashboard API is authenticated with a shared-secret token:
+
+- Set `FARB_API_TOKEN` in the server environment (`.env` or shell). When unset, the API is open (a warning is logged at startup).
+- HTTP: every `/api/*` request must send `Authorization: Bearer <token>` or `X-Api-Token: <token>`; anything else gets `401 {"success": false, "error": "unauthorized"}`.
+- WebSocket: browsers cannot set WS handshake headers, so pass the token as a query parameter — `ws://127.0.0.1:8787/ws/events?token=<token>` (a mismatch rejects the handshake with close code 4401).
+- Dashboard frontend: set `localStorage.setItem("farb_api_token", "<token>")` once in the browser console, or build the web app with `VITE_API_TOKEN=<token>` — both HTTP and WS requests then send it automatically.
+- Bind guard: launching the server with `--host` anything other than `127.0.0.1` / `localhost` / `::1` while no token is configured is a **hard error** (exit code 2) — binding an unauthenticated API to a LAN interface would expose live trading and credential injection. `FARB_ALLOW_UNAUTHENTICATED=1` is the explicit (discouraged) escape hatch.
+
+Treat the token like a password: anyone holding it can open live positions.
+
 ---
 
 ## Configuration

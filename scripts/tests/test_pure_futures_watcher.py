@@ -14,6 +14,7 @@ sys.path.insert(0, str(ROOT))
 import execution.pure_futures_watcher as watcher_mod
 from execution.pure_futures_watcher import (
     _leg_qty_from_snapshot,
+    _venue_taker_fee_pct,
     check_exit,
     check_leg_alive,
     check_margin_distance,
@@ -74,6 +75,112 @@ def test_check_exit_rate_unavailable():
     should_exit, reason = check_exit(pos, rates, exit_edge=0.01)
     assert should_exit is False
     assert reason == "rate_unavailable"
+
+
+def test_check_exit_fee_aware_closes_earlier_than_raw():
+    """Net edge (spread − taker fees) collapses below exit_edge while the raw
+    spread is still above it → fee-aware watcher exits, raw comparison would not."""
+    pos = _pos()
+    # spread = 0.05 − 0.00 = 0.05 (raw, above 0.01 exit edge)
+    rates = {
+        "BTC": {
+            "okx": {"rate_pct": 0.00},
+            "bybit": {"rate_pct": 0.05},
+        },
+    }
+    should_exit, reason = check_exit(
+        pos, rates, exit_edge=0.01, fee_aware=True, fee_pct=0.10
+    )
+    assert should_exit is True  # net −0.05 ≤ 0.01
+    assert "spread_collapse" in reason
+    assert "net -0.0500%" in reason  # reason echoes the net value
+
+
+def test_check_exit_fee_aware_off_same_inputs_no_exit():
+    pos = _pos()
+    rates = {
+        "BTC": {
+            "okx": {"rate_pct": 0.00},
+            "bybit": {"rate_pct": 0.05},
+        },
+    }
+    should_exit, reason = check_exit(
+        pos, rates, exit_edge=0.01, fee_aware=False, fee_pct=0.10
+    )
+    assert should_exit is False  # raw 0.05 > 0.01 → hold
+
+
+def test_check_exit_default_kwargs_behave_like_legacy():
+    """Default call (fee_aware=True, fee_pct=0) is identical to the legacy raw check."""
+    pos = _pos()
+    rates = {
+        "BTC": {
+            "okx": {"rate_pct": 0.00},
+            "bybit": {"rate_pct": 0.05},
+        },
+    }
+    should_exit, reason = check_exit(pos, rates, exit_edge=0.01)
+    assert should_exit is False
+    # borderline: net spread exactly at exit edge → exit, reason contains net value
+    rates2 = {
+        "BTC": {
+            "okx": {"rate_pct": 0.00},
+            "bybit": {"rate_pct": 0.01},
+        },
+    }
+    should_exit2, reason2 = check_exit(pos, rates2, exit_edge=0.01)
+    assert should_exit2 is True
+    assert "net 0.0100%" in reason2
+
+
+def test_check_exit_fee_aware_still_exits_on_true_collapse():
+    """Genuine collapse (negative raw spread) exits regardless of fee awareness."""
+    pos = _pos()
+    rates = {
+        "BTC": {
+            "okx": {"rate_pct": 0.05},
+            "bybit": {"rate_pct": -0.01},
+        },
+    }
+    should_exit, reason = check_exit(
+        pos, rates, exit_edge=0.01, fee_aware=True, fee_pct=0.02
+    )
+    assert should_exit is True
+    assert "net -0.0800%" in reason
+
+
+def test_venue_taker_fee_pct_cached_per_venue_base(monkeypatch):
+    """Fee resolution hits resolve_venue_fee once per (venue, base) within the TTL cache."""
+    watcher_mod._fee_cache.clear()
+    calls = []
+
+    def _fake_resolve(venue, *, leg="futures", symbol="BTCUSDT", policy=None):
+        calls.append((venue, leg, symbol))
+        return {"taker_pct": 0.055, "maker_pct": 0.02, "source": "tier", "tier": "vip0"}
+
+    monkeypatch.setattr(watcher_mod, "resolve_venue_fee", _fake_resolve)
+    assert _venue_taker_fee_pct("okx", "BTC") == pytest.approx(0.055)
+    assert _venue_taker_fee_pct("okx", "BTC") == pytest.approx(0.055)  # cache hit
+    assert _venue_taker_fee_pct("OKX", "BTC") == pytest.approx(0.055)  # case-insensitive
+    assert _venue_taker_fee_pct("bybit", "BTC") == pytest.approx(0.055)
+    assert _venue_taker_fee_pct("okx", "ETH") == pytest.approx(0.055)  # new base
+    assert calls == [
+        ("okx", "futures", "BTCUSDT"),
+        ("bybit", "futures", "BTCUSDT"),
+        ("okx", "futures", "ETHUSDT"),
+    ]
+    watcher_mod._fee_cache.clear()
+
+
+def test_venue_taker_fee_pct_error_degrades_to_zero(monkeypatch):
+    watcher_mod._fee_cache.clear()
+
+    def _boom(*args, **kwargs):
+        raise RuntimeError("fee api down")
+
+    monkeypatch.setattr(watcher_mod, "resolve_venue_fee", _boom)
+    assert _venue_taker_fee_pct("okx", "BTC") == 0.0
+    watcher_mod._fee_cache.clear()
 
 
 def test_check_rebalance_no_skew():

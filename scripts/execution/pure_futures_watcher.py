@@ -35,6 +35,7 @@ if str(SCRIPTS_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPTS_DIR))
 
 from cli.scan_pure_futures_spreads import fetch_all_fee_rate_rows_by_base  # noqa: E402
+from core.fee_providers import resolve_venue_fee  # noqa: E402
 from core.notify import send_notification  # noqa: E402
 from core.strategy_config import apply_strategy_to_pure_futures_cfg  # noqa: E402
 from execution.pure_futures_executor import (  # noqa: E402
@@ -53,6 +54,35 @@ WATCHER_LOG = SCRIPTS_DIR / "data" / "pure-futures" / "watcher.jsonl"
 _venue_cache: dict[str, Any] = {}
 _mark_price_cache: dict[tuple[str, str, str], tuple[float, float]] = {}
 _MARK_PRICE_TTL_SEC = 10.0  # Within a watcher cycle, prices shouldn't drift
+
+# Futures taker fee (%) per (venue, base), resolved once then cached for 1h.
+# resolve_venue_fee works offline (VIP0 tier defaults) and caches API responses
+# internally, so each watcher cycle resolves every venue at most once.
+_fee_cache: dict[tuple[str, str], tuple[float, float]] = {}
+_FEE_TTL_SEC = 3600.0
+
+
+def _venue_taker_fee_pct(venue_id: str, base: str, quote: str = "USDT") -> float:
+    """Futures taker fee (%) for one venue+base with a 3600s module cache.
+
+    A resolution failure returns 0.0 so the fee-aware exit degrades to the
+    raw-spread check instead of blocking exits entirely.
+    """
+    key = (str(venue_id).lower(), str(base).upper())
+    now = time.monotonic()
+    hit = _fee_cache.get(key)
+    if hit is not None and now - hit[0] < _FEE_TTL_SEC:
+        return hit[1]
+    taker = 0.0
+    try:
+        info = resolve_venue_fee(
+            key[0], leg="futures", symbol=f"{key[1]}{str(quote).upper()}"
+        )
+        taker = float(info.get("taker_pct", 0.0) or 0.0)
+    except Exception:
+        taker = 0.0
+    _fee_cache[key] = (now, taker)
+    return taker
 
 
 def _get_venue_cached(venue_id: str):
@@ -177,8 +207,17 @@ def check_exit(
     pos: dict[str, Any],
     scan_rates: dict[str, dict[str, dict[str, Any]]],
     exit_edge: float,
+    *,
+    fee_aware: bool = True,
+    fee_pct: float = 0.0,
 ) -> tuple[bool, str]:
-    """Check whether a position should exit (spread has narrowed).
+    """Check whether a position should exit (net spread has narrowed).
+
+    Fee-aware by default: the runner and backtest exit on NET edge
+    (spread - taker fees), so the watcher must too, otherwise the two
+    processes disagree on when to close. fee_pct is the round of taker fees
+    for the pair (long + short); with fee_pct=0 (default) the check is
+    identical to the legacy raw-spread comparison.
 
     Returns (should_exit, reason).
     """
@@ -191,11 +230,16 @@ def check_exit(
         # Cannot get current rate → do not actively exit (conservative approach)
         return False, "rate_unavailable"
 
+    net_spread = current_spread - (fee_pct if fee_aware else 0.0)
+
     # For forward: spread = short_rate - long_rate > 0 profitable
-    # Exit when spread collapses below exit_edge
+    # Exit when net spread collapses below exit_edge (matches runner/backtest)
     # For reverse: spread is same formula but both rates negative
-    if current_spread <= exit_edge:
-        return True, f"spread_collapse: {current_spread:.4f}% ≤ {exit_edge}%"
+    if net_spread <= exit_edge:
+        return True, (
+            f"spread_collapse: {current_spread:.4f}% net {net_spread:.4f}% "
+            f"≤ {exit_edge}%"
+        )
 
     return False, ""
 
@@ -405,6 +449,10 @@ def watch_cycle(
         str(v).lower() for v in pfa.get("venues", ["binance", "bitget", "bybit", "okx"])
     ]
     exit_edge = float(pfa.get("exitThresholdPct", 0.01))
+    # Fee-aware exit: exit on NET edge (spread - taker fees), matching the
+    # runner and backtest. Disable via feeAwareExit=false for the legacy
+    # raw-spread comparison.
+    fee_aware_exit = bool(pfa.get("feeAwareExit", True))
     max_skew_pct = float(pfa.get("rebalanceSkewPct", 1.0))
     check_legs = bool(pfa.get("watcherCheckLegs", True))
     auto_rebalance = bool(pfa.get("autoRebalance", False))
@@ -484,9 +532,22 @@ def watch_cycle(
         base = str(pos.get("base", ""))
         pos_dry_run = dry_run or bool(pos.get("dry_run", True))
         cycle_result["checked"] += 1
+        pos_long_v = str(pos.get("long_venue", ""))
+        pos_short_v = str(pos.get("short_venue", ""))
 
-        # 1. Check exit condition
-        should_exit, exit_reason = check_exit(pos, scan_rates, exit_edge)
+        # 1. Check exit condition (fee-aware: net spread after taker fees)
+        exit_fee_pct = 0.0
+        if fee_aware_exit:
+            exit_fee_pct = _venue_taker_fee_pct(
+                pos_long_v, base
+            ) + _venue_taker_fee_pct(pos_short_v, base)
+        should_exit, exit_reason = check_exit(
+            pos,
+            scan_rates,
+            exit_edge,
+            fee_aware=fee_aware_exit,
+            fee_pct=exit_fee_pct,
+        )
         if should_exit:
             action = {
                 "action": "close",
@@ -516,8 +577,6 @@ def watch_cycle(
             continue
 
         # 1b. PnL-based stop loss
-        pos_long_v = str(pos.get("long_venue", ""))
-        pos_short_v = str(pos.get("short_venue", ""))
         if not pos_dry_run:
             long_px = _get_mark_price(pos_long_v, base)
             short_px = _get_mark_price(pos_short_v, base)
