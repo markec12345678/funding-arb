@@ -42,3 +42,5 @@ open STORJ long@bybit short@binance edge=0.4727% state=aborted
 open GPRO long@bitget short@bybit edge=0.2383% state=aborted
 open GPRO long@bitget short@bybit edge=0.3354% state=aborted
 open STORJ long@bybit short@binance edge=0.4998% state=aborted
+open STORJ long@bybit short@binance edge=0.5255% state=aborted
+open STORJ long@bybit short@binance edge=0.5704% state=aborted
