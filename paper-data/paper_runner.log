@@ -125,3 +125,17 @@ open GPRO long@okx short@bybit edge=0.1563% state=aborted
 open CL long@bybit short@bitget edge=0.1609% state=simulated
 close pf-ONG-bybit-bitget-1789075913-2e9b71 edge=0.0054% state=simulated
 open NEWT long@bybit short@bitget edge=0.2523% state=simulated
+close pf-NEWT-bybit-bitget-1789083399-6916b5 edge=-999.0000% state=simulated
+open BNC long@binance short@bybit edge=0.8390% state=aborted
+close pf-KR200-bitget-okx-1789056401-3ca954 edge=0.0020% state=simulated
+open NEWT long@bybit short@bitget edge=1.3113% state=aborted
+open LA long@bybit short@bitget edge=0.9473% state=simulated
+open NEWT long@bybit short@bitget edge=1.0076% state=aborted
+open NEWT long@bybit short@bitget edge=0.8615% state=aborted
+open NEWT long@bybit short@bitget edge=0.7733% state=aborted
+open NEWT long@bybit short@bitget edge=0.7136% state=aborted
+open NEWT long@bybit short@bitget edge=0.6450% state=aborted
+open NEWT long@bybit short@bitget edge=0.5747% state=aborted
+open PUFFER long@bybit short@binance edge=0.5099% state=aborted
+open STORJ long@bybit short@binance edge=0.5615% state=aborted
+open PUFFER long@bybit short@binance edge=0.6958% state=aborted
