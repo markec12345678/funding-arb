@@ -156,3 +156,4 @@ open TSEM long@okx short@bybit edge=0.2655% state=aborted
 open TSEM long@okx short@bybit edge=0.2762% state=aborted
 open PUFFER long@bybit short@binance edge=0.7075% state=aborted
 open PUFFER long@bybit short@binance edge=0.7078% state=aborted
+open ONG long@bybit short@bitget edge=0.3112% state=simulated
