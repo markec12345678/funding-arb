@@ -159,3 +159,4 @@ open PUFFER long@bybit short@binance edge=0.7078% state=aborted
 open ONG long@bybit short@bitget edge=0.3112% state=simulated
 close pf-ONG-bybit-bitget-1789099299-a1e3dc edge=-999.0000% state=simulated
 open KSTR long@bitget short@bybit edge=0.2985% state=aborted
+open ONG long@bybit short@bitget edge=0.4452% state=simulated
