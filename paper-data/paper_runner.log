@@ -139,3 +139,12 @@ open NEWT long@bybit short@bitget edge=0.5747% state=aborted
 open PUFFER long@bybit short@binance edge=0.5099% state=aborted
 open STORJ long@bybit short@binance edge=0.5615% state=aborted
 open PUFFER long@bybit short@binance edge=0.6958% state=aborted
+open PUFFER long@bybit short@binance edge=0.7549% state=aborted
+open PUFFER long@bybit short@binance edge=0.7774% state=aborted
+open BZ long@bybit short@bitget edge=0.2508% state=simulated
+close pf-LA-bybit-bitget-1789085499-0ba827 edge=-0.0224% state=simulated
+open STORJ long@bybit short@binance edge=0.6390% state=aborted
+open STORJ long@bybit short@binance edge=0.6272% state=aborted
+open STORJ long@bybit short@binance edge=0.6136% state=aborted
+open STORJ long@bybit short@binance edge=0.5972% state=aborted
+open PUFFER long@bybit short@binance edge=0.7258% state=aborted
