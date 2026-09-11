@@ -235,3 +235,17 @@ open PUFFER long@bybit short@binance edge=0.3385% state=aborted
 open PUFFER long@bybit short@binance edge=0.3257% state=aborted
 open FLY long@okx short@bybit edge=0.1899% state=aborted
 open FLY long@okx short@bybit edge=0.1924% state=aborted
+open SIREN long@bitget short@bybit edge=0.3720% state=simulated
+close pf-SIREN-bitget-bybit-1789156901-86db4f edge=-999.0000% state=simulated
+open PUFFER long@bybit short@binance edge=0.2793% state=aborted
+open PUFFER long@bybit short@binance edge=0.2705% state=aborted
+open PUFFER long@bybit short@binance edge=0.2658% state=aborted
+open PUFFER long@bybit short@binance edge=0.2638% state=aborted
+open FLY long@okx short@bybit edge=0.1883% state=aborted
+open FLY long@okx short@bybit edge=0.1791% state=aborted
+open PUFFER long@bybit short@binance edge=0.2686% state=aborted
+close pf-BZ-bybit-bitget-1789143100-2e89ae edge=0.0066% state=simulated
+open PUFFER long@bybit short@binance edge=0.2676% state=aborted
+open PIPPIN long@bitget short@bybit edge=0.1688% state=simulated
+open PUFFER long@bybit short@binance edge=0.2718% state=aborted
+open PUFFER long@bybit short@binance edge=0.2778% state=aborted
