@@ -163,3 +163,5 @@ open ONG long@bybit short@bitget edge=0.4452% state=simulated
 close pf-CL-bybit-bitget-1789077399-241071 edge=0.0091% state=simulated
 open PUFFER long@bybit short@binance edge=0.5206% state=aborted
 open ZHIPU long@bybit short@bitget edge=0.2718% state=simulated
+close pf-ZHIPU-bybit-bitget-1789128999-f1c98b edge=0.0050% state=simulated
+open PUFFER long@bybit short@binance edge=0.4267% state=aborted
