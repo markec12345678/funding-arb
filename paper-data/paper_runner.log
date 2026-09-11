@@ -187,3 +187,14 @@ open STORJ long@binance short@bybit edge=0.0612% state=aborted
 open RAY long@okx short@binance edge=0.0336% state=aborted
 open STORJ long@binance short@bybit edge=0.0638% state=aborted
 open RAY long@okx short@binance edge=0.0362% state=aborted
+open BLUR long@bybit short@bitget edge=1.6157% state=simulated
+open SIREN long@bybit short@bitget edge=0.3912% state=simulated
+close pf-SIREN-bybit-bitget-1789142503-3c0fa1 edge=-0.0607% state=simulated
+open BZ long@bybit short@bitget edge=0.1559% state=simulated
+close pf-ONG-bybit-bitget-1789117303-b425a8 edge=0.0072% state=simulated
+open GPRO long@bybit short@okx edge=0.1712% state=aborted
+open GPRO long@bybit short@okx edge=0.2088% state=aborted
+open GPRO long@bybit short@okx edge=0.2287% state=aborted
+open PUFFER long@bybit short@binance edge=0.5288% state=aborted
+open GPRO long@bybit short@okx edge=0.2005% state=aborted
+open SIREN long@bybit short@bitget edge=0.1989% state=simulated
