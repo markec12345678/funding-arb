@@ -148,3 +148,6 @@ open STORJ long@bybit short@binance edge=0.6272% state=aborted
 open STORJ long@bybit short@binance edge=0.6136% state=aborted
 open STORJ long@bybit short@binance edge=0.5972% state=aborted
 open PUFFER long@bybit short@binance edge=0.7258% state=aborted
+open PUFFER long@bybit short@binance edge=0.6971% state=aborted
+open PUFFER long@bybit short@binance edge=0.6858% state=aborted
+open UNITREE long@bybit short@okx edge=0.2660% state=simulated
