@@ -223,3 +223,15 @@ open FLY long@okx short@bybit edge=0.1428% state=aborted
 open FLY long@okx short@bybit edge=0.1500% state=aborted
 open FLY long@okx short@bybit edge=0.1542% state=aborted
 open FLY long@okx short@bybit edge=0.1536% state=aborted
+open FLY long@okx short@bybit edge=0.1555% state=aborted
+open FLY long@okx short@bybit edge=0.1564% state=aborted
+open PUFFER long@bybit short@binance edge=0.4334% state=aborted
+open FLY long@okx short@bybit edge=0.1617% state=aborted
+open PUFFER long@bybit short@binance edge=0.3980% state=aborted
+open PUFFER long@bybit short@binance edge=0.3811% state=aborted
+open PUFFER long@bybit short@binance edge=0.3632% state=aborted
+open PUFFER long@bybit short@binance edge=0.3497% state=aborted
+open PUFFER long@bybit short@binance edge=0.3385% state=aborted
+open PUFFER long@bybit short@binance edge=0.3257% state=aborted
+open FLY long@okx short@bybit edge=0.1899% state=aborted
+open FLY long@okx short@bybit edge=0.1924% state=aborted
