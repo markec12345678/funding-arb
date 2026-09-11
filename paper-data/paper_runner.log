@@ -198,3 +198,11 @@ open GPRO long@bybit short@okx edge=0.2287% state=aborted
 open PUFFER long@bybit short@binance edge=0.5288% state=aborted
 open GPRO long@bybit short@okx edge=0.2005% state=aborted
 open SIREN long@bybit short@bitget edge=0.1989% state=simulated
+close pf-BLUR-bybit-bitget-1789142503-61d393 edge=-0.0120% state=simulated
+open GPRO long@bybit short@okx edge=0.0656% state=aborted
+open GPRO long@bybit short@okx edge=0.0680% state=aborted
+open GPRO long@bybit short@okx edge=0.0411% state=aborted
+open PUFFER long@bybit short@binance edge=0.5440% state=aborted
+open ONG long@bybit short@bitget edge=0.0289% state=simulated
+close pf-ONG-bybit-bitget-1789148213-6236ef edge=0.0081% state=simulated
+open PUFFER long@bybit short@binance edge=0.5324% state=aborted
