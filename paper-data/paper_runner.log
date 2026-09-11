@@ -165,3 +165,25 @@ open PUFFER long@bybit short@binance edge=0.5206% state=aborted
 open ZHIPU long@bybit short@bitget edge=0.2718% state=simulated
 close pf-ZHIPU-bybit-bitget-1789128999-f1c98b edge=0.0050% state=simulated
 open PUFFER long@bybit short@binance edge=0.4267% state=aborted
+open PUFFER long@bybit short@binance edge=0.4256% state=aborted
+close pf-BZ-bybit-bitget-1789089099-a97990 edge=0.0099% state=simulated
+open LSK long@bitget short@bybit edge=0.2006% state=aborted
+open FLY long@okx short@bybit edge=0.0468% state=aborted
+open KSTR long@bitget short@binance edge=0.0428% state=aborted
+open FLY long@okx short@bybit edge=0.0424% state=aborted
+open KSTR long@bitget short@binance edge=0.0381% state=simulated
+open FLY long@okx short@bybit edge=0.0378% state=aborted
+close pf-KSTR-bitget-binance-1789139518-4caf9d edge=-999.0000% state=simulated
+open FLY long@okx short@bybit edge=0.0334% state=aborted
+open TSEM long@bybit short@okx edge=0.0204% state=aborted
+open FLY long@okx short@bybit edge=0.0292% state=aborted
+open STORJ long@binance short@bybit edge=0.0400% state=aborted
+open RAY long@okx short@binance edge=0.0310% state=aborted
+open RAY long@okx short@binance edge=0.0315% state=aborted
+open FLY long@okx short@bybit edge=0.0226% state=aborted
+open STORJ long@binance short@bybit edge=0.0571% state=aborted
+open RAY long@okx short@binance edge=0.0332% state=aborted
+open STORJ long@binance short@bybit edge=0.0612% state=aborted
+open RAY long@okx short@binance edge=0.0336% state=aborted
+open STORJ long@binance short@bybit edge=0.0638% state=aborted
+open RAY long@okx short@binance edge=0.0362% state=aborted
