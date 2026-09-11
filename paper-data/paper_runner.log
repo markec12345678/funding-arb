@@ -151,3 +151,8 @@ open PUFFER long@bybit short@binance edge=0.7258% state=aborted
 open PUFFER long@bybit short@binance edge=0.6971% state=aborted
 open PUFFER long@bybit short@binance edge=0.6858% state=aborted
 open UNITREE long@bybit short@okx edge=0.2660% state=simulated
+close pf-UNITREE-bybit-okx-1789092699-96e1fb edge=0.0049% state=simulated
+open TSEM long@okx short@bybit edge=0.2655% state=aborted
+open TSEM long@okx short@bybit edge=0.2762% state=aborted
+open PUFFER long@bybit short@binance edge=0.7075% state=aborted
+open PUFFER long@bybit short@binance edge=0.7078% state=aborted
