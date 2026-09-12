@@ -405,3 +405,22 @@ open PUFFER long@bybit short@binance edge=0.3398% state=aborted
 open PUFFER long@bybit short@binance edge=0.3333% state=aborted
 open PUFFER long@bybit short@binance edge=0.3269% state=aborted
 open PUFFER long@bybit short@binance edge=0.3198% state=aborted
+open STORJ long@bybit short@binance edge=1.8950% state=aborted
+open PUFFER long@bybit short@binance edge=0.3002% state=aborted
+open PUFFER long@bybit short@binance edge=0.2918% state=aborted
+open PUFFER long@bybit short@binance edge=0.2853% state=aborted
+open PUFFER long@bybit short@binance edge=0.2808% state=aborted
+open STORJ long@bybit short@binance edge=1.8950% state=aborted
+close pf-ONG-bybit-bitget-1789185699-fb8496 edge=0.0064% state=simulated
+open PUFFER long@bybit short@binance edge=0.2697% state=aborted
+open LSK long@bybit short@bitget edge=0.2148% state=simulated
+open PUFFER long@bybit short@binance edge=0.2609% state=aborted
+open STORJ long@bybit short@binance edge=1.8950% state=aborted
+open STORJ long@bybit short@binance edge=1.8950% state=aborted
+close pf-MTL-bybit-bitget-1789192299-b283ed edge=-999.0000% state=simulated
+close pf-LSK-bybit-bitget-1789198901-a6f556 edge=-999.0000% state=simulated
+open SIREN long@bybit short@bitget edge=1.0180% state=simulated
+open LSK long@bitget short@bybit edge=0.2960% state=simulated
+open RIVER long@bitget short@bybit edge=0.2036% state=simulated
+close pf-RIVER-bitget-bybit-1789200100-f765e6 edge=-999.0000% state=simulated
+open STORJ long@bybit short@binance edge=1.8390% state=aborted
