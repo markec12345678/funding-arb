@@ -328,3 +328,19 @@ open GPRO long@bitget short@okx edge=0.1746% state=aborted
 open PUFFER long@bybit short@binance edge=0.2162% state=aborted
 open GPRO long@binance short@okx edge=0.2077% state=aborted
 open GPRO long@bitget short@okx edge=0.1769% state=aborted
+open TREE long@bybit short@bitget edge=0.5680% state=aborted
+open MOVE long@bitget short@bybit edge=0.3115% state=aborted
+open GPRO long@binance short@okx edge=0.2083% state=aborted
+open SIREN long@bybit short@bitget edge=0.8368% state=simulated
+open TREE long@bybit short@bitget edge=0.2686% state=simulated
+open GPRO long@binance short@okx edge=0.2093% state=aborted
+open GPRO long@binance short@okx edge=0.2075% state=aborted
+open ORCA long@bybit short@bitget edge=0.2110% state=simulated
+close pf-TREE-bybit-bitget-1789171601-2facd0 edge=-999.0000% state=simulated
+open TREE long@bybit short@bitget edge=0.9902% state=aborted
+open TREE long@bybit short@bitget edge=0.9960% state=aborted
+open TREE long@bybit short@bitget edge=0.8883% state=aborted
+close pf-ORCA-bybit-bitget-1789172202-5f4424 edge=-0.0035% state=simulated
+open TREE long@bybit short@bitget edge=0.8294% state=aborted
+open SOPH long@bybit short@bitget edge=0.2743% state=simulated
+open TREE long@bybit short@bitget edge=0.7745% state=simulated
