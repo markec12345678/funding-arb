@@ -424,3 +424,22 @@ open LSK long@bitget short@bybit edge=0.2960% state=simulated
 open RIVER long@bitget short@bybit edge=0.2036% state=simulated
 close pf-RIVER-bitget-bybit-1789200100-f765e6 edge=-999.0000% state=simulated
 open STORJ long@bybit short@binance edge=1.8390% state=aborted
+open STORJ long@bybit short@binance edge=1.7118% state=aborted
+close pf-LSK-bitget-bybit-1789200100-0b23be edge=-999.0000% state=simulated
+open MTL long@binance short@bybit edge=0.2328% state=aborted
+open MTL long@bitget short@bybit edge=0.1089% state=aborted
+open MTL long@binance short@bybit edge=0.2299% state=simulated
+open MTL long@bitget short@bybit edge=0.1062% state=simulated
+close pf-SIREN-bybit-bitget-1789200099-c69bc6 edge=-0.0099% state=simulated
+open RVN long@bybit short@bitget edge=0.0223% state=simulated
+close pf-RVN-bybit-bitget-1789201599-b9db1a edge=-0.0089% state=simulated
+open PUFFER long@bybit short@binance edge=0.0758% state=aborted
+open PURR long@okx short@bybit edge=0.0560% state=aborted
+open STORJ long@bybit short@binance edge=1.8950% state=aborted
+open STORJ long@bybit short@binance edge=1.8950% state=aborted
+open STORJ long@bybit short@binance edge=1.8876% state=aborted
+open ZHIPU long@bybit short@okx edge=0.1094% state=simulated
+close pf-ZHIPU-bybit-okx-1789203399-68cfd7 edge=-999.0000% state=simulated
+open IOST long@bybit short@bitget edge=0.1702% state=simulated
+close pf-IOST-bybit-bitget-1789203699-02dc02 edge=-0.0051% state=simulated
+open ZHIPU long@bybit short@okx edge=0.1192% state=simulated
