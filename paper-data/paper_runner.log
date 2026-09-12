@@ -526,3 +526,10 @@ open PUNDIX long@bybit short@bitget edge=0.7835% state=aborted
 open PUNDIX long@bybit short@bitget edge=0.6221% state=aborted
 open PUNDIX long@bybit short@bitget edge=0.5256% state=aborted
 open PUNDIX long@bybit short@bitget edge=0.4665% state=aborted
+open PUNDIX long@bybit short@bitget edge=0.4675% state=aborted
+open PUNDIX long@bybit short@bitget edge=0.4058% state=aborted
+open ORCL long@binance short@bybit edge=0.5849% state=simulated
+close pf-MTL-bybit-binance-1789228922-db2897 edge=-999.0000% state=simulated
+close pf-ORCL-binance-bybit-1789231001-e10689 edge=-999.0000% state=simulated
+open ORCL long@bitget short@bybit edge=0.4154% state=simulated
+open ORCL long@okx short@bybit edge=0.3615% state=simulated
