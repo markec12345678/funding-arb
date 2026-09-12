@@ -465,3 +465,28 @@ open RVN long@bybit short@bitget edge=0.0929% state=aborted
 close pf-MTL-binance-bybit-1789213301-9f9186 edge=0.0083% state=simulated
 open SHEIN long@okx short@bybit edge=0.0427% state=aborted
 open SIREN long@bitget short@bybit edge=0.0396% state=simulated
+close pf-SIREN-bitget-bybit-1789215100-849b8a edge=0.0001% state=simulated
+open SHEIN long@okx short@bybit edge=0.0525% state=aborted
+open PUFFER long@bybit short@binance edge=0.0334% state=aborted
+close pf-LSK-bybit-bitget-1789214499-678b13 edge=-999.0000% state=simulated
+open LSK long@bitget short@bybit edge=0.1659% state=simulated
+open SHEIN long@okx short@bybit edge=0.0532% state=aborted
+open PUFFER long@bybit short@binance edge=0.0338% state=aborted
+open SHEIN long@okx short@bybit edge=0.0591% state=aborted
+open SHEIN long@bitget short@bybit edge=0.0391% state=aborted
+close pf-LSK-bitget-bybit-1789215700-af5994 edge=-0.0023% state=simulated
+open SHEIN long@okx short@bybit edge=0.0622% state=aborted
+open SIREN long@bitget short@bybit edge=0.0421% state=simulated
+open SHEIN long@bitget short@bybit edge=0.0399% state=aborted
+open SHEIN long@okx short@bybit edge=0.0620% state=aborted
+open SHEIN long@bitget short@bybit edge=0.0394% state=simulated
+open LSK long@bybit short@bitget edge=0.1333% state=simulated
+close pf-SIREN-bitget-bybit-1789216300-f1266f edge=-0.0031% state=simulated
+open SHEIN long@okx short@bybit edge=0.0544% state=aborted
+open STORJ long@bybit short@binance edge=1.1755% state=aborted
+open STORJ long@bybit short@binance edge=1.0720% state=aborted
+close pf-LSK-bybit-bitget-1789216899-311bb3 edge=-999.0000% state=simulated
+open TREE long@bybit short@bitget edge=0.2129% state=simulated
+open SHEIN long@okx short@bybit edge=0.0464% state=aborted
+open SHEIN long@okx short@bybit edge=0.0422% state=aborted
+open STORJ long@bybit short@binance edge=1.5947% state=aborted
