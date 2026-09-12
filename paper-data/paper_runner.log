@@ -449,3 +449,19 @@ close pf-LSK-bitget-bybit-1789207899-67b318 edge=-999.0000% state=simulated
 open TREE long@bybit short@bitget edge=0.1051% state=simulated
 close pf-TREE-bybit-bitget-1789208199-a66373 edge=-0.0036% state=simulated
 open LSK long@bybit short@bitget edge=0.1756% state=simulated
+close pf-MTL-bitget-bybit-1789201299-f5ad82 edge=0.0092% state=simulated
+open STORJ long@bybit short@binance edge=1.3212% state=aborted
+close pf-LSK-bybit-bitget-1789210900-bd5ad5 edge=-999.0000% state=simulated
+close pf-MTL-binance-bybit-1789201299-7283a9 edge=-999.0000% state=simulated
+open LSK long@bybit short@bitget edge=0.0691% state=simulated
+open MTL long@binance short@bybit edge=0.0392% state=simulated
+open PUFFER long@bybit short@binance edge=0.0219% state=aborted
+close pf-LSK-bybit-bitget-1789213301-6fac6a edge=-999.0000% state=simulated
+open PUFFER long@bybit short@binance edge=0.0286% state=aborted
+open PUFFER long@bybit short@binance edge=0.0322% state=aborted
+open STORJ long@bybit short@binance edge=1.6339% state=aborted
+open LSK long@bybit short@bitget edge=0.2456% state=simulated
+open RVN long@bybit short@bitget edge=0.0929% state=aborted
+close pf-MTL-binance-bybit-1789213301-9f9186 edge=0.0083% state=simulated
+open SHEIN long@okx short@bybit edge=0.0427% state=aborted
+open SIREN long@bitget short@bybit edge=0.0396% state=simulated
