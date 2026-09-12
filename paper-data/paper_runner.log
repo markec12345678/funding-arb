@@ -443,3 +443,9 @@ close pf-ZHIPU-bybit-okx-1789203399-68cfd7 edge=-999.0000% state=simulated
 open IOST long@bybit short@bitget edge=0.1702% state=simulated
 close pf-IOST-bybit-bitget-1789203699-02dc02 edge=-0.0051% state=simulated
 open ZHIPU long@bybit short@okx edge=0.1192% state=simulated
+close pf-ZHIPU-bybit-okx-1789203999-4aa5c6 edge=0.0069% state=simulated
+open LSK long@bitget short@bybit edge=0.1382% state=simulated
+close pf-LSK-bitget-bybit-1789207899-67b318 edge=-999.0000% state=simulated
+open TREE long@bybit short@bitget edge=0.1051% state=simulated
+close pf-TREE-bybit-bitget-1789208199-a66373 edge=-0.0036% state=simulated
+open LSK long@bybit short@bitget edge=0.1756% state=simulated
