@@ -386,3 +386,10 @@ open STORJ long@bybit short@binance edge=1.8950% state=aborted
 open STORJ long@bybit short@binance edge=1.8950% state=aborted
 open PUNDIX long@bybit short@bitget edge=0.5705% state=aborted
 open PUNDIX long@bybit short@bitget edge=0.6007% state=simulated
+close pf-TREE-bybit-bitget-1789186605-b04379 edge=-0.0061% state=simulated
+open PUFFER long@bybit short@binance edge=0.4206% state=aborted
+open PUFFER long@bybit short@binance edge=0.4139% state=aborted
+open PUFFER long@bybit short@binance edge=0.4123% state=aborted
+open PUFFER long@bybit short@binance edge=0.4092% state=aborted
+open MTL long@bybit short@bitget edge=0.3111% state=aborted
+open MTL long@bybit short@bitget edge=0.3003% state=simulated
