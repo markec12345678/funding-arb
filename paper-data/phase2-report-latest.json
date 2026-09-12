@@ -1,55 +1,55 @@
 {
- "generated_at": "2026-09-12 04:12:31Z",
+ "generated_at": "2026-09-12 06:43:16Z",
  "stage": "INTERIM",
- "day": 1.567,
+ "day": 1.672,
  "baseline_start": "2026-09-10 14:36:00Z",
  "pre_baseline_cycles_excluded": 18,
  "continuity": {
   "sandbox": {
-   "journal_lines": 472,
+   "journal_lines": 502,
    "parse_errors": 0,
    "incomplete_tail_ignored": false,
    "ts_back_jumps": 0,
    "duplicate_ts": 0,
    "gaps_over_15min": [],
-   "positions_total": 32,
+   "positions_total": 35,
    "duplicate_position_ids": [],
    "journal_opens_without_position": [],
    "closed_positions_without_close_action": [],
-   "open_now": 1,
-   "last_cycle_open_positions_field": 1
+   "open_now": 2,
+   "last_cycle_open_positions_field": 2
   },
   "actions": {
-   "cycles": 433,
+   "cycles": 458,
    "first": "2026-09-10 15:53:08Z",
-   "last": "2026-09-12 03:53:10Z",
+   "last": "2026-09-12 05:53:16Z",
    "duplicate_ts": 0,
    "gaps_over_10min": [
     "2026-09-10 15:53:08Z -> 2026-09-10 16:21:15Z (28m)",
     "2026-09-10 16:21:15Z -> 2026-09-10 16:32:52Z (12m)"
    ],
-   "coverage_pct": 100.0,
+   "coverage_pct": 100.2,
    "scan_rows_per_cycle_median": 287.0
   },
   "branch": {
    "available": true,
    "files": {
     "sandbox_snapshots": {
-     "snapshot_commits": 38,
+     "snapshot_commits": 41,
      "first_snapshot": "2026-09-10T15:11:33Z",
-     "latest_snapshot": "2026-09-12T03:57:34Z",
-     "latest_line_count": 469,
-     "latest_last_ts": "2026-09-12T03:56:39.322718+00:00",
+     "latest_snapshot": "2026-09-12T05:57:34Z",
+     "latest_line_count": 493,
+     "latest_last_ts": "2026-09-12T05:56:39.298856+00:00",
      "line_count_resets": [],
      "ts_resets": [],
      "duplicate_lines_in_latest": 0
     },
     "github_actions": {
      "snapshot_commits": 200,
-     "first_snapshot": "2026-09-11T11:47:57Z",
-     "latest_snapshot": "2026-09-12T04:08:12Z",
-     "latest_line_count": 436,
-     "latest_last_ts": "2026-09-12T04:08:11.668265+00:00",
+     "first_snapshot": "2026-09-11T14:23:04Z",
+     "latest_snapshot": "2026-09-12T06:38:23Z",
+     "latest_line_count": 467,
+     "latest_last_ts": "2026-09-12T06:38:22.707210+00:00",
      "line_count_resets": [],
      "ts_resets": [],
      "duplicate_lines_in_latest": 0
@@ -60,35 +60,35 @@
    "runner": {
     "started_at": "2026-09-10 14:36:36Z",
     "respawns": 4,
-    "last_check_age_s": 11.0,
+    "last_check_age_s": 4.0,
     "supervisor_alive": true
    },
    "snapshot_pusher": {
-    "runs": 36,
-    "ok": 36,
+    "runs": 38,
+    "ok": 38,
     "last_result": "pushed",
-    "last_ok_age_s": 882.0
+    "last_ok_age_s": 2737.0
    }
   }
  },
  "funnel": {
   "sandbox": {
-   "cycles": 454,
-   "scan_sum": 1074339,
+   "cycles": 484,
+   "scan_sum": 1148238,
    "scan_median": 2464.0,
-   "candidates": 6256,
-   "opens": 32,
-   "closes": 31,
+   "candidates": 6361,
+   "opens": 35,
+   "closes": 33,
    "rejects": {
-    "depth_gate": 195,
-    "other": 79,
-    "mark_spread_gate/absurd(>=5%)": 33,
+    "depth_gate": 198,
+    "other": 89,
+    "mark_spread_gate/absurd(>=5%)": 38,
     "mark_spread_gate/real(1-5%)": 6
    }
   },
   "actions": {
-   "cycles": 433,
-   "scan_sum": 131028,
+   "cycles": 458,
+   "scan_sum": 138165,
    "candidates": 528,
    "opens": 219,
    "closes": 0,
@@ -843,6 +843,54 @@
    "n_settlements": 1,
    "expected_lifetime_pct": -0.0304,
    "retention_pct": null
+  },
+  {
+   "id": "pf-TREE-bybit-bitget-1789186605-b04379",
+   "base": "TREE",
+   "pair": "bybit/bitget",
+   "direction": "reverse",
+   "notional_usd": 500.0,
+   "hold_min": 69.9,
+   "expected_net_edge_pct": 0.060985,
+   "entry_spread_pct": 0.175985,
+   "entry_interval_h": 8.0,
+   "round_trip_fee_pct": 0.23,
+   "price_pnl_usd": -0.35,
+   "price_pnl_estimated": false,
+   "fees_usd": -1.15,
+   "exit_reason": "edge_below_exit",
+   "opened_at": 1789186605468,
+   "closed_at": 1789190799670,
+   "funding_usd": 0.0,
+   "net_usd": -1.5,
+   "net_pct": -0.3,
+   "n_settlements": 1,
+   "expected_lifetime_pct": -0.054,
+   "retention_pct": null
+  },
+  {
+   "id": "pf-PUNDIX-bybit-bitget-1789188999-f6b910",
+   "base": "PUNDIX",
+   "pair": "bybit/bitget",
+   "direction": "reverse",
+   "notional_usd": 500.0,
+   "hold_min": 80.0,
+   "expected_net_edge_pct": 0.60074,
+   "entry_spread_pct": 0.71574,
+   "entry_interval_h": 8.0,
+   "round_trip_fee_pct": 0.23,
+   "price_pnl_usd": 0.64,
+   "price_pnl_estimated": false,
+   "fees_usd": -1.15,
+   "exit_reason": "edge_below_exit",
+   "opened_at": 1789189000116,
+   "closed_at": 1789193799670,
+   "funding_usd": 0.0,
+   "net_usd": -0.51,
+   "net_pct": -0.102,
+   "n_settlements": 1,
+   "expected_lifetime_pct": 0.4857,
+   "retention_pct": -21.0
   }
  ],
  "funding_recon": {
@@ -1570,6 +1618,42 @@
     }
    },
    "funding_usd": 0.0
+  },
+  "pf-TREE-bybit-bitget-1789186605-b04379": {
+   "symbol": "TREEUSDT",
+   "hold_window_utc": [
+    "2026-09-12 04:16:45Z",
+    "2026-09-12 05:26:39Z"
+   ],
+   "legs": {
+    "bybit": {
+     "settlements": [],
+     "cash_usd": 0.0
+    },
+    "bitget": {
+     "settlements": [],
+     "cash_usd": 0.0
+    }
+   },
+   "funding_usd": 0.0
+  },
+  "pf-PUNDIX-bybit-bitget-1789188999-f6b910": {
+   "symbol": "PUNDIXUSDT",
+   "hold_window_utc": [
+    "2026-09-12 04:56:40Z",
+    "2026-09-12 06:16:39Z"
+   ],
+   "legs": {
+    "bybit": {
+     "settlements": [],
+     "cash_usd": 0.0
+    },
+    "bitget": {
+     "settlements": [],
+     "cash_usd": 0.0
+    }
+   },
+   "funding_usd": 0.0
   }
  },
  "funding_persistence": {
@@ -1838,24 +1922,40 @@
    "gaps_pct": [],
    "settlements_long": 0,
    "settlements_short": 0
+  },
+  "pf-TREE-bybit-bitget-1789186605-b04379": {
+   "entry_gap_pct": 0.176,
+   "n_common_settlements": 0,
+   "n_gap_kept_sign": 0,
+   "gaps_pct": [],
+   "settlements_long": 0,
+   "settlements_short": 0
+  },
+  "pf-PUNDIX-bybit-bitget-1789188999-f6b910": {
+   "entry_gap_pct": 0.7157,
+   "n_common_settlements": 0,
+   "n_gap_kept_sign": 0,
+   "gaps_pct": [],
+   "settlements_long": 0,
+   "settlements_short": 0
   }
  },
  "opportunity_persistence": [
   {
    "pair": "PUFFER bybit binance",
    "pair_display": "PUFFER long@bybit short@binance",
-   "appearances": 79,
-   "cycles_pct": 17.4,
+   "appearances": 89,
+   "cycles_pct": 18.4,
    "longest_streak_cycles": 13,
    "first_seen": "2026-09-10T14:36:06.994708+00:00",
-   "last_seen": "2026-09-12T03:41:41.342859+00:00",
+   "last_seen": "2026-09-12T06:41:41.107993+00:00",
    "entered": false
   },
   {
    "pair": "GPRO okx bybit",
    "pair_display": "GPRO long@okx short@bybit",
    "appearances": 42,
-   "cycles_pct": 9.3,
+   "cycles_pct": 8.7,
    "longest_streak_cycles": 20,
    "first_seen": "2026-09-10T17:21:54.355273+00:00",
    "last_seen": "2026-09-10T21:51:39.471223+00:00",
@@ -1864,18 +1964,18 @@
   {
    "pair": "STORJ bybit binance",
    "pair_display": "STORJ long@bybit short@binance",
-   "appearances": 29,
-   "cycles_pct": 6.4,
+   "appearances": 34,
+   "cycles_pct": 7.0,
    "longest_streak_cycles": 7,
    "first_seen": "2026-09-10T16:21:41.893804+00:00",
-   "last_seen": "2026-09-11T23:31:48.638436+00:00",
+   "last_seen": "2026-09-12T06:26:39.418677+00:00",
    "entered": false
   },
   {
    "pair": "GPRO bybit okx",
    "pair_display": "GPRO long@bybit short@okx",
    "appearances": 28,
-   "cycles_pct": 6.2,
+   "cycles_pct": 5.8,
    "longest_streak_cycles": 10,
    "first_seen": "2026-09-11T16:26:40.141523+00:00",
    "last_seen": "2026-09-11T23:46:43.148281+00:00",
@@ -1885,7 +1985,7 @@
    "pair": "FLY okx bybit",
    "pair_display": "FLY long@okx short@bybit",
    "appearances": 27,
-   "cycles_pct": 5.9,
+   "cycles_pct": 5.6,
    "longest_streak_cycles": 13,
    "first_seen": "2026-09-11T15:01:54.387284+00:00",
    "last_seen": "2026-09-11T21:11:39.636590+00:00",
@@ -1895,7 +1995,7 @@
    "pair": "KR200 bitget okx",
    "pair_display": "KR200 long@bitget short@okx",
    "appearances": 21,
-   "cycles_pct": 4.6,
+   "cycles_pct": 4.3,
    "longest_streak_cycles": 21,
    "first_seen": "2026-09-10T14:36:00.653628+00:00",
    "last_seen": "2026-09-10T16:06:41.862708+00:00",
@@ -1905,7 +2005,7 @@
    "pair": "GPRO binance okx",
    "pair_display": "GPRO long@binance short@okx",
    "appearances": 20,
-   "cycles_pct": 4.4,
+   "cycles_pct": 4.1,
    "longest_streak_cycles": 11,
    "first_seen": "2026-09-11T22:56:42.590235+00:00",
    "last_seen": "2026-09-12T03:11:42.234797+00:00",
@@ -1915,7 +2015,7 @@
    "pair": "GPRO bitget bybit",
    "pair_display": "GPRO long@bitget short@bybit",
    "appearances": 10,
-   "cycles_pct": 2.2,
+   "cycles_pct": 2.1,
    "longest_streak_cycles": 2,
    "first_seen": "2026-09-10T16:36:53.681697+00:00",
    "last_seen": "2026-09-10T20:11:41.807698+00:00",
@@ -1925,7 +2025,7 @@
    "pair": "AMC bybit okx",
    "pair_display": "AMC long@bybit short@okx",
    "appearances": 8,
-   "cycles_pct": 1.8,
+   "cycles_pct": 1.7,
    "longest_streak_cycles": 4,
    "first_seen": "2026-09-11T21:16:39.888660+00:00",
    "last_seen": "2026-09-11T23:01:42.300690+00:00",
@@ -1935,7 +2035,7 @@
    "pair": "GPRO binance bybit",
    "pair_display": "GPRO long@binance short@bybit",
    "appearances": 8,
-   "cycles_pct": 1.8,
+   "cycles_pct": 1.7,
    "longest_streak_cycles": 5,
    "first_seen": "2026-09-10T17:27:29.341977+00:00",
    "last_seen": "2026-09-12T03:06:41.967939+00:00",
@@ -1945,7 +2045,7 @@
    "pair": "NEWT bybit bitget",
    "pair_display": "NEWT long@bybit short@bitget",
    "appearances": 8,
-   "cycles_pct": 1.8,
+   "cycles_pct": 1.7,
    "longest_streak_cycles": 7,
    "first_seen": "2026-09-10T23:36:40.302759+00:00",
    "last_seen": "2026-09-11T00:41:39.635973+00:00",
@@ -1954,18 +2054,18 @@
   {
    "pair": "TREE bybit bitget",
    "pair_display": "TREE long@bybit short@bitget",
-   "appearances": 7,
-   "cycles_pct": 1.5,
+   "appearances": 8,
+   "cycles_pct": 1.7,
    "longest_streak_cycles": 5,
    "first_seen": "2026-09-12T00:01:42.240708+00:00",
-   "last_seen": "2026-09-12T00:46:53.789188+00:00",
+   "last_seen": "2026-09-12T04:16:45.469505+00:00",
    "entered": true
   },
   {
    "pair": "GPRO bitget okx",
    "pair_display": "GPRO long@bitget short@okx",
    "appearances": 5,
-   "cycles_pct": 1.1,
+   "cycles_pct": 1.0,
    "longest_streak_cycles": 2,
    "first_seen": "2026-09-11T23:36:40.484666+00:00",
    "last_seen": "2026-09-12T03:11:42.234797+00:00",
@@ -1975,17 +2075,27 @@
    "pair": "ONG bybit bitget",
    "pair_display": "ONG long@bybit short@bitget",
    "appearances": 5,
-   "cycles_pct": 1.1,
+   "cycles_pct": 1.0,
    "longest_streak_cycles": 1,
    "first_seen": "2026-09-10T21:31:54.485502+00:00",
    "last_seen": "2026-09-12T04:01:40.487552+00:00",
    "entered": true
   },
   {
+   "pair": "PUNDIX bybit bitget",
+   "pair_display": "PUNDIX long@bybit short@bitget",
+   "appearances": 5,
+   "cycles_pct": 1.0,
+   "longest_streak_cycles": 2,
+   "first_seen": "2026-09-12T04:01:40.487552+00:00",
+   "last_seen": "2026-09-12T04:56:40.117133+00:00",
+   "entered": true
+  },
+  {
    "pair": "RAY okx binance",
    "pair_display": "RAY long@okx short@binance",
    "appearances": 5,
-   "cycles_pct": 1.1,
+   "cycles_pct": 1.0,
    "longest_streak_cycles": 2,
    "first_seen": "2026-09-11T15:26:39.951519+00:00",
    "last_seen": "2026-09-11T15:56:41.304323+00:00",
@@ -1995,7 +2105,7 @@
    "pair": "STORJ binance bybit",
    "pair_display": "STORJ long@binance short@bybit",
    "appearances": 4,
-   "cycles_pct": 0.9,
+   "cycles_pct": 0.8,
    "longest_streak_cycles": 2,
    "first_seen": "2026-09-11T15:26:39.951519+00:00",
    "last_seen": "2026-09-11T15:56:41.304323+00:00",
@@ -2005,7 +2115,7 @@
    "pair": "FLY bitget bybit",
    "pair_display": "FLY long@bitget short@bybit",
    "appearances": 3,
-   "cycles_pct": 0.7,
+   "cycles_pct": 0.6,
    "longest_streak_cycles": 3,
    "first_seen": "2026-09-11T18:12:00.661614+00:00",
    "last_seen": "2026-09-11T18:21:54.111248+00:00",
@@ -2015,7 +2125,7 @@
    "pair": "RVN okx bybit",
    "pair_display": "RVN long@okx short@bybit",
    "appearances": 3,
-   "cycles_pct": 0.7,
+   "cycles_pct": 0.6,
    "longest_streak_cycles": 2,
    "first_seen": "2026-09-10T14:36:00.653628+00:00",
    "last_seen": "2026-09-10T15:11:54.245493+00:00",
@@ -2025,7 +2135,7 @@
    "pair": "SIREN bybit bitget",
    "pair_display": "SIREN long@bybit short@bitget",
    "appearances": 3,
-   "cycles_pct": 0.7,
+   "cycles_pct": 0.6,
    "longest_streak_cycles": 1,
    "first_seen": "2026-09-11T16:01:43.805532+00:00",
    "last_seen": "2026-09-12T00:06:42.186654+00:00",
@@ -2062,14 +2172,14 @@
    "entered": true
   },
   {
-   "pair": "PUNDIX bybit bitget",
-   "pair_display": "PUNDIX long@bybit short@bitget",
+   "pair": "MTL bybit bitget",
+   "pair_display": "MTL long@bybit short@bitget",
    "appearances": 2,
    "cycles_pct": 0.4,
-   "longest_streak_cycles": 1,
-   "first_seen": "2026-09-12T04:01:40.487552+00:00",
-   "last_seen": "2026-09-12T04:11:39.672230+00:00",
-   "entered": false
+   "longest_streak_cycles": 2,
+   "first_seen": "2026-09-12T05:46:39.923135+00:00",
+   "last_seen": "2026-09-12T05:51:39.725985+00:00",
+   "entered": true
   },
   {
    "pair": "SOPH bybit bitget",
@@ -2325,12 +2435,12 @@
   "small_caps_note": "small-cap/event segment is NOT covered by the 30d majors backtest \u2014 paper is the only evidence tier for it"
  },
  "totals": {
-  "price": 0.13,
-  "fees": -35.1,
+  "price": 0.42,
+  "fees": -37.4,
   "funding": 6.82,
-  "net": -28.15,
-  "retention_avg_pct": -135.9,
+  "net": -30.16,
+  "retention_avg_pct": -131.6,
   "wins": 6,
-  "closed": 31
+  "closed": 33
  }
 }

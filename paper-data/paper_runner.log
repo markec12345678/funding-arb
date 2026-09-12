@@ -393,3 +393,15 @@ open PUFFER long@bybit short@binance edge=0.4123% state=aborted
 open PUFFER long@bybit short@binance edge=0.4092% state=aborted
 open MTL long@bybit short@bitget edge=0.3111% state=aborted
 open MTL long@bybit short@bitget edge=0.3003% state=simulated
+close pf-PUNDIX-bybit-bitget-1789188999-f6b910 edge=0.0069% state=simulated
+open STORJ long@bybit short@binance edge=1.8950% state=aborted
+open STORJ long@bybit short@binance edge=1.8950% state=aborted
+open STORJ long@bybit short@binance edge=1.8950% state=aborted
+open PUFFER long@bybit short@binance edge=0.3688% state=aborted
+open PUFFER long@bybit short@binance edge=0.3624% state=aborted
+open PUFFER long@bybit short@binance edge=0.3555% state=aborted
+open PUFFER long@bybit short@binance edge=0.3465% state=aborted
+open PUFFER long@bybit short@binance edge=0.3398% state=aborted
+open PUFFER long@bybit short@binance edge=0.3333% state=aborted
+open PUFFER long@bybit short@binance edge=0.3269% state=aborted
+open PUFFER long@bybit short@binance edge=0.3198% state=aborted
