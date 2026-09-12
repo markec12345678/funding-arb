@@ -356,3 +356,18 @@ open PUFFER long@bybit short@binance edge=0.3190% state=aborted
 open PUFFER long@bybit short@binance edge=0.3280% state=aborted
 open PUFFER long@bybit short@binance edge=0.3330% state=aborted
 open PUFFER long@bybit short@binance edge=0.3373% state=aborted
+close pf-TREE-bybit-bitget-1789174013-f342a2 edge=-0.0008% state=simulated
+open PUFFER long@bybit short@binance edge=0.3402% state=aborted
+open IOST long@bybit short@bitget edge=0.0518% state=simulated
+close pf-SOPH-bybit-bitget-1789173700-deb38f edge=0.0003% state=simulated
+close pf-IOST-bybit-bitget-1789182101-79fba8 edge=-999.0000% state=simulated
+open PUFFER long@bybit short@binance edge=0.3432% state=aborted
+open GPRO long@binance short@okx edge=0.0292% state=aborted
+open GPRO long@binance short@bybit edge=0.0242% state=aborted
+open PUFFER long@bybit short@binance edge=0.3444% state=aborted
+open GPRO long@binance short@okx edge=0.0242% state=aborted
+open GPRO long@bitget short@okx edge=0.0208% state=aborted
+open PUFFER long@bybit short@binance edge=0.3466% state=aborted
+open PUFFER long@bybit short@binance edge=0.3521% state=aborted
+open PUFFER long@bybit short@binance edge=0.3861% state=aborted
+open PUFFER long@bybit short@binance edge=0.3907% state=aborted
