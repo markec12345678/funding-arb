@@ -559,3 +559,6 @@ open MTL long@bitget short@bybit edge=0.1627% state=simulated
 close pf-MTL-binance-bitget-1789236402-a55e73 edge=0.0083% state=simulated
 open STORJ long@bybit short@binance edge=0.4494% state=aborted
 open SIREN long@bybit short@bitget edge=0.7827% state=simulated
+close pf-SIREN-bybit-bitget-1789243299-d5a474 edge=-0.0349% state=simulated
+open STORJ long@bybit short@binance edge=1.3306% state=aborted
+open LSK long@bitget short@bybit edge=0.5883% state=simulated
