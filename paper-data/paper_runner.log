@@ -545,3 +545,14 @@ open PUFFER long@bybit short@binance edge=0.2345% state=aborted
 open PHA long@bybit short@bitget edge=0.1770% state=aborted
 open PUFFER long@bybit short@binance edge=0.2107% state=aborted
 open PHA long@bybit short@bitget edge=0.1773% state=aborted
+open PUFFER long@bybit short@binance edge=0.1923% state=aborted
+open PHA long@bybit short@bitget edge=0.1786% state=aborted
+open PHA long@bybit short@bitget edge=0.1730% state=aborted
+open PUFFER long@bybit short@binance edge=0.1721% state=aborted
+open PHA long@bybit short@bitget edge=0.1652% state=aborted
+open MTL long@binance short@bybit edge=0.1219% state=simulated
+open STORJ long@bybit short@binance edge=0.2084% state=aborted
+open STORJ long@bybit short@binance edge=0.2363% state=aborted
+open PHA long@bybit short@bitget edge=0.1370% state=aborted
+open PHA long@bybit short@bitget edge=0.1350% state=aborted
+open MTL long@bitget short@bybit edge=0.1627% state=simulated
