@@ -490,3 +490,20 @@ open TREE long@bybit short@bitget edge=0.2129% state=simulated
 open SHEIN long@okx short@bybit edge=0.0464% state=aborted
 open SHEIN long@okx short@bybit edge=0.0422% state=aborted
 open STORJ long@bybit short@binance edge=1.5947% state=aborted
+open LSK long@bybit short@bitget edge=0.2642% state=aborted
+open SHEIN long@okx short@bybit edge=0.0275% state=aborted
+open PUFFER long@bybit short@binance edge=0.0349% state=aborted
+open PUFFER long@bybit short@binance edge=0.0318% state=aborted
+open PUFFER long@bybit short@binance edge=0.0290% state=aborted
+close pf-SHEIN-bitget-bybit-1789216599-aeb54d edge=0.0057% state=simulated
+open PUFFER long@bybit short@binance edge=0.0271% state=aborted
+open PUFFER long@bybit short@binance edge=0.0249% state=aborted
+open PUFFER long@bybit short@binance edge=0.0226% state=aborted
+open PUFFER long@bybit short@binance edge=0.0211% state=aborted
+open IOST long@bybit short@bitget edge=0.0859% state=simulated
+close pf-IOST-bybit-bitget-1789221699-fc1b06 edge=-0.0798% state=simulated
+open STORJ long@bybit short@binance edge=1.8950% state=aborted
+open REZ long@bybit short@bitget edge=0.0222% state=aborted
+close pf-TREE-bybit-bitget-1789218100-951d9e edge=-999.0000% state=simulated
+open REZ long@bybit short@bitget edge=0.0228% state=aborted
+open TREE long@bybit short@bitget edge=0.2254% state=simulated
