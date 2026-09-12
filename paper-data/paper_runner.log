@@ -533,3 +533,15 @@ close pf-MTL-bybit-binance-1789228922-db2897 edge=-999.0000% state=simulated
 close pf-ORCL-binance-bybit-1789231001-e10689 edge=-999.0000% state=simulated
 open ORCL long@bitget short@bybit edge=0.4154% state=simulated
 open ORCL long@okx short@bybit edge=0.3615% state=simulated
+close pf-ORCL-okx-bybit-1789232814-b11de9 edge=-0.0094% state=simulated
+open PHA long@bybit short@bitget edge=0.1236% state=aborted
+open PHA long@bybit short@bitget edge=0.1334% state=aborted
+close pf-ORCL-bitget-bybit-1789232813-41087c edge=-0.0076% state=simulated
+open PHA long@bybit short@bitget edge=0.1435% state=aborted
+open MTL long@binance short@bitget edge=0.0607% state=simulated
+open PUFFER long@bybit short@binance edge=0.2621% state=aborted
+close pf-MTL-bybit-bitget-1789228609-588dc5 edge=-0.0166% state=simulated
+open PUFFER long@bybit short@binance edge=0.2345% state=aborted
+open PHA long@bybit short@bitget edge=0.1770% state=aborted
+open PUFFER long@bybit short@binance edge=0.2107% state=aborted
+open PHA long@bybit short@bitget edge=0.1773% state=aborted
