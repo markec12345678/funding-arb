@@ -507,3 +507,7 @@ open REZ long@bybit short@bitget edge=0.0222% state=aborted
 close pf-TREE-bybit-bitget-1789218100-951d9e edge=-999.0000% state=simulated
 open REZ long@bybit short@bitget edge=0.0228% state=aborted
 open TREE long@bybit short@bitget edge=0.2254% state=simulated
+open PUFFER long@bybit short@binance edge=0.0248% state=aborted
+open PUFFER long@bybit short@binance edge=0.0297% state=aborted
+close pf-TREE-bybit-bitget-1789222899-defd2c edge=-0.0056% state=simulated
+open PUFFER long@bybit short@binance edge=0.0318% state=aborted
