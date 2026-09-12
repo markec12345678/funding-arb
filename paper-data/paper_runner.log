@@ -344,3 +344,15 @@ close pf-ORCA-bybit-bitget-1789172202-5f4424 edge=-0.0035% state=simulated
 open TREE long@bybit short@bitget edge=0.8294% state=aborted
 open SOPH long@bybit short@bitget edge=0.2743% state=simulated
 open TREE long@bybit short@bitget edge=0.7745% state=simulated
+close pf-SIREN-bybit-bitget-1789171601-c331e6 edge=-0.0164% state=simulated
+open PUFFER long@bybit short@binance edge=0.2671% state=aborted
+open PUFFER long@bybit short@binance edge=0.2718% state=aborted
+open GPRO long@binance short@okx edge=0.0820% state=aborted
+open GPRO long@binance short@okx edge=0.0766% state=aborted
+open GPRO long@binance short@okx edge=0.0712% state=aborted
+open PUFFER long@bybit short@binance edge=0.3044% state=aborted
+open PUFFER long@bybit short@binance edge=0.3137% state=aborted
+open PUFFER long@bybit short@binance edge=0.3190% state=aborted
+open PUFFER long@bybit short@binance edge=0.3280% state=aborted
+open PUFFER long@bybit short@binance edge=0.3330% state=aborted
+open PUFFER long@bybit short@binance edge=0.3373% state=aborted
