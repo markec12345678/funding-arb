@@ -379,3 +379,10 @@ close pf-COOKIE-bybit-bitget-1789185999-e6c2e1 edge=-0.0395% state=simulated
 open PUNDIX long@bybit short@bitget edge=0.0276% state=aborted
 open PUFFER long@bybit short@binance edge=0.4494% state=aborted
 open TREE long@bybit short@bitget edge=0.0610% state=simulated
+open PUNDIX long@bybit short@bitget edge=0.1471% state=aborted
+open PUFFER long@bybit short@binance edge=0.4585% state=aborted
+open PUFFER long@bybit short@binance edge=0.4565% state=aborted
+open STORJ long@bybit short@binance edge=1.8950% state=aborted
+open STORJ long@bybit short@binance edge=1.8950% state=aborted
+open PUNDIX long@bybit short@bitget edge=0.5705% state=aborted
+open PUNDIX long@bybit short@bitget edge=0.6007% state=simulated
