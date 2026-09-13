@@ -641,3 +641,16 @@ open POWR long@bybit short@bitget edge=0.3602% state=aborted
 open STEEM long@bybit short@bitget edge=0.7049% state=aborted
 open PUNDIX long@bybit short@bitget edge=0.4848% state=aborted
 open POWR long@bybit short@bitget edge=0.3345% state=aborted
+open STEEM long@bybit short@bitget edge=0.6783% state=aborted
+open PUNDIX long@bybit short@bitget edge=0.4743% state=aborted
+open POWR long@bybit short@bitget edge=0.3137% state=aborted
+open PUNDIX long@bybit short@bitget edge=0.4448% state=aborted
+open POWR long@bybit short@bitget edge=0.3045% state=aborted
+open CVC long@bybit short@bitget edge=0.2469% state=simulated
+open STEEM long@bybit short@bitget edge=0.5071% state=simulated
+open PUNDIX long@bybit short@bitget edge=0.4205% state=aborted
+open PUNDIX long@bybit short@bitget edge=0.4124% state=simulated
+close pf-STEEM-bybit-bitget-1789270613-fc23d7 edge=-999.0000% state=simulated
+open POWR long@bybit short@bitget edge=1.3114% state=aborted
+open POWR long@bybit short@bitget edge=1.6023% state=aborted
+open LSK long@bitget short@bybit edge=1.7292% state=aborted
