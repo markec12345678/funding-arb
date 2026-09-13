@@ -681,3 +681,16 @@ close pf-POWR-bybit-bitget-1789278699-84ab39 edge=-999.0000% state=simulated
 open PUNDIX long@bybit short@bitget edge=0.4468% state=simulated
 close pf-CVC-bybit-bitget-1789270301-34ae13 edge=-999.0000% state=simulated
 open HIVE long@bybit short@bitget edge=1.4769% state=simulated
+close pf-CRDO-bybit-okx-1789292214-291231 edge=0.0093% state=simulated
+open POLYX long@bybit short@bitget edge=0.8094% state=simulated
+close pf-HIVE-bybit-bitget-1789301813-95b25c edge=-999.0000% state=simulated
+open STEEM long@bybit short@bitget edge=0.9828% state=aborted
+open HIVE long@bybit short@bitget edge=1.3741% state=aborted
+open KSTR long@bybit short@bitget edge=0.3614% state=aborted
+close pf-POLYX-bybit-bitget-1789302402-aa7d9d edge=-999.0000% state=simulated
+open HIVE long@bybit short@bitget edge=1.1231% state=aborted
+open KSTR long@bybit short@bitget edge=0.3757% state=aborted
+open POLYX long@bybit short@bitget edge=1.7038% state=aborted
+open KSTR long@bybit short@bitget edge=0.3886% state=simulated
+open POLYX long@bybit short@bitget edge=1.7115% state=aborted
+open POLYX long@bybit short@bitget edge=1.6766% state=simulated
