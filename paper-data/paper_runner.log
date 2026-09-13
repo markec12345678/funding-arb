@@ -620,3 +620,24 @@ close pf-STEEM-bybit-bitget-1789264609-55c442 edge=-999.0000% state=simulated
 open ARK long@bybit short@bitget edge=0.6991% state=aborted
 open ARK long@bybit short@bitget edge=0.6606% state=aborted
 open ARK long@bybit short@bitget edge=0.6084% state=aborted
+open ARK long@bybit short@bitget edge=0.5552% state=aborted
+open STEEM long@bybit short@bitget edge=1.1174% state=aborted
+open STEEM long@bybit short@bitget edge=1.0893% state=aborted
+open STEEM long@bybit short@bitget edge=1.0463% state=aborted
+open PUNDIX long@bybit short@bitget edge=0.5592% state=aborted
+open PUNDIX long@bybit short@bitget edge=0.5385% state=aborted
+open PUNDIX long@bybit short@bitget edge=0.5254% state=aborted
+open PUNDIX long@bybit short@bitget edge=0.5101% state=aborted
+close pf-POWR-bybit-bitget-1789263400-83282e edge=-999.0000% state=simulated
+open PUNDIX long@bybit short@bitget edge=0.4924% state=aborted
+open ARK long@bybit short@bitget edge=0.4325% state=aborted
+close pf-ONG-bybit-bitget-1789252899-9be653 edge=0.0085% state=simulated
+open STEEM long@bybit short@bitget edge=0.7408% state=aborted
+open PUNDIX long@bybit short@bitget edge=0.4960% state=aborted
+open ARK long@bybit short@bitget edge=0.3984% state=aborted
+open STEEM long@bybit short@bitget edge=0.7179% state=aborted
+open PUNDIX long@bybit short@bitget edge=0.4806% state=aborted
+open POWR long@bybit short@bitget edge=0.3602% state=aborted
+open STEEM long@bybit short@bitget edge=0.7049% state=aborted
+open PUNDIX long@bybit short@bitget edge=0.4848% state=aborted
+open POWR long@bybit short@bitget edge=0.3345% state=aborted
