@@ -675,3 +675,5 @@ open PUNDIX long@bybit short@bitget edge=0.5299% state=aborted
 open PUNDIX long@bybit short@bitget edge=0.5513% state=simulated
 close pf-PUNDIX-bybit-bitget-1789281099-331999 edge=-999.0000% state=simulated
 open SNXX long@binance short@okx edge=0.0207% state=simulated
+close pf-SNXX-binance-okx-1789284100-d60d05 edge=-999.0000% state=simulated
+open CRDO long@bybit short@okx edge=0.5516% state=simulated
