@@ -572,3 +572,20 @@ open STORJ long@bybit short@binance edge=0.6621% state=aborted
 open STORJ long@bybit short@binance edge=0.2549% state=aborted
 open LSK long@bitget short@bybit edge=0.3142% state=aborted
 open LSK long@bitget short@bybit edge=0.3091% state=aborted
+open STORJ long@bybit short@binance edge=0.0751% state=aborted
+open LSK long@bitget short@bybit edge=0.3067% state=aborted
+open LSK long@bitget short@bybit edge=0.2957% state=simulated
+close pf-LSK-bitget-bybit-1789256199-f886bd edge=-999.0000% state=simulated
+open STORJ long@bybit short@binance edge=0.1006% state=aborted
+close pf-ZIL-bitget-bybit-1789253199-89087c edge=0.0071% state=simulated
+open LSK long@bitget short@bybit edge=0.2660% state=aborted
+open STORJ long@bybit short@binance edge=0.0961% state=aborted
+open LSK long@bitget short@bybit edge=0.2460% state=aborted
+open STORJ long@bybit short@binance edge=0.0855% state=aborted
+open ARK long@bybit short@bitget edge=1.5574% state=aborted
+open POWR long@bybit short@bitget edge=0.8327% state=aborted
+open POWR long@bybit short@bitget edge=1.5787% state=aborted
+open ARK long@bybit short@bitget edge=0.9689% state=simulated
+open STEEM long@bybit short@bitget edge=1.8499% state=aborted
+open POWR long@bybit short@bitget edge=2.0531% state=aborted
+open POWR long@bybit short@bitget edge=1.9828% state=aborted
