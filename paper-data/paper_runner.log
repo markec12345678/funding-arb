@@ -666,3 +666,8 @@ open POWR long@bybit short@bitget edge=0.8430% state=aborted
 open STEEM long@bybit short@bitget edge=0.9421% state=aborted
 open STEEM long@bybit short@bitget edge=0.8662% state=aborted
 open STEEM long@bybit short@bitget edge=0.8283% state=simulated
+close pf-STEEM-bybit-bitget-1789278399-632917 edge=-999.0000% state=simulated
+open POWR long@bybit short@bitget edge=0.8254% state=simulated
+close pf-PUNDIX-bybit-bitget-1789270913-81bdf8 edge=-999.0000% state=simulated
+open STEEM long@bybit short@bitget edge=0.5375% state=aborted
+open PUNDIX long@bybit short@bitget edge=0.5154% state=aborted
