@@ -654,3 +654,10 @@ close pf-STEEM-bybit-bitget-1789270613-fc23d7 edge=-999.0000% state=simulated
 open POWR long@bybit short@bitget edge=1.3114% state=aborted
 open POWR long@bybit short@bitget edge=1.6023% state=aborted
 open LSK long@bitget short@bybit edge=1.7292% state=aborted
+open POWR long@bybit short@bitget edge=1.2577% state=aborted
+open POWR long@bybit short@bitget edge=1.1572% state=aborted
+open POWR long@bybit short@bitget edge=1.2115% state=aborted
+open LSK long@bitget short@bybit edge=1.3794% state=aborted
+open LSK long@bitget short@bybit edge=1.2872% state=aborted
+open STEEM long@bybit short@bitget edge=1.3268% state=aborted
+open STEEM long@bybit short@bitget edge=1.2824% state=simulated
