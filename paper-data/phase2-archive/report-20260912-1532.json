@@ -1,0 +1,3873 @@
+{
+ "generated_at": "2026-09-12 15:32:56Z",
+ "stage": "INTERIM",
+ "day": 2.04,
+ "baseline_start": "2026-09-10 14:36:00Z",
+ "pre_baseline_cycles_excluded": 18,
+ "continuity": {
+  "sandbox": {
+   "journal_lines": 608,
+   "parse_errors": 0,
+   "incomplete_tail_ignored": false,
+   "ts_back_jumps": 0,
+   "duplicate_ts": 0,
+   "gaps_over_15min": [],
+   "positions_total": 59,
+   "duplicate_position_ids": [],
+   "journal_opens_without_position": [],
+   "closed_positions_without_close_action": [],
+   "open_now": 0,
+   "last_cycle_open_positions_field": 0
+  },
+  "actions": {
+   "cycles": 572,
+   "first": "2026-09-10 15:53:08Z",
+   "last": "2026-09-12 15:22:36Z",
+   "duplicate_ts": 0,
+   "gaps_over_10min": [
+    "2026-09-10 15:53:08Z -> 2026-09-10 16:21:15Z (28m)",
+    "2026-09-10 16:21:15Z -> 2026-09-10 16:32:52Z (12m)"
+   ],
+   "coverage_pct": 100.2,
+   "scan_rows_per_cycle_median": 286.0
+  },
+  "branch": {
+   "available": true,
+   "files": {
+    "sandbox_snapshots": {
+     "snapshot_commits": 50,
+     "first_snapshot": "2026-09-10T15:11:33Z",
+     "latest_snapshot": "2026-09-12T15:23:15Z",
+     "latest_line_count": 606,
+     "latest_last_ts": "2026-09-12T15:21:43.197200+00:00",
+     "line_count_resets": [],
+     "ts_resets": [],
+     "duplicate_lines_in_latest": 0
+    },
+    "github_actions": {
+     "snapshot_commits": 200,
+     "first_snapshot": "2026-09-11T23:03:12Z",
+     "latest_snapshot": "2026-09-12T15:27:25Z",
+     "latest_line_count": 573,
+     "latest_last_ts": "2026-09-12T15:27:24.349854+00:00",
+     "line_count_resets": [],
+     "ts_resets": [],
+     "duplicate_lines_in_latest": 0
+    }
+   }
+  },
+  "meta": {
+   "runner": {
+    "started_at": "2026-09-12 14:13:14Z",
+    "respawns": 4,
+    "last_check_age_s": 15.0,
+    "supervisor_alive": true
+   },
+   "snapshot_pusher": {
+    "runs": 47,
+    "ok": 47,
+    "last_result": "pushed",
+    "last_ok_age_s": 552.0
+   }
+  }
+ },
+ "funnel": {
+  "sandbox": {
+   "cycles": 590,
+   "scan_sum": 1406755,
+   "scan_median": 2459.0,
+   "candidates": 6610,
+   "opens": 59,
+   "closes": 59,
+   "rejects": {
+    "depth_gate": 216,
+    "other": 118,
+    "mark_spread_gate/absurd(>=5%)": 53,
+    "mark_spread_gate/real(1-5%)": 7
+   }
+  },
+  "actions": {
+   "cycles": 572,
+   "scan_sum": 170369,
+   "candidates": 528,
+   "opens": 219,
+   "closes": 0,
+   "rejects": {
+    "mark_spread_gate/real(1-5%)": 1,
+    "depth_gate": 260,
+    "other": 2
+   }
+  }
+ },
+ "pnl": [
+  {
+   "id": "pf-RVN-okx-bybit-1789053113-c4b85d",
+   "base": "RVN",
+   "pair": "okx/bybit",
+   "direction": "reverse",
+   "notional_usd": 500.0,
+   "hold_min": 50.0,
+   "expected_net_edge_pct": 0.529327,
+   "entry_spread_pct": 0.634327,
+   "entry_interval_h": 8.0,
+   "round_trip_fee_pct": 0.21,
+   "price_pnl_usd": 0.64,
+   "price_pnl_estimated": false,
+   "fees_usd": -1.05,
+   "exit_reason": "pair_disappeared",
+   "opened_at": 1789053113901,
+   "closed_at": 1789056113938,
+   "funding_usd": 3.94,
+   "net_usd": 3.53,
+   "net_pct": 0.706,
+   "n_settlements": 1,
+   "expected_lifetime_pct": 0.4243,
+   "retention_pct": 166.4
+  },
+  {
+   "id": "pf-RVN-okx-bitget-1789050960-1f2651",
+   "base": "RVN",
+   "pair": "okx/bitget",
+   "direction": "reverse",
+   "notional_usd": 500.0,
+   "hold_min": 105.7,
+   "expected_net_edge_pct": 0.3239,
+   "entry_spread_pct": 0.4339,
+   "entry_interval_h": 8.0,
+   "round_trip_fee_pct": 0.22,
+   "price_pnl_usd": -1.07,
+   "price_pnl_estimated": false,
+   "fees_usd": -1.1,
+   "exit_reason": "edge_below_exit",
+   "opened_at": 1789050960653,
+   "closed_at": 1789057301586,
+   "funding_usd": 3.74,
+   "net_usd": 1.57,
+   "net_pct": 0.314,
+   "n_settlements": 1,
+   "expected_lifetime_pct": 0.2139,
+   "retention_pct": 146.8
+  },
+  {
+   "id": "pf-SOPH-bybit-bitget-1789056114-84d742",
+   "base": "SOPH",
+   "pair": "bybit/bitget",
+   "direction": "reverse",
+   "notional_usd": 500.0,
+   "hold_min": 80.0,
+   "expected_net_edge_pct": 0.356238,
+   "entry_spread_pct": 0.471238,
+   "entry_interval_h": 8.0,
+   "round_trip_fee_pct": 0.23,
+   "price_pnl_usd": -1.67,
+   "price_pnl_estimated": false,
+   "fees_usd": -1.15,
+   "exit_reason": "edge_below_exit",
+   "opened_at": 1789056114806,
+   "closed_at": 1789060913731,
+   "funding_usd": -0.11,
+   "net_usd": -2.93,
+   "net_pct": -0.586,
+   "n_settlements": 1,
+   "expected_lifetime_pct": 0.2412,
+   "retention_pct": -242.9
+  },
+  {
+   "id": "pf-GPRO-binance-bybit-1789062414-9ce758",
+   "base": "GPRO",
+   "pair": "binance/bybit",
+   "direction": "forward",
+   "notional_usd": 500.0,
+   "hold_min": 65.0,
+   "expected_net_edge_pct": 0.373617,
+   "entry_spread_pct": 0.478617,
+   "entry_interval_h": 8.0,
+   "round_trip_fee_pct": 0.21,
+   "price_pnl_usd": -1.67,
+   "price_pnl_estimated": false,
+   "fees_usd": -1.05,
+   "exit_reason": "pair_disappeared",
+   "opened_at": 1789062414476,
+   "closed_at": 1789066314180,
+   "funding_usd": 0.0,
+   "net_usd": -2.72,
+   "net_pct": -0.544,
+   "n_settlements": 1,
+   "expected_lifetime_pct": 0.2686,
+   "retention_pct": -202.5
+  },
+  {
+   "id": "pf-GPRO-binance-bybit-1789068703-fe5195",
+   "base": "GPRO",
+   "pair": "binance/bybit",
+   "direction": "forward",
+   "notional_usd": 500.0,
+   "hold_min": 120.2,
+   "expected_net_edge_pct": 0.285389,
+   "entry_spread_pct": 0.390389,
+   "entry_interval_h": 8.0,
+   "round_trip_fee_pct": 0.21,
+   "price_pnl_usd": 0.21,
+   "price_pnl_estimated": false,
+   "fees_usd": -1.05,
+   "exit_reason": "pair_disappeared",
+   "opened_at": 1789068704096,
+   "closed_at": 1789075913686,
+   "funding_usd": 0.0,
+   "net_usd": -0.84,
+   "net_pct": -0.168,
+   "n_settlements": 1,
+   "expected_lifetime_pct": 0.1804,
+   "retention_pct": -93.1
+  },
+  {
+   "id": "pf-ONG-bybit-bitget-1789075913-2e9b71",
+   "base": "ONG",
+   "pair": "bybit/bitget",
+   "direction": "reverse",
+   "notional_usd": 500.0,
+   "hold_min": 124.8,
+   "expected_net_edge_pct": 0.196442,
+   "entry_spread_pct": 0.311442,
+   "entry_interval_h": 8.0,
+   "round_trip_fee_pct": 0.23,
+   "price_pnl_usd": -0.74,
+   "price_pnl_estimated": false,
+   "fees_usd": -1.15,
+   "exit_reason": "edge_below_exit",
+   "opened_at": 1789075914198,
+   "closed_at": 1789083399480,
+   "funding_usd": -1.74,
+   "net_usd": -3.63,
+   "net_pct": -0.726,
+   "n_settlements": 1,
+   "expected_lifetime_pct": 0.0814,
+   "retention_pct": -891.4
+  },
+  {
+   "id": "pf-NEWT-bybit-bitget-1789083399-6916b5",
+   "base": "NEWT",
+   "pair": "bybit/bitget",
+   "direction": "reverse",
+   "notional_usd": 500.0,
+   "hold_min": 30.0,
+   "expected_net_edge_pct": 0.252284,
+   "entry_spread_pct": 0.367284,
+   "entry_interval_h": 8.0,
+   "round_trip_fee_pct": 0.23,
+   "price_pnl_usd": 1.24,
+   "price_pnl_estimated": false,
+   "fees_usd": -1.15,
+   "exit_reason": "pair_disappeared",
+   "opened_at": 1789083400302,
+   "closed_at": 1789085199394,
+   "funding_usd": 1.91,
+   "net_usd": 2.0,
+   "net_pct": 0.4,
+   "n_settlements": 1,
+   "expected_lifetime_pct": 0.1373,
+   "retention_pct": 291.4
+  },
+  {
+   "id": "pf-KR200-bitget-okx-1789056401-3ca954",
+   "base": "KR200",
+   "pair": "bitget/okx",
+   "direction": "forward",
+   "notional_usd": 500.0,
+   "hold_min": 485.0,
+   "expected_net_edge_pct": 0.481169,
+   "entry_spread_pct": 0.591169,
+   "entry_interval_h": 8.0,
+   "round_trip_fee_pct": 0.22,
+   "price_pnl_usd": 0.62,
+   "price_pnl_estimated": false,
+   "fees_usd": -1.1,
+   "exit_reason": "edge_below_exit",
+   "opened_at": 1789056401862,
+   "closed_at": 1789085499468,
+   "funding_usd": 0.67,
+   "net_usd": 0.19,
+   "net_pct": 0.038,
+   "n_settlements": 1,
+   "expected_lifetime_pct": 0.3712,
+   "retention_pct": 10.2
+  },
+  {
+   "id": "pf-LA-bybit-bitget-1789085499-0ba827",
+   "base": "LA",
+   "pair": "bybit/bitget",
+   "direction": "reverse",
+   "notional_usd": 500.0,
+   "hold_min": 85.0,
+   "expected_net_edge_pct": 0.947294,
+   "entry_spread_pct": 1.062294,
+   "entry_interval_h": 8.0,
+   "round_trip_fee_pct": 0.23,
+   "price_pnl_usd": 1.06,
+   "price_pnl_estimated": false,
+   "fees_usd": -1.15,
+   "exit_reason": "edge_below_exit",
+   "opened_at": 1789085500053,
+   "closed_at": 1789090599733,
+   "funding_usd": 0.0,
+   "net_usd": -0.09,
+   "net_pct": -0.018,
+   "n_settlements": 1,
+   "expected_lifetime_pct": 0.8323,
+   "retention_pct": -2.2
+  },
+  {
+   "id": "pf-UNITREE-bybit-okx-1789092699-96e1fb",
+   "base": "UNITREE",
+   "pair": "bybit/okx",
+   "direction": "reverse",
+   "notional_usd": 500.0,
+   "hold_min": 90.0,
+   "expected_net_edge_pct": 0.266031,
+   "entry_spread_pct": 0.371031,
+   "entry_interval_h": 8.0,
+   "round_trip_fee_pct": 0.21,
+   "price_pnl_usd": 0.14,
+   "price_pnl_estimated": false,
+   "fees_usd": -1.05,
+   "exit_reason": "edge_below_exit",
+   "opened_at": 1789092699856,
+   "closed_at": 1789098099578,
+   "funding_usd": 0.0,
+   "net_usd": -0.91,
+   "net_pct": -0.182,
+   "n_settlements": 1,
+   "expected_lifetime_pct": 0.161,
+   "retention_pct": -113.0
+  },
+  {
+   "id": "pf-ONG-bybit-bitget-1789099299-a1e3dc",
+   "base": "ONG",
+   "pair": "bybit/bitget",
+   "direction": "reverse",
+   "notional_usd": 500.0,
+   "hold_min": 295.0,
+   "expected_net_edge_pct": 0.311157,
+   "entry_spread_pct": 0.426157,
+   "entry_interval_h": 8.0,
+   "round_trip_fee_pct": 0.23,
+   "price_pnl_usd": -1.18,
+   "price_pnl_estimated": false,
+   "fees_usd": -1.15,
+   "exit_reason": "pair_disappeared",
+   "opened_at": 1789099299899,
+   "closed_at": 1789116999595,
+   "funding_usd": -0.54,
+   "net_usd": -2.87,
+   "net_pct": -0.574,
+   "n_settlements": 1,
+   "expected_lifetime_pct": 0.1962,
+   "retention_pct": -292.6
+  },
+  {
+   "id": "pf-CL-bybit-bitget-1789077399-241071",
+   "base": "CL",
+   "pair": "bybit/bitget",
+   "direction": "reverse",
+   "notional_usd": 500.0,
+   "hold_min": 855.0,
+   "expected_net_edge_pct": 0.160943,
+   "entry_spread_pct": 0.275943,
+   "entry_interval_h": 8.0,
+   "round_trip_fee_pct": 0.23,
+   "price_pnl_usd": 0.11,
+   "price_pnl_estimated": false,
+   "fees_usd": -1.15,
+   "exit_reason": "edge_below_exit",
+   "opened_at": 1789077400014,
+   "closed_at": 1789128699588,
+   "funding_usd": 0.6,
+   "net_usd": -0.44,
+   "net_pct": -0.088,
+   "n_settlements": 2,
+   "expected_lifetime_pct": 0.3219,
+   "retention_pct": -27.3
+  },
+  {
+   "id": "pf-ZHIPU-bybit-bitget-1789128999-f1c98b",
+   "base": "ZHIPU",
+   "pair": "bybit/bitget",
+   "direction": "reverse",
+   "notional_usd": 500.0,
+   "hold_min": 155.0,
+   "expected_net_edge_pct": 0.271807,
+   "entry_spread_pct": 0.386807,
+   "entry_interval_h": 8.0,
+   "round_trip_fee_pct": 0.23,
+   "price_pnl_usd": -0.3,
+   "price_pnl_estimated": false,
+   "fees_usd": -1.15,
+   "exit_reason": "edge_below_exit",
+   "opened_at": 1789129000261,
+   "closed_at": 1789138301767,
+   "funding_usd": 0.0,
+   "net_usd": -1.45,
+   "net_pct": -0.29,
+   "n_settlements": 1,
+   "expected_lifetime_pct": 0.1568,
+   "retention_pct": -184.9
+  },
+  {
+   "id": "pf-BZ-bybit-bitget-1789089099-a97990",
+   "base": "BZ",
+   "pair": "bybit/bitget",
+   "direction": "reverse",
+   "notional_usd": 500.0,
+   "hold_min": 830.2,
+   "expected_net_edge_pct": 0.250786,
+   "entry_spread_pct": 0.365786,
+   "entry_interval_h": 8.0,
+   "round_trip_fee_pct": 0.23,
+   "price_pnl_usd": 0.24,
+   "price_pnl_estimated": false,
+   "fees_usd": -1.15,
+   "exit_reason": "edge_below_exit",
+   "opened_at": 1789089099665,
+   "closed_at": 1789138913794,
+   "funding_usd": -0.43,
+   "net_usd": -1.34,
+   "net_pct": -0.268,
+   "n_settlements": 1,
+   "expected_lifetime_pct": 0.1358,
+   "retention_pct": -197.4
+  },
+  {
+   "id": "pf-KSTR-bitget-binance-1789139518-4caf9d",
+   "base": "KSTR",
+   "pair": "bitget/binance",
+   "direction": "forward",
+   "notional_usd": 500.0,
+   "hold_min": 4.9,
+   "expected_net_edge_pct": 0.03806,
+   "entry_spread_pct": 0.14806,
+   "entry_interval_h": 8.0,
+   "round_trip_fee_pct": 0.22,
+   "price_pnl_usd": -0.42,
+   "price_pnl_estimated": false,
+   "fees_usd": -1.1,
+   "exit_reason": "pair_disappeared",
+   "opened_at": 1789139519013,
+   "closed_at": 1789139814187,
+   "funding_usd": 0.0,
+   "net_usd": -1.52,
+   "net_pct": -0.304,
+   "n_settlements": 1,
+   "expected_lifetime_pct": -0.0719,
+   "retention_pct": null
+  },
+  {
+   "id": "pf-SIREN-bybit-bitget-1789142503-3c0fa1",
+   "base": "SIREN",
+   "pair": "bybit/bitget",
+   "direction": "forward",
+   "notional_usd": 500.0,
+   "hold_min": 9.9,
+   "expected_net_edge_pct": 0.391206,
+   "entry_spread_pct": 0.506206,
+   "entry_interval_h": 8.0,
+   "round_trip_fee_pct": 0.23,
+   "price_pnl_usd": -0.76,
+   "price_pnl_estimated": false,
+   "fees_usd": -1.15,
+   "exit_reason": "edge_below_exit",
+   "opened_at": 1789142503804,
+   "closed_at": 1789143099764,
+   "funding_usd": 0.0,
+   "net_usd": -1.91,
+   "net_pct": -0.382,
+   "n_settlements": 1,
+   "expected_lifetime_pct": 0.2762,
+   "retention_pct": -138.3
+  },
+  {
+   "id": "pf-ONG-bybit-bitget-1789117303-b425a8",
+   "base": "ONG",
+   "pair": "bybit/bitget",
+   "direction": "reverse",
+   "notional_usd": 500.0,
+   "hold_min": 444.9,
+   "expected_net_edge_pct": 0.44525,
+   "entry_spread_pct": 0.56025,
+   "entry_interval_h": 8.0,
+   "round_trip_fee_pct": 0.23,
+   "price_pnl_usd": 0.84,
+   "price_pnl_estimated": false,
+   "fees_usd": -1.15,
+   "exit_reason": "edge_below_exit",
+   "opened_at": 1789117303610,
+   "closed_at": 1789143999742,
+   "funding_usd": 0.39,
+   "net_usd": 0.08,
+   "net_pct": 0.016,
+   "n_settlements": 2,
+   "expected_lifetime_pct": 0.8905,
+   "retention_pct": 1.8
+  },
+  {
+   "id": "pf-BLUR-bybit-bitget-1789142503-61d393",
+   "base": "BLUR",
+   "pair": "bybit/bitget",
+   "direction": "reverse",
+   "notional_usd": 500.0,
+   "hold_min": 74.9,
+   "expected_net_edge_pct": 1.6157,
+   "entry_spread_pct": 1.7307,
+   "entry_interval_h": 8.0,
+   "round_trip_fee_pct": 0.23,
+   "price_pnl_usd": -0.07,
+   "price_pnl_estimated": false,
+   "fees_usd": -1.15,
+   "exit_reason": "edge_below_exit",
+   "opened_at": 1789142503301,
+   "closed_at": 1789146999746,
+   "funding_usd": 0.0,
+   "net_usd": -1.22,
+   "net_pct": -0.244,
+   "n_settlements": 1,
+   "expected_lifetime_pct": 1.5007,
+   "retention_pct": -16.3
+  },
+  {
+   "id": "pf-ONG-bybit-bitget-1789148213-6236ef",
+   "base": "ONG",
+   "pair": "bybit/bitget",
+   "direction": "reverse",
+   "notional_usd": 500.0,
+   "hold_min": 14.8,
+   "expected_net_edge_pct": 0.028901,
+   "entry_spread_pct": 0.143901,
+   "entry_interval_h": 8.0,
+   "round_trip_fee_pct": 0.23,
+   "price_pnl_usd": -0.72,
+   "price_pnl_estimated": false,
+   "fees_usd": -1.15,
+   "exit_reason": "edge_below_exit",
+   "opened_at": 1789148214012,
+   "closed_at": 1789149099404,
+   "funding_usd": 0.0,
+   "net_usd": -1.87,
+   "net_pct": -0.374,
+   "n_settlements": 1,
+   "expected_lifetime_pct": -0.0861,
+   "retention_pct": null
+  },
+  {
+   "id": "pf-SIREN-bybit-bitget-1789145513-24c762",
+   "base": "SIREN",
+   "pair": "bybit/bitget",
+   "direction": "forward",
+   "notional_usd": 500.0,
+   "hold_min": 69.8,
+   "expected_net_edge_pct": 0.198866,
+   "entry_spread_pct": 0.313866,
+   "entry_interval_h": 8.0,
+   "round_trip_fee_pct": 0.23,
+   "price_pnl_usd": 0.76,
+   "price_pnl_estimated": false,
+   "fees_usd": -1.15,
+   "exit_reason": "edge_below_exit",
+   "opened_at": 1789145513814,
+   "closed_at": 1789149699578,
+   "funding_usd": 0.0,
+   "net_usd": -0.39,
+   "net_pct": -0.078,
+   "n_settlements": 1,
+   "expected_lifetime_pct": 0.0839,
+   "retention_pct": -93.0
+  },
+  {
+   "id": "pf-SIREN-bitget-bybit-1789156901-86db4f",
+   "base": "SIREN",
+   "pair": "bitget/bybit",
+   "direction": "forward",
+   "notional_usd": 500.0,
+   "hold_min": 10.0,
+   "expected_net_edge_pct": 0.371966,
+   "entry_spread_pct": 0.486966,
+   "entry_interval_h": 8.0,
+   "round_trip_fee_pct": 0.23,
+   "price_pnl_usd": -0.19,
+   "price_pnl_estimated": false,
+   "fees_usd": -1.15,
+   "exit_reason": "pair_disappeared",
+   "opened_at": 1789156902034,
+   "closed_at": 1789157501618,
+   "funding_usd": 0.0,
+   "net_usd": -1.34,
+   "net_pct": -0.268,
+   "n_settlements": 1,
+   "expected_lifetime_pct": 0.257,
+   "retention_pct": -104.3
+  },
+  {
+   "id": "pf-BZ-bybit-bitget-1789143100-2e89ae",
+   "base": "BZ",
+   "pair": "bybit/bitget",
+   "direction": "reverse",
+   "notional_usd": 500.0,
+   "hold_min": 275.0,
+   "expected_net_edge_pct": 0.1559,
+   "entry_spread_pct": 0.2709,
+   "entry_interval_h": 8.0,
+   "round_trip_fee_pct": 0.23,
+   "price_pnl_usd": 1.08,
+   "price_pnl_estimated": false,
+   "fees_usd": -1.15,
+   "exit_reason": "edge_below_exit",
+   "opened_at": 1789143100342,
+   "closed_at": 1789159600510,
+   "funding_usd": -1.61,
+   "net_usd": -1.68,
+   "net_pct": -0.336,
+   "n_settlements": 1,
+   "expected_lifetime_pct": 0.0409,
+   "retention_pct": -821.5
+  },
+  {
+   "id": "pf-PIPPIN-bitget-bybit-1789159602-789460",
+   "base": "PIPPIN",
+   "pair": "bitget/bybit",
+   "direction": "forward",
+   "notional_usd": 500.0,
+   "hold_min": 65.0,
+   "expected_net_edge_pct": 0.168813,
+   "entry_spread_pct": 0.283813,
+   "entry_interval_h": 8.0,
+   "round_trip_fee_pct": 0.23,
+   "price_pnl_usd": 0.28,
+   "price_pnl_estimated": false,
+   "fees_usd": -1.15,
+   "exit_reason": "edge_below_exit",
+   "opened_at": 1789159603545,
+   "closed_at": 1789163501917,
+   "funding_usd": 0.0,
+   "net_usd": -0.87,
+   "net_pct": -0.174,
+   "n_settlements": 1,
+   "expected_lifetime_pct": 0.0538,
+   "retention_pct": -323.3
+  },
+  {
+   "id": "pf-FLY-bitget-bybit-1789150913-42daa8",
+   "base": "FLY",
+   "pair": "bitget/bybit",
+   "direction": "forward",
+   "notional_usd": 500.0,
+   "hold_min": 264.8,
+   "expected_net_edge_pct": 0.060594,
+   "entry_spread_pct": 0.175594,
+   "entry_interval_h": 8.0,
+   "round_trip_fee_pct": 0.23,
+   "price_pnl_usd": 0.7,
+   "price_pnl_estimated": false,
+   "fees_usd": -1.15,
+   "exit_reason": "edge_below_exit",
+   "opened_at": 1789150914110,
+   "closed_at": 1789166802336,
+   "funding_usd": 0.0,
+   "net_usd": -0.45,
+   "net_pct": -0.09,
+   "n_settlements": 1,
+   "expected_lifetime_pct": -0.0544,
+   "retention_pct": null
+  },
+  {
+   "id": "pf-TREE-bybit-bitget-1789171601-2facd0",
+   "base": "TREE",
+   "pair": "bybit/bitget",
+   "direction": "forward",
+   "notional_usd": 500.0,
+   "hold_min": 20.2,
+   "expected_net_edge_pct": 0.268556,
+   "entry_spread_pct": 0.383556,
+   "entry_interval_h": 8.0,
+   "round_trip_fee_pct": 0.23,
+   "price_pnl_usd": 2.32,
+   "price_pnl_estimated": false,
+   "fees_usd": -1.15,
+   "exit_reason": "pair_disappeared",
+   "opened_at": 1789171601869,
+   "closed_at": 1789172813727,
+   "funding_usd": 0.0,
+   "net_usd": 1.17,
+   "net_pct": 0.234,
+   "n_settlements": 1,
+   "expected_lifetime_pct": 0.1536,
+   "retention_pct": 152.4
+  },
+  {
+   "id": "pf-ORCA-bybit-bitget-1789172202-5f4424",
+   "base": "ORCA",
+   "pair": "bybit/bitget",
+   "direction": "reverse",
+   "notional_usd": 500.0,
+   "hold_min": 25.0,
+   "expected_net_edge_pct": 0.211039,
+   "entry_spread_pct": 0.326039,
+   "entry_interval_h": 8.0,
+   "round_trip_fee_pct": 0.23,
+   "price_pnl_usd": -0.44,
+   "price_pnl_estimated": false,
+   "fees_usd": -1.15,
+   "exit_reason": "edge_below_exit",
+   "opened_at": 1789172202464,
+   "closed_at": 1789173699637,
+   "funding_usd": 0.0,
+   "net_usd": -1.59,
+   "net_pct": -0.318,
+   "n_settlements": 1,
+   "expected_lifetime_pct": 0.096,
+   "retention_pct": -331.1
+  },
+  {
+   "id": "pf-SIREN-bybit-bitget-1789171601-c331e6",
+   "base": "SIREN",
+   "pair": "bybit/bitget",
+   "direction": "forward",
+   "notional_usd": 500.0,
+   "hold_min": 120.0,
+   "expected_net_edge_pct": 0.836806,
+   "entry_spread_pct": 0.951806,
+   "entry_interval_h": 8.0,
+   "round_trip_fee_pct": 0.23,
+   "price_pnl_usd": 0.92,
+   "price_pnl_estimated": false,
+   "fees_usd": -1.15,
+   "exit_reason": "edge_below_exit",
+   "opened_at": 1789171601502,
+   "closed_at": 1789178802937,
+   "funding_usd": 0.0,
+   "net_usd": -0.23,
+   "net_pct": -0.046,
+   "n_settlements": 1,
+   "expected_lifetime_pct": 0.7218,
+   "retention_pct": -6.4
+  },
+  {
+   "id": "pf-TREE-bybit-bitget-1789174013-f342a2",
+   "base": "TREE",
+   "pair": "bybit/bitget",
+   "direction": "reverse",
+   "notional_usd": 500.0,
+   "hold_min": 134.8,
+   "expected_net_edge_pct": 0.774484,
+   "entry_spread_pct": 0.889484,
+   "entry_interval_h": 8.0,
+   "round_trip_fee_pct": 0.23,
+   "price_pnl_usd": -1.75,
+   "price_pnl_estimated": false,
+   "fees_usd": -1.15,
+   "exit_reason": "edge_below_exit",
+   "opened_at": 1789174013788,
+   "closed_at": 1789182099531,
+   "funding_usd": 0.0,
+   "net_usd": -2.9,
+   "net_pct": -0.58,
+   "n_settlements": 1,
+   "expected_lifetime_pct": 0.6595,
+   "retention_pct": -87.9
+  },
+  {
+   "id": "pf-SOPH-bybit-bitget-1789173700-deb38f",
+   "base": "SOPH",
+   "pair": "bybit/bitget",
+   "direction": "reverse",
+   "notional_usd": 500.0,
+   "hold_min": 145.0,
+   "expected_net_edge_pct": 0.274335,
+   "entry_spread_pct": 0.389335,
+   "entry_interval_h": 8.0,
+   "round_trip_fee_pct": 0.23,
+   "price_pnl_usd": 0.1,
+   "price_pnl_estimated": false,
+   "fees_usd": -1.15,
+   "exit_reason": "edge_below_exit",
+   "opened_at": 1789173700612,
+   "closed_at": 1789182399577,
+   "funding_usd": 0.0,
+   "net_usd": -1.05,
+   "net_pct": -0.21,
+   "n_settlements": 1,
+   "expected_lifetime_pct": 0.1593,
+   "retention_pct": -131.8
+  },
+  {
+   "id": "pf-IOST-bybit-bitget-1789182101-79fba8",
+   "base": "IOST",
+   "pair": "bybit/bitget",
+   "direction": "reverse",
+   "notional_usd": 500.0,
+   "hold_min": 5.0,
+   "expected_net_edge_pct": 0.051782,
+   "entry_spread_pct": 0.166782,
+   "entry_interval_h": 8.0,
+   "round_trip_fee_pct": 0.23,
+   "price_pnl_usd": -0.06,
+   "price_pnl_estimated": false,
+   "fees_usd": -1.15,
+   "exit_reason": "pair_disappeared",
+   "opened_at": 1789182102096,
+   "closed_at": 1789182399683,
+   "funding_usd": 0.0,
+   "net_usd": -1.21,
+   "net_pct": -0.242,
+   "n_settlements": 1,
+   "expected_lifetime_pct": -0.0632,
+   "retention_pct": null
+  },
+  {
+   "id": "pf-COOKIE-bybit-bitget-1789185999-e6c2e1",
+   "base": "COOKIE",
+   "pair": "bybit/bitget",
+   "direction": "forward",
+   "notional_usd": 500.0,
+   "hold_min": 5.0,
+   "expected_net_edge_pct": 0.084623,
+   "entry_spread_pct": 0.199623,
+   "entry_interval_h": 8.0,
+   "round_trip_fee_pct": 0.23,
+   "price_pnl_usd": -0.09,
+   "price_pnl_estimated": false,
+   "fees_usd": -1.15,
+   "exit_reason": "edge_below_exit",
+   "opened_at": 1789185999907,
+   "closed_at": 1789186299453,
+   "funding_usd": 0.0,
+   "net_usd": -1.24,
+   "net_pct": -0.248,
+   "n_settlements": 1,
+   "expected_lifetime_pct": -0.0304,
+   "retention_pct": null
+  },
+  {
+   "id": "pf-TREE-bybit-bitget-1789186605-b04379",
+   "base": "TREE",
+   "pair": "bybit/bitget",
+   "direction": "reverse",
+   "notional_usd": 500.0,
+   "hold_min": 69.9,
+   "expected_net_edge_pct": 0.060985,
+   "entry_spread_pct": 0.175985,
+   "entry_interval_h": 8.0,
+   "round_trip_fee_pct": 0.23,
+   "price_pnl_usd": -0.35,
+   "price_pnl_estimated": false,
+   "fees_usd": -1.15,
+   "exit_reason": "edge_below_exit",
+   "opened_at": 1789186605468,
+   "closed_at": 1789190799670,
+   "funding_usd": 0.0,
+   "net_usd": -1.5,
+   "net_pct": -0.3,
+   "n_settlements": 1,
+   "expected_lifetime_pct": -0.054,
+   "retention_pct": null
+  },
+  {
+   "id": "pf-PUNDIX-bybit-bitget-1789188999-f6b910",
+   "base": "PUNDIX",
+   "pair": "bybit/bitget",
+   "direction": "reverse",
+   "notional_usd": 500.0,
+   "hold_min": 80.0,
+   "expected_net_edge_pct": 0.60074,
+   "entry_spread_pct": 0.71574,
+   "entry_interval_h": 8.0,
+   "round_trip_fee_pct": 0.23,
+   "price_pnl_usd": 0.64,
+   "price_pnl_estimated": false,
+   "fees_usd": -1.15,
+   "exit_reason": "edge_below_exit",
+   "opened_at": 1789189000116,
+   "closed_at": 1789193799670,
+   "funding_usd": 0.0,
+   "net_usd": -0.51,
+   "net_pct": -0.102,
+   "n_settlements": 1,
+   "expected_lifetime_pct": 0.4857,
+   "retention_pct": -21.0
+  },
+  {
+   "id": "pf-ONG-bybit-bitget-1789185699-fb8496",
+   "base": "ONG",
+   "pair": "bybit/bitget",
+   "direction": "reverse",
+   "notional_usd": 500.0,
+   "hold_min": 220.0,
+   "expected_net_edge_pct": 0.381633,
+   "entry_spread_pct": 0.496633,
+   "entry_interval_h": 8.0,
+   "round_trip_fee_pct": 0.23,
+   "price_pnl_usd": 1.64,
+   "price_pnl_estimated": false,
+   "fees_usd": -1.15,
+   "exit_reason": "edge_below_exit",
+   "opened_at": 1789185700158,
+   "closed_at": 1789198899625,
+   "funding_usd": -0.23,
+   "net_usd": 0.26,
+   "net_pct": 0.052,
+   "n_settlements": 1,
+   "expected_lifetime_pct": 0.2666,
+   "retention_pct": 19.5
+  },
+  {
+   "id": "pf-MTL-bybit-bitget-1789192299-b283ed",
+   "base": "MTL",
+   "pair": "bybit/bitget",
+   "direction": "reverse",
+   "notional_usd": 500.0,
+   "hold_min": 130.0,
+   "expected_net_edge_pct": 0.300298,
+   "entry_spread_pct": 0.415298,
+   "entry_interval_h": 8.0,
+   "round_trip_fee_pct": 0.23,
+   "price_pnl_usd": 0.19,
+   "price_pnl_estimated": false,
+   "fees_usd": -1.15,
+   "exit_reason": "pair_disappeared",
+   "opened_at": 1789192299725,
+   "closed_at": 1789200099531,
+   "funding_usd": 0.69,
+   "net_usd": -0.27,
+   "net_pct": -0.054,
+   "n_settlements": 1,
+   "expected_lifetime_pct": 0.1853,
+   "retention_pct": -29.1
+  },
+  {
+   "id": "pf-LSK-bybit-bitget-1789198901-a6f556",
+   "base": "LSK",
+   "pair": "bybit/bitget",
+   "direction": "reverse",
+   "notional_usd": 500.0,
+   "hold_min": 20.0,
+   "expected_net_edge_pct": 0.21484,
+   "entry_spread_pct": 0.32984,
+   "entry_interval_h": 8.0,
+   "round_trip_fee_pct": 0.23,
+   "price_pnl_usd": -0.74,
+   "price_pnl_estimated": false,
+   "fees_usd": -1.15,
+   "exit_reason": "pair_disappeared",
+   "opened_at": 1789198901976,
+   "closed_at": 1789200099645,
+   "funding_usd": 1.09,
+   "net_usd": -0.8,
+   "net_pct": -0.16,
+   "n_settlements": 1,
+   "expected_lifetime_pct": 0.0998,
+   "retention_pct": -160.3
+  },
+  {
+   "id": "pf-RIVER-bitget-bybit-1789200100-f765e6",
+   "base": "RIVER",
+   "pair": "bitget/bybit",
+   "direction": "forward",
+   "notional_usd": 500.0,
+   "hold_min": 5.0,
+   "expected_net_edge_pct": 0.203625,
+   "entry_spread_pct": 0.318625,
+   "entry_interval_h": 8.0,
+   "round_trip_fee_pct": 0.23,
+   "price_pnl_usd": 0.37,
+   "price_pnl_estimated": false,
+   "fees_usd": -1.15,
+   "exit_reason": "pair_disappeared",
+   "opened_at": 1789200101047,
+   "closed_at": 1789200399394,
+   "funding_usd": 0.0,
+   "net_usd": -0.78,
+   "net_pct": -0.156,
+   "n_settlements": 1,
+   "expected_lifetime_pct": 0.0886,
+   "retention_pct": -176.0
+  },
+  {
+   "id": "pf-LSK-bitget-bybit-1789200100-0b23be",
+   "base": "LSK",
+   "pair": "bitget/bybit",
+   "direction": "forward",
+   "notional_usd": 500.0,
+   "hold_min": 15.0,
+   "expected_net_edge_pct": 0.295956,
+   "entry_spread_pct": 0.410956,
+   "entry_interval_h": 8.0,
+   "round_trip_fee_pct": 0.23,
+   "price_pnl_usd": 1.67,
+   "price_pnl_estimated": false,
+   "fees_usd": -1.15,
+   "exit_reason": "pair_disappeared",
+   "opened_at": 1789200100542,
+   "closed_at": 1789200999410,
+   "funding_usd": 0.0,
+   "net_usd": 0.52,
+   "net_pct": 0.104,
+   "n_settlements": 1,
+   "expected_lifetime_pct": 0.181,
+   "retention_pct": 57.5
+  },
+  {
+   "id": "pf-SIREN-bybit-bitget-1789200099-c69bc6",
+   "base": "SIREN",
+   "pair": "bybit/bitget",
+   "direction": "forward",
+   "notional_usd": 500.0,
+   "hold_min": 25.0,
+   "expected_net_edge_pct": 1.017964,
+   "entry_spread_pct": 1.132964,
+   "entry_interval_h": 8.0,
+   "round_trip_fee_pct": 0.23,
+   "price_pnl_usd": 0.19,
+   "price_pnl_estimated": false,
+   "fees_usd": -1.15,
+   "exit_reason": "edge_below_exit",
+   "opened_at": 1789200100188,
+   "closed_at": 1789201599411,
+   "funding_usd": 0.0,
+   "net_usd": -0.96,
+   "net_pct": -0.192,
+   "n_settlements": 1,
+   "expected_lifetime_pct": 0.903,
+   "retention_pct": -21.3
+  },
+  {
+   "id": "pf-RVN-bybit-bitget-1789201599-b9db1a",
+   "base": "RVN",
+   "pair": "bybit/bitget",
+   "direction": "reverse",
+   "notional_usd": 500.0,
+   "hold_min": 5.0,
+   "expected_net_edge_pct": 0.022322,
+   "entry_spread_pct": 0.137322,
+   "entry_interval_h": 8.0,
+   "round_trip_fee_pct": 0.23,
+   "price_pnl_usd": 0.23,
+   "price_pnl_estimated": false,
+   "fees_usd": -1.15,
+   "exit_reason": "edge_below_exit",
+   "opened_at": 1789201599915,
+   "closed_at": 1789201899387,
+   "funding_usd": 0.0,
+   "net_usd": -0.92,
+   "net_pct": -0.184,
+   "n_settlements": 1,
+   "expected_lifetime_pct": -0.0927,
+   "retention_pct": null
+  },
+  {
+   "id": "pf-ZHIPU-bybit-okx-1789203399-68cfd7",
+   "base": "ZHIPU",
+   "pair": "bybit/okx",
+   "direction": "forward",
+   "notional_usd": 500.0,
+   "hold_min": 5.0,
+   "expected_net_edge_pct": 0.10941,
+   "entry_spread_pct": 0.21441,
+   "entry_interval_h": 8.0,
+   "round_trip_fee_pct": 0.21,
+   "price_pnl_usd": -0.42,
+   "price_pnl_estimated": false,
+   "fees_usd": -1.05,
+   "exit_reason": "pair_disappeared",
+   "opened_at": 1789203399801,
+   "closed_at": 1789203699442,
+   "funding_usd": 0.0,
+   "net_usd": -1.47,
+   "net_pct": -0.294,
+   "n_settlements": 1,
+   "expected_lifetime_pct": 0.0044,
+   "retention_pct": -6666.7
+  },
+  {
+   "id": "pf-IOST-bybit-bitget-1789203699-02dc02",
+   "base": "IOST",
+   "pair": "bybit/bitget",
+   "direction": "reverse",
+   "notional_usd": 500.0,
+   "hold_min": 5.0,
+   "expected_net_edge_pct": 0.170212,
+   "entry_spread_pct": 0.285212,
+   "entry_interval_h": 8.0,
+   "round_trip_fee_pct": 0.23,
+   "price_pnl_usd": 1.65,
+   "price_pnl_estimated": false,
+   "fees_usd": -1.15,
+   "exit_reason": "edge_below_exit",
+   "opened_at": 1789203700035,
+   "closed_at": 1789203999561,
+   "funding_usd": 0.0,
+   "net_usd": 0.5,
+   "net_pct": 0.1,
+   "n_settlements": 1,
+   "expected_lifetime_pct": 0.0552,
+   "retention_pct": 181.1
+  },
+  {
+   "id": "pf-ZHIPU-bybit-okx-1789203999-4aa5c6",
+   "base": "ZHIPU",
+   "pair": "bybit/okx",
+   "direction": "reverse",
+   "notional_usd": 500.0,
+   "hold_min": 65.0,
+   "expected_net_edge_pct": 0.119195,
+   "entry_spread_pct": 0.224195,
+   "entry_interval_h": 8.0,
+   "round_trip_fee_pct": 0.21,
+   "price_pnl_usd": -0.41,
+   "price_pnl_estimated": false,
+   "fees_usd": -1.05,
+   "exit_reason": "edge_below_exit",
+   "opened_at": 1789204000091,
+   "closed_at": 1789207899541,
+   "funding_usd": 0.0,
+   "net_usd": -1.46,
+   "net_pct": -0.292,
+   "n_settlements": 1,
+   "expected_lifetime_pct": 0.0142,
+   "retention_pct": -2057.1
+  },
+  {
+   "id": "pf-LSK-bitget-bybit-1789207899-67b318",
+   "base": "LSK",
+   "pair": "bitget/bybit",
+   "direction": "reverse",
+   "notional_usd": 500.0,
+   "hold_min": 5.0,
+   "expected_net_edge_pct": 0.138203,
+   "entry_spread_pct": 0.253203,
+   "entry_interval_h": 8.0,
+   "round_trip_fee_pct": 0.23,
+   "price_pnl_usd": -2.03,
+   "price_pnl_estimated": false,
+   "fees_usd": -1.15,
+   "exit_reason": "pair_disappeared",
+   "opened_at": 1789207900033,
+   "closed_at": 1789208199578,
+   "funding_usd": 0.0,
+   "net_usd": -3.18,
+   "net_pct": -0.636,
+   "n_settlements": 1,
+   "expected_lifetime_pct": 0.0232,
+   "retention_pct": -2741.0
+  },
+  {
+   "id": "pf-TREE-bybit-bitget-1789208199-a66373",
+   "base": "TREE",
+   "pair": "bybit/bitget",
+   "direction": "reverse",
+   "notional_usd": 500.0,
+   "hold_min": 45.0,
+   "expected_net_edge_pct": 0.105066,
+   "entry_spread_pct": 0.220066,
+   "entry_interval_h": 8.0,
+   "round_trip_fee_pct": 0.23,
+   "price_pnl_usd": 2.32,
+   "price_pnl_estimated": false,
+   "fees_usd": -1.15,
+   "exit_reason": "edge_below_exit",
+   "opened_at": 1789208200083,
+   "closed_at": 1789210900838,
+   "funding_usd": 0.0,
+   "net_usd": 1.17,
+   "net_pct": 0.234,
+   "n_settlements": 1,
+   "expected_lifetime_pct": -0.0099,
+   "retention_pct": null
+  },
+  {
+   "id": "pf-MTL-bitget-bybit-1789201299-f5ad82",
+   "base": "MTL",
+   "pair": "bitget/bybit",
+   "direction": "forward",
+   "notional_usd": 500.0,
+   "hold_min": 175.0,
+   "expected_net_edge_pct": 0.1062,
+   "entry_spread_pct": 0.2212,
+   "entry_interval_h": 8.0,
+   "round_trip_fee_pct": 0.23,
+   "price_pnl_usd": 1.35,
+   "price_pnl_estimated": false,
+   "fees_usd": -1.15,
+   "exit_reason": "edge_below_exit",
+   "opened_at": 1789201300238,
+   "closed_at": 1789211801251,
+   "funding_usd": 0.0,
+   "net_usd": 0.2,
+   "net_pct": 0.04,
+   "n_settlements": 1,
+   "expected_lifetime_pct": -0.0088,
+   "retention_pct": null
+  },
+  {
+   "id": "pf-LSK-bybit-bitget-1789210900-bd5ad5",
+   "base": "LSK",
+   "pair": "bybit/bitget",
+   "direction": "reverse",
+   "notional_usd": 500.0,
+   "hold_min": 30.0,
+   "expected_net_edge_pct": 0.175644,
+   "entry_spread_pct": 0.290644,
+   "entry_interval_h": 8.0,
+   "round_trip_fee_pct": 0.23,
+   "price_pnl_usd": 3.91,
+   "price_pnl_estimated": false,
+   "fees_usd": -1.15,
+   "exit_reason": "pair_disappeared",
+   "opened_at": 1789210901194,
+   "closed_at": 1789212700834,
+   "funding_usd": 0.0,
+   "net_usd": 2.76,
+   "net_pct": 0.552,
+   "n_settlements": 1,
+   "expected_lifetime_pct": 0.0606,
+   "retention_pct": 910.2
+  },
+  {
+   "id": "pf-MTL-binance-bybit-1789201299-7283a9",
+   "base": "MTL",
+   "pair": "binance/bybit",
+   "direction": "forward",
+   "notional_usd": 500.0,
+   "hold_min": 195.2,
+   "expected_net_edge_pct": 0.229884,
+   "entry_spread_pct": 0.334884,
+   "entry_interval_h": 8.0,
+   "round_trip_fee_pct": 0.21,
+   "price_pnl_usd": 0.19,
+   "price_pnl_estimated": false,
+   "fees_usd": -1.05,
+   "exit_reason": "pair_disappeared",
+   "opened_at": 1789201299797,
+   "closed_at": 1789213013748,
+   "funding_usd": 0.0,
+   "net_usd": -0.86,
+   "net_pct": -0.172,
+   "n_settlements": 1,
+   "expected_lifetime_pct": 0.1249,
+   "retention_pct": -137.7
+  },
+  {
+   "id": "pf-LSK-bybit-bitget-1789213301-6fac6a",
+   "base": "LSK",
+   "pair": "bybit/bitget",
+   "direction": "reverse",
+   "notional_usd": 500.0,
+   "hold_min": 10.0,
+   "expected_net_edge_pct": 0.069105,
+   "entry_spread_pct": 0.184105,
+   "entry_interval_h": 8.0,
+   "round_trip_fee_pct": 0.23,
+   "price_pnl_usd": -0.6,
+   "price_pnl_estimated": false,
+   "fees_usd": -1.15,
+   "exit_reason": "pair_disappeared",
+   "opened_at": 1789213301858,
+   "closed_at": 1789213900789,
+   "funding_usd": 0.0,
+   "net_usd": -1.75,
+   "net_pct": -0.35,
+   "n_settlements": 1,
+   "expected_lifetime_pct": -0.0459,
+   "retention_pct": null
+  },
+  {
+   "id": "pf-MTL-binance-bybit-1789213301-9f9186",
+   "base": "MTL",
+   "pair": "binance/bybit",
+   "direction": "forward",
+   "notional_usd": 500.0,
+   "hold_min": 30.0,
+   "expected_net_edge_pct": 0.039164,
+   "entry_spread_pct": 0.144164,
+   "entry_interval_h": 8.0,
+   "round_trip_fee_pct": 0.21,
+   "price_pnl_usd": 0.56,
+   "price_pnl_estimated": false,
+   "fees_usd": -1.05,
+   "exit_reason": "edge_below_exit",
+   "opened_at": 1789213302275,
+   "closed_at": 1789215100254,
+   "funding_usd": 0.0,
+   "net_usd": -0.49,
+   "net_pct": -0.098,
+   "n_settlements": 1,
+   "expected_lifetime_pct": -0.0658,
+   "retention_pct": null
+  },
+  {
+   "id": "pf-SIREN-bitget-bybit-1789215100-849b8a",
+   "base": "SIREN",
+   "pair": "bitget/bybit",
+   "direction": "forward",
+   "notional_usd": 500.0,
+   "hold_min": 5.0,
+   "expected_net_edge_pct": 0.039576,
+   "entry_spread_pct": 0.154576,
+   "entry_interval_h": 8.0,
+   "round_trip_fee_pct": 0.23,
+   "price_pnl_usd": -0.38,
+   "price_pnl_estimated": false,
+   "fees_usd": -1.15,
+   "exit_reason": "edge_below_exit",
+   "opened_at": 1789215101060,
+   "closed_at": 1789215399660,
+   "funding_usd": 0.0,
+   "net_usd": -1.53,
+   "net_pct": -0.306,
+   "n_settlements": 1,
+   "expected_lifetime_pct": -0.0754,
+   "retention_pct": null
+  },
+  {
+   "id": "pf-LSK-bybit-bitget-1789214499-678b13",
+   "base": "LSK",
+   "pair": "bybit/bitget",
+   "direction": "reverse",
+   "notional_usd": 500.0,
+   "hold_min": 20.0,
+   "expected_net_edge_pct": 0.245635,
+   "entry_spread_pct": 0.360635,
+   "entry_interval_h": 8.0,
+   "round_trip_fee_pct": 0.23,
+   "price_pnl_usd": -2.13,
+   "price_pnl_estimated": false,
+   "fees_usd": -1.15,
+   "exit_reason": "pair_disappeared",
+   "opened_at": 1789214500011,
+   "closed_at": 1789215699911,
+   "funding_usd": 0.0,
+   "net_usd": -3.28,
+   "net_pct": -0.656,
+   "n_settlements": 1,
+   "expected_lifetime_pct": 0.1306,
+   "retention_pct": -502.2
+  },
+  {
+   "id": "pf-LSK-bitget-bybit-1789215700-af5994",
+   "base": "LSK",
+   "pair": "bitget/bybit",
+   "direction": "reverse",
+   "notional_usd": 500.0,
+   "hold_min": 10.0,
+   "expected_net_edge_pct": 0.16592,
+   "entry_spread_pct": 0.28092,
+   "entry_interval_h": 8.0,
+   "round_trip_fee_pct": 0.23,
+   "price_pnl_usd": -2.85,
+   "price_pnl_estimated": false,
+   "fees_usd": -1.15,
+   "exit_reason": "edge_below_exit",
+   "opened_at": 1789215700284,
+   "closed_at": 1789216299822,
+   "funding_usd": 0.0,
+   "net_usd": -4.0,
+   "net_pct": -0.8,
+   "n_settlements": 1,
+   "expected_lifetime_pct": 0.0509,
+   "retention_pct": -1571.1
+  },
+  {
+   "id": "pf-SIREN-bitget-bybit-1789216300-f1266f",
+   "base": "SIREN",
+   "pair": "bitget/bybit",
+   "direction": "forward",
+   "notional_usd": 500.0,
+   "hold_min": 15.0,
+   "expected_net_edge_pct": 0.042088,
+   "entry_spread_pct": 0.157088,
+   "entry_interval_h": 8.0,
+   "round_trip_fee_pct": 0.23,
+   "price_pnl_usd": 0.95,
+   "price_pnl_estimated": false,
+   "fees_usd": -1.15,
+   "exit_reason": "edge_below_exit",
+   "opened_at": 1789216300409,
+   "closed_at": 1789217199623,
+   "funding_usd": 0.0,
+   "net_usd": -0.2,
+   "net_pct": -0.04,
+   "n_settlements": 1,
+   "expected_lifetime_pct": -0.0729,
+   "retention_pct": null
+  },
+  {
+   "id": "pf-LSK-bybit-bitget-1789216899-311bb3",
+   "base": "LSK",
+   "pair": "bybit/bitget",
+   "direction": "reverse",
+   "notional_usd": 500.0,
+   "hold_min": 20.0,
+   "expected_net_edge_pct": 0.13325,
+   "entry_spread_pct": 0.24825,
+   "entry_interval_h": 8.0,
+   "round_trip_fee_pct": 0.23,
+   "price_pnl_usd": 3.26,
+   "price_pnl_estimated": false,
+   "fees_usd": -1.15,
+   "exit_reason": "pair_disappeared",
+   "opened_at": 1789216899997,
+   "closed_at": 1789218099863,
+   "funding_usd": 0.0,
+   "net_usd": 2.11,
+   "net_pct": 0.422,
+   "n_settlements": 1,
+   "expected_lifetime_pct": 0.0182,
+   "retention_pct": 2312.3
+  },
+  {
+   "id": "pf-SHEIN-bitget-bybit-1789216599-aeb54d",
+   "base": "SHEIN",
+   "pair": "bitget/bybit",
+   "direction": "forward",
+   "notional_usd": 500.0,
+   "hold_min": 65.0,
+   "expected_net_edge_pct": 0.039358,
+   "entry_spread_pct": 0.154358,
+   "entry_interval_h": 8.0,
+   "round_trip_fee_pct": 0.23,
+   "price_pnl_usd": -0.96,
+   "price_pnl_estimated": false,
+   "fees_usd": -1.15,
+   "exit_reason": "edge_below_exit",
+   "opened_at": 1789216600092,
+   "closed_at": 1789220499709,
+   "funding_usd": 0.0,
+   "net_usd": -2.11,
+   "net_pct": -0.422,
+   "n_settlements": 1,
+   "expected_lifetime_pct": -0.0756,
+   "retention_pct": null
+  },
+  {
+   "id": "pf-IOST-bybit-bitget-1789221699-fc1b06",
+   "base": "IOST",
+   "pair": "bybit/bitget",
+   "direction": "reverse",
+   "notional_usd": 500.0,
+   "hold_min": 5.0,
+   "expected_net_edge_pct": 0.085855,
+   "entry_spread_pct": 0.200855,
+   "entry_interval_h": 8.0,
+   "round_trip_fee_pct": 0.23,
+   "price_pnl_usd": 0.17,
+   "price_pnl_estimated": false,
+   "fees_usd": -1.15,
+   "exit_reason": "edge_below_exit",
+   "opened_at": 1789221700033,
+   "closed_at": 1789221999883,
+   "funding_usd": 0.0,
+   "net_usd": -0.98,
+   "net_pct": -0.196,
+   "n_settlements": 1,
+   "expected_lifetime_pct": -0.0291,
+   "retention_pct": null
+  },
+  {
+   "id": "pf-TREE-bybit-bitget-1789218100-951d9e",
+   "base": "TREE",
+   "pair": "bybit/bitget",
+   "direction": "reverse",
+   "notional_usd": 500.0,
+   "hold_min": 75.0,
+   "expected_net_edge_pct": 0.212894,
+   "entry_spread_pct": 0.327894,
+   "entry_interval_h": 8.0,
+   "round_trip_fee_pct": 0.23,
+   "price_pnl_usd": 1.05,
+   "price_pnl_estimated": false,
+   "fees_usd": -1.15,
+   "exit_reason": "pair_disappeared",
+   "opened_at": 1789218100362,
+   "closed_at": 1789222602096,
+   "funding_usd": 0.0,
+   "net_usd": -0.1,
+   "net_pct": -0.02,
+   "n_settlements": 1,
+   "expected_lifetime_pct": 0.0979,
+   "retention_pct": -20.4
+  },
+  {
+   "id": "pf-TREE-bybit-bitget-1789222899-defd2c",
+   "base": "TREE",
+   "pair": "bybit/bitget",
+   "direction": "reverse",
+   "notional_usd": 500.0,
+   "hold_min": 60.0,
+   "expected_net_edge_pct": 0.22537,
+   "entry_spread_pct": 0.34037,
+   "entry_interval_h": 8.0,
+   "round_trip_fee_pct": 0.23,
+   "price_pnl_usd": -0.68,
+   "price_pnl_estimated": false,
+   "fees_usd": -1.15,
+   "exit_reason": "edge_below_exit",
+   "opened_at": 1789222900070,
+   "closed_at": 1789226501316,
+   "funding_usd": 0.0,
+   "net_usd": -1.83,
+   "net_pct": -0.366,
+   "n_settlements": 1,
+   "expected_lifetime_pct": 0.1104,
+   "retention_pct": -331.6
+  }
+ ],
+ "funding_recon": {
+  "pf-RVN-okx-bybit-1789053113-c4b85d": {
+   "symbol": "RVNUSDT",
+   "hold_window_utc": [
+    "2026-09-10 15:11:53Z",
+    "2026-09-10 16:01:53Z"
+   ],
+   "legs": {
+    "okx": {
+     "settlements": [
+      {
+       "ts": "2026-09-10 16:00:00Z",
+       "rate_pct": -1.0
+      }
+     ],
+     "cash_usd": 5.0
+    },
+    "bybit": {
+     "settlements": [
+      {
+       "ts": "2026-09-10 16:00:00Z",
+       "rate_pct": -0.2121
+      }
+     ],
+     "cash_usd": -1.06
+    }
+   },
+   "funding_usd": 3.94
+  },
+  "pf-RVN-okx-bitget-1789050960-1f2651": {
+   "symbol": "RVNUSDT",
+   "hold_window_utc": [
+    "2026-09-10 14:36:00Z",
+    "2026-09-10 16:21:41Z"
+   ],
+   "legs": {
+    "okx": {
+     "settlements": [
+      {
+       "ts": "2026-09-10 16:00:00Z",
+       "rate_pct": -1.0
+      }
+     ],
+     "cash_usd": 5.0
+    },
+    "bitget": {
+     "settlements": [
+      {
+       "ts": "2026-09-10 16:00:00Z",
+       "rate_pct": -0.2538
+      }
+     ],
+     "cash_usd": -1.26
+    }
+   },
+   "funding_usd": 3.74
+  },
+  "pf-SOPH-bybit-bitget-1789056114-84d742": {
+   "symbol": "SOPHUSDT",
+   "hold_window_utc": [
+    "2026-09-10 16:01:54Z",
+    "2026-09-10 17:21:53Z"
+   ],
+   "legs": {
+    "bybit": {
+     "settlements": [],
+     "cash_usd": 0.0
+    },
+    "bitget": {
+     "settlements": [
+      {
+       "ts": "2026-09-10 17:00:00Z",
+       "rate_pct": -0.0219
+      }
+     ],
+     "cash_usd": -0.11
+    }
+   },
+   "funding_usd": -0.11
+  },
+  "pf-GPRO-binance-bybit-1789062414-9ce758": {
+   "symbol": "GPROUSDT",
+   "hold_window_utc": [
+    "2026-09-10 17:46:54Z",
+    "2026-09-10 18:51:54Z"
+   ],
+   "legs": {
+    "binance": {
+     "settlements": [],
+     "cash_usd": 0.0
+    },
+    "bybit": {
+     "settlements": [],
+     "cash_usd": 0.0
+    }
+   },
+   "funding_usd": 0.0
+  },
+  "pf-GPRO-binance-bybit-1789068703-fe5195": {
+   "symbol": "GPROUSDT",
+   "hold_window_utc": [
+    "2026-09-10 19:31:44Z",
+    "2026-09-10 21:31:53Z"
+   ],
+   "legs": {
+    "binance": {
+     "settlements": [],
+     "cash_usd": 0.0
+    },
+    "bybit": {
+     "settlements": [],
+     "cash_usd": 0.0
+    }
+   },
+   "funding_usd": 0.0
+  },
+  "pf-ONG-bybit-bitget-1789075913-2e9b71": {
+   "symbol": "ONGUSDT",
+   "hold_window_utc": [
+    "2026-09-10 21:31:54Z",
+    "2026-09-10 23:36:39Z"
+   ],
+   "legs": {
+    "bybit": {
+     "settlements": [],
+     "cash_usd": 0.0
+    },
+    "bitget": {
+     "settlements": [
+      {
+       "ts": "2026-09-10 22:00:00Z",
+       "rate_pct": -0.1909
+      },
+      {
+       "ts": "2026-09-10 23:00:00Z",
+       "rate_pct": -0.1601
+      }
+     ],
+     "cash_usd": -1.74
+    }
+   },
+   "funding_usd": -1.74
+  },
+  "pf-NEWT-bybit-bitget-1789083399-6916b5": {
+   "symbol": "NEWTUSDT",
+   "hold_window_utc": [
+    "2026-09-10 23:36:40Z",
+    "2026-09-11 00:06:39Z"
+   ],
+   "legs": {
+    "bybit": {
+     "settlements": [
+      {
+       "ts": "2026-09-11 00:00:00Z",
+       "rate_pct": -1.0911
+      }
+     ],
+     "cash_usd": 5.46
+    },
+    "bitget": {
+     "settlements": [
+      {
+       "ts": "2026-09-11 00:00:00Z",
+       "rate_pct": -0.7137
+      }
+     ],
+     "cash_usd": -3.54
+    }
+   },
+   "funding_usd": 1.91
+  },
+  "pf-KR200-bitget-okx-1789056401-3ca954": {
+   "symbol": "KR200USDT",
+   "hold_window_utc": [
+    "2026-09-10 16:06:41Z",
+    "2026-09-11 00:11:39Z"
+   ],
+   "legs": {
+    "bitget": {
+     "settlements": [
+      {
+       "ts": "2026-09-10 20:00:00Z",
+       "rate_pct": 0.0
+      },
+      {
+       "ts": "2026-09-11 00:00:00Z",
+       "rate_pct": 0.0
+      }
+     ],
+     "cash_usd": 0.0
+    },
+    "okx": {
+     "settlements": [
+      {
+       "ts": "2026-09-11 00:00:00Z",
+       "rate_pct": 0.1336
+      }
+     ],
+     "cash_usd": 0.67
+    }
+   },
+   "funding_usd": 0.67
+  },
+  "pf-LA-bybit-bitget-1789085499-0ba827": {
+   "symbol": "LAUSDT",
+   "hold_window_utc": [
+    "2026-09-11 00:11:40Z",
+    "2026-09-11 01:36:39Z"
+   ],
+   "legs": {
+    "bybit": {
+     "settlements": [],
+     "cash_usd": 0.0
+    },
+    "bitget": {
+     "settlements": [],
+     "cash_usd": 0.0
+    }
+   },
+   "funding_usd": 0.0
+  },
+  "pf-UNITREE-bybit-okx-1789092699-96e1fb": {
+   "symbol": "UNITREEUSDT",
+   "hold_window_utc": [
+    "2026-09-11 02:11:39Z",
+    "2026-09-11 03:41:39Z"
+   ],
+   "legs": {
+    "bybit": {
+     "settlements": [],
+     "cash_usd": 0.0
+    },
+    "okx": {
+     "settlements": [],
+     "cash_usd": 0.0
+    }
+   },
+   "funding_usd": 0.0
+  },
+  "pf-ONG-bybit-bitget-1789099299-a1e3dc": {
+   "symbol": "ONGUSDT",
+   "hold_window_utc": [
+    "2026-09-11 04:01:39Z",
+    "2026-09-11 08:56:39Z"
+   ],
+   "legs": {
+    "bybit": {
+     "settlements": [
+      {
+       "ts": "2026-09-11 08:00:00Z",
+       "rate_pct": -0.5968
+      }
+     ],
+     "cash_usd": 2.98
+    },
+    "bitget": {
+     "settlements": [
+      {
+       "ts": "2026-09-11 05:00:00Z",
+       "rate_pct": -0.1659
+      },
+      {
+       "ts": "2026-09-11 06:00:00Z",
+       "rate_pct": -0.2004
+      },
+      {
+       "ts": "2026-09-11 07:00:00Z",
+       "rate_pct": -0.1657
+      },
+      {
+       "ts": "2026-09-11 08:00:00Z",
+       "rate_pct": -0.1736
+      }
+     ],
+     "cash_usd": -3.53
+    }
+   },
+   "funding_usd": -0.54
+  },
+  "pf-CL-bybit-bitget-1789077399-241071": {
+   "symbol": "CLUSDT",
+   "hold_window_utc": [
+    "2026-09-10 21:56:40Z",
+    "2026-09-11 12:11:39Z"
+   ],
+   "legs": {
+    "bybit": {
+     "settlements": [
+      {
+       "ts": "2026-09-11 00:00:00Z",
+       "rate_pct": -0.2757
+      },
+      {
+       "ts": "2026-09-11 08:00:00Z",
+       "rate_pct": -0.2658
+      }
+     ],
+     "cash_usd": 2.7
+    },
+    "bitget": {
+     "settlements": [
+      {
+       "ts": "2026-09-11 00:00:00Z",
+       "rate_pct": -0.0915
+      },
+      {
+       "ts": "2026-09-11 04:00:00Z",
+       "rate_pct": -0.0758
+      },
+      {
+       "ts": "2026-09-11 08:00:00Z",
+       "rate_pct": -0.1159
+      },
+      {
+       "ts": "2026-09-11 12:00:00Z",
+       "rate_pct": -0.1373
+      }
+     ],
+     "cash_usd": -2.1
+    }
+   },
+   "funding_usd": 0.6
+  },
+  "pf-ZHIPU-bybit-bitget-1789128999-f1c98b": {
+   "symbol": "ZHIPUUSDT",
+   "hold_window_utc": [
+    "2026-09-11 12:16:40Z",
+    "2026-09-11 14:51:41Z"
+   ],
+   "legs": {
+    "bybit": {
+     "settlements": [],
+     "cash_usd": 0.0
+    },
+    "bitget": {
+     "settlements": [],
+     "cash_usd": 0.0
+    }
+   },
+   "funding_usd": 0.0
+  },
+  "pf-BZ-bybit-bitget-1789089099-a97990": {
+   "symbol": "BZUSDT",
+   "hold_window_utc": [
+    "2026-09-11 01:11:39Z",
+    "2026-09-11 15:01:53Z"
+   ],
+   "legs": {
+    "bybit": {
+     "settlements": [
+      {
+       "ts": "2026-09-11 08:00:00Z",
+       "rate_pct": -0.227
+      }
+     ],
+     "cash_usd": 1.13
+    },
+    "bitget": {
+     "settlements": [
+      {
+       "ts": "2026-09-11 04:00:00Z",
+       "rate_pct": -0.0768
+      },
+      {
+       "ts": "2026-09-11 08:00:00Z",
+       "rate_pct": -0.1003
+      },
+      {
+       "ts": "2026-09-11 12:00:00Z",
+       "rate_pct": -0.1359
+      }
+     ],
+     "cash_usd": -1.56
+    }
+   },
+   "funding_usd": -0.43
+  },
+  "pf-KSTR-bitget-binance-1789139518-4caf9d": {
+   "symbol": "KSTRUSDT",
+   "hold_window_utc": [
+    "2026-09-11 15:11:59Z",
+    "2026-09-11 15:16:54Z"
+   ],
+   "legs": {
+    "bitget": {
+     "settlements": [],
+     "cash_usd": 0.0
+    },
+    "binance": {
+     "settlements": [],
+     "cash_usd": 0.0
+    }
+   },
+   "funding_usd": 0.0
+  },
+  "pf-SIREN-bybit-bitget-1789142503-3c0fa1": {
+   "symbol": "SIRENUSDT",
+   "hold_window_utc": [
+    "2026-09-11 16:01:43Z",
+    "2026-09-11 16:11:39Z"
+   ],
+   "legs": {
+    "bybit": {
+     "settlements": [],
+     "cash_usd": 0.0
+    },
+    "bitget": {
+     "settlements": [],
+     "cash_usd": 0.0
+    }
+   },
+   "funding_usd": 0.0
+  },
+  "pf-ONG-bybit-bitget-1789117303-b425a8": {
+   "symbol": "ONGUSDT",
+   "hold_window_utc": [
+    "2026-09-11 09:01:43Z",
+    "2026-09-11 16:26:39Z"
+   ],
+   "legs": {
+    "bybit": {
+     "settlements": [
+      {
+       "ts": "2026-09-11 12:00:00Z",
+       "rate_pct": -0.5362
+      },
+      {
+       "ts": "2026-09-11 16:00:00Z",
+       "rate_pct": -0.3334
+      }
+     ],
+     "cash_usd": 4.34
+    },
+    "bitget": {
+     "settlements": [
+      {
+       "ts": "2026-09-11 10:00:00Z",
+       "rate_pct": -0.1601
+      },
+      {
+       "ts": "2026-09-11 11:00:00Z",
+       "rate_pct": -0.0979
+      },
+      {
+       "ts": "2026-09-11 12:00:00Z",
+       "rate_pct": -0.1436
+      },
+      {
+       "ts": "2026-09-11 13:00:00Z",
+       "rate_pct": -0.0951
+      },
+      {
+       "ts": "2026-09-11 14:00:00Z",
+       "rate_pct": -0.1001
+      },
+      {
+       "ts": "2026-09-11 15:00:00Z",
+       "rate_pct": -0.0953
+      },
+      {
+       "ts": "2026-09-11 16:00:00Z",
+       "rate_pct": -0.0989
+      }
+     ],
+     "cash_usd": -3.95
+    }
+   },
+   "funding_usd": 0.39
+  },
+  "pf-BLUR-bybit-bitget-1789142503-61d393": {
+   "symbol": "BLURUSDT",
+   "hold_window_utc": [
+    "2026-09-11 16:01:43Z",
+    "2026-09-11 17:16:39Z"
+   ],
+   "legs": {
+    "bybit": {
+     "settlements": [],
+     "cash_usd": 0.0
+    },
+    "bitget": {
+     "settlements": [],
+     "cash_usd": 0.0
+    }
+   },
+   "funding_usd": 0.0
+  },
+  "pf-ONG-bybit-bitget-1789148213-6236ef": {
+   "symbol": "ONGUSDT",
+   "hold_window_utc": [
+    "2026-09-11 17:36:54Z",
+    "2026-09-11 17:51:39Z"
+   ],
+   "legs": {
+    "bybit": {
+     "settlements": [],
+     "cash_usd": 0.0
+    },
+    "bitget": {
+     "settlements": [],
+     "cash_usd": 0.0
+    }
+   },
+   "funding_usd": 0.0
+  },
+  "pf-SIREN-bybit-bitget-1789145513-24c762": {
+   "symbol": "SIRENUSDT",
+   "hold_window_utc": [
+    "2026-09-11 16:51:53Z",
+    "2026-09-11 18:01:39Z"
+   ],
+   "legs": {
+    "bybit": {
+     "settlements": [],
+     "cash_usd": 0.0
+    },
+    "bitget": {
+     "settlements": [],
+     "cash_usd": 0.0
+    }
+   },
+   "funding_usd": 0.0
+  },
+  "pf-SIREN-bitget-bybit-1789156901-86db4f": {
+   "symbol": "SIRENUSDT",
+   "hold_window_utc": [
+    "2026-09-11 20:01:42Z",
+    "2026-09-11 20:11:41Z"
+   ],
+   "legs": {
+    "bitget": {
+     "settlements": [],
+     "cash_usd": 0.0
+    },
+    "bybit": {
+     "settlements": [],
+     "cash_usd": 0.0
+    }
+   },
+   "funding_usd": 0.0
+  },
+  "pf-BZ-bybit-bitget-1789143100-2e89ae": {
+   "symbol": "BZUSDT",
+   "hold_window_utc": [
+    "2026-09-11 16:11:40Z",
+    "2026-09-11 20:46:40Z"
+   ],
+   "legs": {
+    "bybit": {
+     "settlements": [],
+     "cash_usd": 0.0
+    },
+    "bitget": {
+     "settlements": [
+      {
+       "ts": "2026-09-11 20:00:00Z",
+       "rate_pct": -0.323
+      }
+     ],
+     "cash_usd": -1.61
+    }
+   },
+   "funding_usd": -1.61
+  },
+  "pf-PIPPIN-bitget-bybit-1789159602-789460": {
+   "symbol": "PIPPINUSDT",
+   "hold_window_utc": [
+    "2026-09-11 20:46:43Z",
+    "2026-09-11 21:51:41Z"
+   ],
+   "legs": {
+    "bitget": {
+     "settlements": [],
+     "cash_usd": 0.0
+    },
+    "bybit": {
+     "settlements": [],
+     "cash_usd": 0.0
+    }
+   },
+   "funding_usd": 0.0
+  },
+  "pf-FLY-bitget-bybit-1789150913-42daa8": {
+   "symbol": "FLYUSDT",
+   "hold_window_utc": [
+    "2026-09-11 18:21:54Z",
+    "2026-09-11 22:46:42Z"
+   ],
+   "legs": {
+    "bitget": {
+     "settlements": [],
+     "cash_usd": 0.0
+    },
+    "bybit": {
+     "settlements": [],
+     "cash_usd": 0.0
+    }
+   },
+   "funding_usd": 0.0
+  },
+  "pf-TREE-bybit-bitget-1789171601-2facd0": {
+   "symbol": "TREEUSDT",
+   "hold_window_utc": [
+    "2026-09-12 00:06:41Z",
+    "2026-09-12 00:26:53Z"
+   ],
+   "legs": {
+    "bybit": {
+     "settlements": [],
+     "cash_usd": 0.0
+    },
+    "bitget": {
+     "settlements": [],
+     "cash_usd": 0.0
+    }
+   },
+   "funding_usd": 0.0
+  },
+  "pf-ORCA-bybit-bitget-1789172202-5f4424": {
+   "symbol": "ORCAUSDT",
+   "hold_window_utc": [
+    "2026-09-12 00:16:42Z",
+    "2026-09-12 00:41:39Z"
+   ],
+   "legs": {
+    "bybit": {
+     "settlements": [],
+     "cash_usd": 0.0
+    },
+    "bitget": {
+     "settlements": [],
+     "cash_usd": 0.0
+    }
+   },
+   "funding_usd": 0.0
+  },
+  "pf-SIREN-bybit-bitget-1789171601-c331e6": {
+   "symbol": "SIRENUSDT",
+   "hold_window_utc": [
+    "2026-09-12 00:06:41Z",
+    "2026-09-12 02:06:42Z"
+   ],
+   "legs": {
+    "bybit": {
+     "settlements": [],
+     "cash_usd": 0.0
+    },
+    "bitget": {
+     "settlements": [],
+     "cash_usd": 0.0
+    }
+   },
+   "funding_usd": 0.0
+  },
+  "pf-TREE-bybit-bitget-1789174013-f342a2": {
+   "symbol": "TREEUSDT",
+   "hold_window_utc": [
+    "2026-09-12 00:46:53Z",
+    "2026-09-12 03:01:39Z"
+   ],
+   "legs": {
+    "bybit": {
+     "settlements": [],
+     "cash_usd": 0.0
+    },
+    "bitget": {
+     "settlements": [],
+     "cash_usd": 0.0
+    }
+   },
+   "funding_usd": 0.0
+  },
+  "pf-SOPH-bybit-bitget-1789173700-deb38f": {
+   "symbol": "SOPHUSDT",
+   "hold_window_utc": [
+    "2026-09-12 00:41:40Z",
+    "2026-09-12 03:06:39Z"
+   ],
+   "legs": {
+    "bybit": {
+     "settlements": [],
+     "cash_usd": 0.0
+    },
+    "bitget": {
+     "settlements": [],
+     "cash_usd": 0.0
+    }
+   },
+   "funding_usd": 0.0
+  },
+  "pf-IOST-bybit-bitget-1789182101-79fba8": {
+   "symbol": "IOSTUSDT",
+   "hold_window_utc": [
+    "2026-09-12 03:01:42Z",
+    "2026-09-12 03:06:39Z"
+   ],
+   "legs": {
+    "bybit": {
+     "settlements": [],
+     "cash_usd": 0.0
+    },
+    "bitget": {
+     "settlements": [],
+     "cash_usd": 0.0
+    }
+   },
+   "funding_usd": 0.0
+  },
+  "pf-COOKIE-bybit-bitget-1789185999-e6c2e1": {
+   "symbol": "COOKIEUSDT",
+   "hold_window_utc": [
+    "2026-09-12 04:06:39Z",
+    "2026-09-12 04:11:39Z"
+   ],
+   "legs": {
+    "bybit": {
+     "settlements": [],
+     "cash_usd": 0.0
+    },
+    "bitget": {
+     "settlements": [],
+     "cash_usd": 0.0
+    }
+   },
+   "funding_usd": 0.0
+  },
+  "pf-TREE-bybit-bitget-1789186605-b04379": {
+   "symbol": "TREEUSDT",
+   "hold_window_utc": [
+    "2026-09-12 04:16:45Z",
+    "2026-09-12 05:26:39Z"
+   ],
+   "legs": {
+    "bybit": {
+     "settlements": [],
+     "cash_usd": 0.0
+    },
+    "bitget": {
+     "settlements": [],
+     "cash_usd": 0.0
+    }
+   },
+   "funding_usd": 0.0
+  },
+  "pf-PUNDIX-bybit-bitget-1789188999-f6b910": {
+   "symbol": "PUNDIXUSDT",
+   "hold_window_utc": [
+    "2026-09-12 04:56:40Z",
+    "2026-09-12 06:16:39Z"
+   ],
+   "legs": {
+    "bybit": {
+     "settlements": [],
+     "cash_usd": 0.0
+    },
+    "bitget": {
+     "settlements": [],
+     "cash_usd": 0.0
+    }
+   },
+   "funding_usd": 0.0
+  },
+  "pf-ONG-bybit-bitget-1789185699-fb8496": {
+   "symbol": "ONGUSDT",
+   "hold_window_utc": [
+    "2026-09-12 04:01:40Z",
+    "2026-09-12 07:41:39Z"
+   ],
+   "legs": {
+    "bybit": {
+     "settlements": [],
+     "cash_usd": 0.0
+    },
+    "bitget": {
+     "settlements": [
+      {
+       "ts": "2026-09-12 05:00:00Z",
+       "rate_pct": -0.027
+      },
+      {
+       "ts": "2026-09-12 06:00:00Z",
+       "rate_pct": -0.0073
+      },
+      {
+       "ts": "2026-09-12 07:00:00Z",
+       "rate_pct": -0.0115
+      }
+     ],
+     "cash_usd": -0.23
+    }
+   },
+   "funding_usd": -0.23
+  },
+  "pf-MTL-bybit-bitget-1789192299-b283ed": {
+   "symbol": "MTLUSDT",
+   "hold_window_utc": [
+    "2026-09-12 05:51:39Z",
+    "2026-09-12 08:01:39Z"
+   ],
+   "legs": {
+    "bybit": {
+     "settlements": [
+      {
+       "ts": "2026-09-12 08:00:00Z",
+       "rate_pct": -0.3592
+      }
+     ],
+     "cash_usd": 1.8
+    },
+    "bitget": {
+     "settlements": [
+      {
+       "ts": "2026-09-12 08:00:00Z",
+       "rate_pct": -0.2206
+      }
+     ],
+     "cash_usd": -1.1
+    }
+   },
+   "funding_usd": 0.69
+  },
+  "pf-LSK-bybit-bitget-1789198901-a6f556": {
+   "symbol": "LSKUSDT",
+   "hold_window_utc": [
+    "2026-09-12 07:41:41Z",
+    "2026-09-12 08:01:39Z"
+   ],
+   "legs": {
+    "bybit": {
+     "settlements": [
+      {
+       "ts": "2026-09-12 08:00:00Z",
+       "rate_pct": -0.4833
+      }
+     ],
+     "cash_usd": 2.41
+    },
+    "bitget": {
+     "settlements": [
+      {
+       "ts": "2026-09-12 08:00:00Z",
+       "rate_pct": -0.2639
+      }
+     ],
+     "cash_usd": -1.32
+    }
+   },
+   "funding_usd": 1.09
+  },
+  "pf-RIVER-bitget-bybit-1789200100-f765e6": {
+   "symbol": "RIVERUSDT",
+   "hold_window_utc": [
+    "2026-09-12 08:01:41Z",
+    "2026-09-12 08:06:39Z"
+   ],
+   "legs": {
+    "bitget": {
+     "settlements": [],
+     "cash_usd": 0.0
+    },
+    "bybit": {
+     "settlements": [],
+     "cash_usd": 0.0
+    }
+   },
+   "funding_usd": 0.0
+  },
+  "pf-LSK-bitget-bybit-1789200100-0b23be": {
+   "symbol": "LSKUSDT",
+   "hold_window_utc": [
+    "2026-09-12 08:01:40Z",
+    "2026-09-12 08:16:39Z"
+   ],
+   "legs": {
+    "bitget": {
+     "settlements": [],
+     "cash_usd": 0.0
+    },
+    "bybit": {
+     "settlements": [],
+     "cash_usd": 0.0
+    }
+   },
+   "funding_usd": 0.0
+  },
+  "pf-SIREN-bybit-bitget-1789200099-c69bc6": {
+   "symbol": "SIRENUSDT",
+   "hold_window_utc": [
+    "2026-09-12 08:01:40Z",
+    "2026-09-12 08:26:39Z"
+   ],
+   "legs": {
+    "bybit": {
+     "settlements": [],
+     "cash_usd": 0.0
+    },
+    "bitget": {
+     "settlements": [],
+     "cash_usd": 0.0
+    }
+   },
+   "funding_usd": 0.0
+  },
+  "pf-RVN-bybit-bitget-1789201599-b9db1a": {
+   "symbol": "RVNUSDT",
+   "hold_window_utc": [
+    "2026-09-12 08:26:39Z",
+    "2026-09-12 08:31:39Z"
+   ],
+   "legs": {
+    "bybit": {
+     "settlements": [],
+     "cash_usd": 0.0
+    },
+    "bitget": {
+     "settlements": [],
+     "cash_usd": 0.0
+    }
+   },
+   "funding_usd": 0.0
+  },
+  "pf-ZHIPU-bybit-okx-1789203399-68cfd7": {
+   "symbol": "ZHIPUUSDT",
+   "hold_window_utc": [
+    "2026-09-12 08:56:39Z",
+    "2026-09-12 09:01:39Z"
+   ],
+   "legs": {
+    "bybit": {
+     "settlements": [],
+     "cash_usd": 0.0
+    },
+    "okx": {
+     "settlements": [],
+     "cash_usd": 0.0
+    }
+   },
+   "funding_usd": 0.0
+  },
+  "pf-IOST-bybit-bitget-1789203699-02dc02": {
+   "symbol": "IOSTUSDT",
+   "hold_window_utc": [
+    "2026-09-12 09:01:40Z",
+    "2026-09-12 09:06:39Z"
+   ],
+   "legs": {
+    "bybit": {
+     "settlements": [],
+     "cash_usd": 0.0
+    },
+    "bitget": {
+     "settlements": [],
+     "cash_usd": 0.0
+    }
+   },
+   "funding_usd": 0.0
+  },
+  "pf-ZHIPU-bybit-okx-1789203999-4aa5c6": {
+   "symbol": "ZHIPUUSDT",
+   "hold_window_utc": [
+    "2026-09-12 09:06:40Z",
+    "2026-09-12 10:11:39Z"
+   ],
+   "legs": {
+    "bybit": {
+     "settlements": [],
+     "cash_usd": 0.0
+    },
+    "okx": {
+     "settlements": [],
+     "cash_usd": 0.0
+    }
+   },
+   "funding_usd": 0.0
+  },
+  "pf-LSK-bitget-bybit-1789207899-67b318": {
+   "symbol": "LSKUSDT",
+   "hold_window_utc": [
+    "2026-09-12 10:11:40Z",
+    "2026-09-12 10:16:39Z"
+   ],
+   "legs": {
+    "bitget": {
+     "settlements": [],
+     "cash_usd": 0.0
+    },
+    "bybit": {
+     "settlements": [],
+     "cash_usd": 0.0
+    }
+   },
+   "funding_usd": 0.0
+  },
+  "pf-TREE-bybit-bitget-1789208199-a66373": {
+   "symbol": "TREEUSDT",
+   "hold_window_utc": [
+    "2026-09-12 10:16:40Z",
+    "2026-09-12 11:01:40Z"
+   ],
+   "legs": {
+    "bybit": {
+     "settlements": [],
+     "cash_usd": 0.0
+    },
+    "bitget": {
+     "settlements": [],
+     "cash_usd": 0.0
+    }
+   },
+   "funding_usd": 0.0
+  },
+  "pf-MTL-bitget-bybit-1789201299-f5ad82": {
+   "symbol": "MTLUSDT",
+   "hold_window_utc": [
+    "2026-09-12 08:21:40Z",
+    "2026-09-12 11:16:41Z"
+   ],
+   "legs": {
+    "bitget": {
+     "settlements": [],
+     "cash_usd": 0.0
+    },
+    "bybit": {
+     "settlements": [],
+     "cash_usd": 0.0
+    }
+   },
+   "funding_usd": 0.0
+  },
+  "pf-LSK-bybit-bitget-1789210900-bd5ad5": {
+   "symbol": "LSKUSDT",
+   "hold_window_utc": [
+    "2026-09-12 11:01:41Z",
+    "2026-09-12 11:31:40Z"
+   ],
+   "legs": {
+    "bybit": {
+     "settlements": [],
+     "cash_usd": 0.0
+    },
+    "bitget": {
+     "settlements": [],
+     "cash_usd": 0.0
+    }
+   },
+   "funding_usd": 0.0
+  },
+  "pf-MTL-binance-bybit-1789201299-7283a9": {
+   "symbol": "MTLUSDT",
+   "hold_window_utc": [
+    "2026-09-12 08:21:39Z",
+    "2026-09-12 11:36:53Z"
+   ],
+   "legs": {
+    "binance": {
+     "settlements": [],
+     "cash_usd": 0.0
+    },
+    "bybit": {
+     "settlements": [],
+     "cash_usd": 0.0
+    }
+   },
+   "funding_usd": 0.0
+  },
+  "pf-LSK-bybit-bitget-1789213301-6fac6a": {
+   "symbol": "LSKUSDT",
+   "hold_window_utc": [
+    "2026-09-12 11:41:41Z",
+    "2026-09-12 11:51:40Z"
+   ],
+   "legs": {
+    "bybit": {
+     "settlements": [],
+     "cash_usd": 0.0
+    },
+    "bitget": {
+     "settlements": [],
+     "cash_usd": 0.0
+    }
+   },
+   "funding_usd": 0.0
+  },
+  "pf-MTL-binance-bybit-1789213301-9f9186": {
+   "symbol": "MTLUSDT",
+   "hold_window_utc": [
+    "2026-09-12 11:41:42Z",
+    "2026-09-12 12:11:40Z"
+   ],
+   "legs": {
+    "binance": {
+     "settlements": [],
+     "cash_usd": 0.0
+    },
+    "bybit": {
+     "settlements": [],
+     "cash_usd": 0.0
+    }
+   },
+   "funding_usd": 0.0
+  },
+  "pf-SIREN-bitget-bybit-1789215100-849b8a": {
+   "symbol": "SIRENUSDT",
+   "hold_window_utc": [
+    "2026-09-12 12:11:41Z",
+    "2026-09-12 12:16:39Z"
+   ],
+   "legs": {
+    "bitget": {
+     "settlements": [],
+     "cash_usd": 0.0
+    },
+    "bybit": {
+     "settlements": [],
+     "cash_usd": 0.0
+    }
+   },
+   "funding_usd": 0.0
+  },
+  "pf-LSK-bybit-bitget-1789214499-678b13": {
+   "symbol": "LSKUSDT",
+   "hold_window_utc": [
+    "2026-09-12 12:01:40Z",
+    "2026-09-12 12:21:39Z"
+   ],
+   "legs": {
+    "bybit": {
+     "settlements": [],
+     "cash_usd": 0.0
+    },
+    "bitget": {
+     "settlements": [],
+     "cash_usd": 0.0
+    }
+   },
+   "funding_usd": 0.0
+  },
+  "pf-LSK-bitget-bybit-1789215700-af5994": {
+   "symbol": "LSKUSDT",
+   "hold_window_utc": [
+    "2026-09-12 12:21:40Z",
+    "2026-09-12 12:31:39Z"
+   ],
+   "legs": {
+    "bitget": {
+     "settlements": [],
+     "cash_usd": 0.0
+    },
+    "bybit": {
+     "settlements": [],
+     "cash_usd": 0.0
+    }
+   },
+   "funding_usd": 0.0
+  },
+  "pf-SIREN-bitget-bybit-1789216300-f1266f": {
+   "symbol": "SIRENUSDT",
+   "hold_window_utc": [
+    "2026-09-12 12:31:40Z",
+    "2026-09-12 12:46:39Z"
+   ],
+   "legs": {
+    "bitget": {
+     "settlements": [],
+     "cash_usd": 0.0
+    },
+    "bybit": {
+     "settlements": [],
+     "cash_usd": 0.0
+    }
+   },
+   "funding_usd": 0.0
+  },
+  "pf-LSK-bybit-bitget-1789216899-311bb3": {
+   "symbol": "LSKUSDT",
+   "hold_window_utc": [
+    "2026-09-12 12:41:39Z",
+    "2026-09-12 13:01:39Z"
+   ],
+   "legs": {
+    "bybit": {
+     "settlements": [],
+     "cash_usd": 0.0
+    },
+    "bitget": {
+     "settlements": [],
+     "cash_usd": 0.0
+    }
+   },
+   "funding_usd": 0.0
+  },
+  "pf-SHEIN-bitget-bybit-1789216599-aeb54d": {
+   "symbol": "SHEINUSDT",
+   "hold_window_utc": [
+    "2026-09-12 12:36:40Z",
+    "2026-09-12 13:41:39Z"
+   ],
+   "legs": {
+    "bitget": {
+     "settlements": [],
+     "cash_usd": 0.0
+    },
+    "bybit": {
+     "settlements": [],
+     "cash_usd": 0.0
+    }
+   },
+   "funding_usd": 0.0
+  },
+  "pf-IOST-bybit-bitget-1789221699-fc1b06": {
+   "symbol": "IOSTUSDT",
+   "hold_window_utc": [
+    "2026-09-12 14:01:40Z",
+    "2026-09-12 14:06:39Z"
+   ],
+   "legs": {
+    "bybit": {
+     "settlements": [],
+     "cash_usd": 0.0
+    },
+    "bitget": {
+     "settlements": [],
+     "cash_usd": 0.0
+    }
+   },
+   "funding_usd": 0.0
+  },
+  "pf-TREE-bybit-bitget-1789218100-951d9e": {
+   "symbol": "TREEUSDT",
+   "hold_window_utc": [
+    "2026-09-12 13:01:40Z",
+    "2026-09-12 14:16:42Z"
+   ],
+   "legs": {
+    "bybit": {
+     "settlements": [],
+     "cash_usd": 0.0
+    },
+    "bitget": {
+     "settlements": [],
+     "cash_usd": 0.0
+    }
+   },
+   "funding_usd": 0.0
+  },
+  "pf-TREE-bybit-bitget-1789222899-defd2c": {
+   "symbol": "TREEUSDT",
+   "hold_window_utc": [
+    "2026-09-12 14:21:40Z",
+    "2026-09-12 15:21:41Z"
+   ],
+   "legs": {
+    "bybit": {
+     "settlements": [],
+     "cash_usd": 0.0
+    },
+    "bitget": {
+     "settlements": [],
+     "cash_usd": 0.0
+    }
+   },
+   "funding_usd": 0.0
+  }
+ },
+ "funding_persistence": {
+  "pf-RVN-okx-bybit-1789053113-c4b85d": {
+   "entry_gap_pct": 0.6343,
+   "n_common_settlements": 1,
+   "n_gap_kept_sign": 1,
+   "gaps_pct": [
+    0.7879
+   ],
+   "settlements_long": 1,
+   "settlements_short": 1
+  },
+  "pf-RVN-okx-bitget-1789050960-1f2651": {
+   "entry_gap_pct": 0.4339,
+   "n_common_settlements": 1,
+   "n_gap_kept_sign": 1,
+   "gaps_pct": [
+    0.7462
+   ],
+   "settlements_long": 1,
+   "settlements_short": 1
+  },
+  "pf-SOPH-bybit-bitget-1789056114-84d742": {
+   "entry_gap_pct": 0.4712,
+   "n_common_settlements": 0,
+   "n_gap_kept_sign": 0,
+   "gaps_pct": [],
+   "settlements_long": 0,
+   "settlements_short": 1
+  },
+  "pf-GPRO-binance-bybit-1789062414-9ce758": {
+   "entry_gap_pct": 0.4786,
+   "n_common_settlements": 0,
+   "n_gap_kept_sign": 0,
+   "gaps_pct": [],
+   "settlements_long": 0,
+   "settlements_short": 0
+  },
+  "pf-GPRO-binance-bybit-1789068703-fe5195": {
+   "entry_gap_pct": 0.3904,
+   "n_common_settlements": 0,
+   "n_gap_kept_sign": 0,
+   "gaps_pct": [],
+   "settlements_long": 0,
+   "settlements_short": 0
+  },
+  "pf-ONG-bybit-bitget-1789075913-2e9b71": {
+   "entry_gap_pct": 0.3114,
+   "n_common_settlements": 0,
+   "n_gap_kept_sign": 0,
+   "gaps_pct": [],
+   "settlements_long": 0,
+   "settlements_short": 2
+  },
+  "pf-NEWT-bybit-bitget-1789083399-6916b5": {
+   "entry_gap_pct": 0.3673,
+   "n_common_settlements": 1,
+   "n_gap_kept_sign": 1,
+   "gaps_pct": [
+    0.3774
+   ],
+   "settlements_long": 1,
+   "settlements_short": 1
+  },
+  "pf-KR200-bitget-okx-1789056401-3ca954": {
+   "entry_gap_pct": 0.5912,
+   "n_common_settlements": 1,
+   "n_gap_kept_sign": 1,
+   "gaps_pct": [
+    0.1336
+   ],
+   "settlements_long": 2,
+   "settlements_short": 1
+  },
+  "pf-LA-bybit-bitget-1789085499-0ba827": {
+   "entry_gap_pct": 1.0623,
+   "n_common_settlements": 0,
+   "n_gap_kept_sign": 0,
+   "gaps_pct": [],
+   "settlements_long": 0,
+   "settlements_short": 0
+  },
+  "pf-UNITREE-bybit-okx-1789092699-96e1fb": {
+   "entry_gap_pct": 0.371,
+   "n_common_settlements": 0,
+   "n_gap_kept_sign": 0,
+   "gaps_pct": [],
+   "settlements_long": 0,
+   "settlements_short": 0
+  },
+  "pf-ONG-bybit-bitget-1789099299-a1e3dc": {
+   "entry_gap_pct": 0.4262,
+   "n_common_settlements": 1,
+   "n_gap_kept_sign": 1,
+   "gaps_pct": [
+    0.4232
+   ],
+   "settlements_long": 1,
+   "settlements_short": 4
+  },
+  "pf-CL-bybit-bitget-1789077399-241071": {
+   "entry_gap_pct": 0.2759,
+   "n_common_settlements": 2,
+   "n_gap_kept_sign": 2,
+   "gaps_pct": [
+    0.1842,
+    0.1499
+   ],
+   "settlements_long": 2,
+   "settlements_short": 4
+  },
+  "pf-ZHIPU-bybit-bitget-1789128999-f1c98b": {
+   "entry_gap_pct": 0.3868,
+   "n_common_settlements": 0,
+   "n_gap_kept_sign": 0,
+   "gaps_pct": [],
+   "settlements_long": 0,
+   "settlements_short": 0
+  },
+  "pf-BZ-bybit-bitget-1789089099-a97990": {
+   "entry_gap_pct": 0.3658,
+   "n_common_settlements": 1,
+   "n_gap_kept_sign": 1,
+   "gaps_pct": [
+    0.1267
+   ],
+   "settlements_long": 1,
+   "settlements_short": 3
+  },
+  "pf-KSTR-bitget-binance-1789139518-4caf9d": {
+   "entry_gap_pct": 0.1481,
+   "n_common_settlements": 0,
+   "n_gap_kept_sign": 0,
+   "gaps_pct": [],
+   "settlements_long": 0,
+   "settlements_short": 0
+  },
+  "pf-SIREN-bybit-bitget-1789142503-3c0fa1": {
+   "entry_gap_pct": 0.5062,
+   "n_common_settlements": 0,
+   "n_gap_kept_sign": 0,
+   "gaps_pct": [],
+   "settlements_long": 0,
+   "settlements_short": 0
+  },
+  "pf-ONG-bybit-bitget-1789117303-b425a8": {
+   "entry_gap_pct": 0.5603,
+   "n_common_settlements": 2,
+   "n_gap_kept_sign": 2,
+   "gaps_pct": [
+    0.3926,
+    0.2345
+   ],
+   "settlements_long": 2,
+   "settlements_short": 7
+  },
+  "pf-BLUR-bybit-bitget-1789142503-61d393": {
+   "entry_gap_pct": 1.7307,
+   "n_common_settlements": 0,
+   "n_gap_kept_sign": 0,
+   "gaps_pct": [],
+   "settlements_long": 0,
+   "settlements_short": 0
+  },
+  "pf-ONG-bybit-bitget-1789148213-6236ef": {
+   "entry_gap_pct": 0.1439,
+   "n_common_settlements": 0,
+   "n_gap_kept_sign": 0,
+   "gaps_pct": [],
+   "settlements_long": 0,
+   "settlements_short": 0
+  },
+  "pf-SIREN-bybit-bitget-1789145513-24c762": {
+   "entry_gap_pct": 0.3139,
+   "n_common_settlements": 0,
+   "n_gap_kept_sign": 0,
+   "gaps_pct": [],
+   "settlements_long": 0,
+   "settlements_short": 0
+  },
+  "pf-SIREN-bitget-bybit-1789156901-86db4f": {
+   "entry_gap_pct": 0.487,
+   "n_common_settlements": 0,
+   "n_gap_kept_sign": 0,
+   "gaps_pct": [],
+   "settlements_long": 0,
+   "settlements_short": 0
+  },
+  "pf-BZ-bybit-bitget-1789143100-2e89ae": {
+   "entry_gap_pct": 0.2709,
+   "n_common_settlements": 0,
+   "n_gap_kept_sign": 0,
+   "gaps_pct": [],
+   "settlements_long": 0,
+   "settlements_short": 1
+  },
+  "pf-PIPPIN-bitget-bybit-1789159602-789460": {
+   "entry_gap_pct": 0.2838,
+   "n_common_settlements": 0,
+   "n_gap_kept_sign": 0,
+   "gaps_pct": [],
+   "settlements_long": 0,
+   "settlements_short": 0
+  },
+  "pf-FLY-bitget-bybit-1789150913-42daa8": {
+   "entry_gap_pct": 0.1756,
+   "n_common_settlements": 0,
+   "n_gap_kept_sign": 0,
+   "gaps_pct": [],
+   "settlements_long": 0,
+   "settlements_short": 0
+  },
+  "pf-TREE-bybit-bitget-1789171601-2facd0": {
+   "entry_gap_pct": 0.3836,
+   "n_common_settlements": 0,
+   "n_gap_kept_sign": 0,
+   "gaps_pct": [],
+   "settlements_long": 0,
+   "settlements_short": 0
+  },
+  "pf-ORCA-bybit-bitget-1789172202-5f4424": {
+   "entry_gap_pct": 0.326,
+   "n_common_settlements": 0,
+   "n_gap_kept_sign": 0,
+   "gaps_pct": [],
+   "settlements_long": 0,
+   "settlements_short": 0
+  },
+  "pf-SIREN-bybit-bitget-1789171601-c331e6": {
+   "entry_gap_pct": 0.9518,
+   "n_common_settlements": 0,
+   "n_gap_kept_sign": 0,
+   "gaps_pct": [],
+   "settlements_long": 0,
+   "settlements_short": 0
+  },
+  "pf-TREE-bybit-bitget-1789174013-f342a2": {
+   "entry_gap_pct": 0.8895,
+   "n_common_settlements": 0,
+   "n_gap_kept_sign": 0,
+   "gaps_pct": [],
+   "settlements_long": 0,
+   "settlements_short": 0
+  },
+  "pf-SOPH-bybit-bitget-1789173700-deb38f": {
+   "entry_gap_pct": 0.3893,
+   "n_common_settlements": 0,
+   "n_gap_kept_sign": 0,
+   "gaps_pct": [],
+   "settlements_long": 0,
+   "settlements_short": 0
+  },
+  "pf-IOST-bybit-bitget-1789182101-79fba8": {
+   "entry_gap_pct": 0.1668,
+   "n_common_settlements": 0,
+   "n_gap_kept_sign": 0,
+   "gaps_pct": [],
+   "settlements_long": 0,
+   "settlements_short": 0
+  },
+  "pf-COOKIE-bybit-bitget-1789185999-e6c2e1": {
+   "entry_gap_pct": 0.1996,
+   "n_common_settlements": 0,
+   "n_gap_kept_sign": 0,
+   "gaps_pct": [],
+   "settlements_long": 0,
+   "settlements_short": 0
+  },
+  "pf-TREE-bybit-bitget-1789186605-b04379": {
+   "entry_gap_pct": 0.176,
+   "n_common_settlements": 0,
+   "n_gap_kept_sign": 0,
+   "gaps_pct": [],
+   "settlements_long": 0,
+   "settlements_short": 0
+  },
+  "pf-PUNDIX-bybit-bitget-1789188999-f6b910": {
+   "entry_gap_pct": 0.7157,
+   "n_common_settlements": 0,
+   "n_gap_kept_sign": 0,
+   "gaps_pct": [],
+   "settlements_long": 0,
+   "settlements_short": 0
+  },
+  "pf-ONG-bybit-bitget-1789185699-fb8496": {
+   "entry_gap_pct": 0.4966,
+   "n_common_settlements": 0,
+   "n_gap_kept_sign": 0,
+   "gaps_pct": [],
+   "settlements_long": 0,
+   "settlements_short": 3
+  },
+  "pf-MTL-bybit-bitget-1789192299-b283ed": {
+   "entry_gap_pct": 0.4153,
+   "n_common_settlements": 1,
+   "n_gap_kept_sign": 1,
+   "gaps_pct": [
+    0.1386
+   ],
+   "settlements_long": 1,
+   "settlements_short": 1
+  },
+  "pf-LSK-bybit-bitget-1789198901-a6f556": {
+   "entry_gap_pct": 0.3298,
+   "n_common_settlements": 1,
+   "n_gap_kept_sign": 1,
+   "gaps_pct": [
+    0.2194
+   ],
+   "settlements_long": 1,
+   "settlements_short": 1
+  },
+  "pf-RIVER-bitget-bybit-1789200100-f765e6": {
+   "entry_gap_pct": 0.3186,
+   "n_common_settlements": 0,
+   "n_gap_kept_sign": 0,
+   "gaps_pct": [],
+   "settlements_long": 0,
+   "settlements_short": 0
+  },
+  "pf-LSK-bitget-bybit-1789200100-0b23be": {
+   "entry_gap_pct": 0.411,
+   "n_common_settlements": 0,
+   "n_gap_kept_sign": 0,
+   "gaps_pct": [],
+   "settlements_long": 0,
+   "settlements_short": 0
+  },
+  "pf-SIREN-bybit-bitget-1789200099-c69bc6": {
+   "entry_gap_pct": 1.133,
+   "n_common_settlements": 0,
+   "n_gap_kept_sign": 0,
+   "gaps_pct": [],
+   "settlements_long": 0,
+   "settlements_short": 0
+  },
+  "pf-RVN-bybit-bitget-1789201599-b9db1a": {
+   "entry_gap_pct": 0.1373,
+   "n_common_settlements": 0,
+   "n_gap_kept_sign": 0,
+   "gaps_pct": [],
+   "settlements_long": 0,
+   "settlements_short": 0
+  },
+  "pf-ZHIPU-bybit-okx-1789203399-68cfd7": {
+   "entry_gap_pct": 0.2144,
+   "n_common_settlements": 0,
+   "n_gap_kept_sign": 0,
+   "gaps_pct": [],
+   "settlements_long": 0,
+   "settlements_short": 0
+  },
+  "pf-IOST-bybit-bitget-1789203699-02dc02": {
+   "entry_gap_pct": 0.2852,
+   "n_common_settlements": 0,
+   "n_gap_kept_sign": 0,
+   "gaps_pct": [],
+   "settlements_long": 0,
+   "settlements_short": 0
+  },
+  "pf-ZHIPU-bybit-okx-1789203999-4aa5c6": {
+   "entry_gap_pct": 0.2242,
+   "n_common_settlements": 0,
+   "n_gap_kept_sign": 0,
+   "gaps_pct": [],
+   "settlements_long": 0,
+   "settlements_short": 0
+  },
+  "pf-LSK-bitget-bybit-1789207899-67b318": {
+   "entry_gap_pct": 0.2532,
+   "n_common_settlements": 0,
+   "n_gap_kept_sign": 0,
+   "gaps_pct": [],
+   "settlements_long": 0,
+   "settlements_short": 0
+  },
+  "pf-TREE-bybit-bitget-1789208199-a66373": {
+   "entry_gap_pct": 0.2201,
+   "n_common_settlements": 0,
+   "n_gap_kept_sign": 0,
+   "gaps_pct": [],
+   "settlements_long": 0,
+   "settlements_short": 0
+  },
+  "pf-MTL-bitget-bybit-1789201299-f5ad82": {
+   "entry_gap_pct": 0.2212,
+   "n_common_settlements": 0,
+   "n_gap_kept_sign": 0,
+   "gaps_pct": [],
+   "settlements_long": 0,
+   "settlements_short": 0
+  },
+  "pf-LSK-bybit-bitget-1789210900-bd5ad5": {
+   "entry_gap_pct": 0.2906,
+   "n_common_settlements": 0,
+   "n_gap_kept_sign": 0,
+   "gaps_pct": [],
+   "settlements_long": 0,
+   "settlements_short": 0
+  },
+  "pf-MTL-binance-bybit-1789201299-7283a9": {
+   "entry_gap_pct": 0.3349,
+   "n_common_settlements": 0,
+   "n_gap_kept_sign": 0,
+   "gaps_pct": [],
+   "settlements_long": 0,
+   "settlements_short": 0
+  },
+  "pf-LSK-bybit-bitget-1789213301-6fac6a": {
+   "entry_gap_pct": 0.1841,
+   "n_common_settlements": 0,
+   "n_gap_kept_sign": 0,
+   "gaps_pct": [],
+   "settlements_long": 0,
+   "settlements_short": 0
+  },
+  "pf-MTL-binance-bybit-1789213301-9f9186": {
+   "entry_gap_pct": 0.1442,
+   "n_common_settlements": 0,
+   "n_gap_kept_sign": 0,
+   "gaps_pct": [],
+   "settlements_long": 0,
+   "settlements_short": 0
+  },
+  "pf-SIREN-bitget-bybit-1789215100-849b8a": {
+   "entry_gap_pct": 0.1546,
+   "n_common_settlements": 0,
+   "n_gap_kept_sign": 0,
+   "gaps_pct": [],
+   "settlements_long": 0,
+   "settlements_short": 0
+  },
+  "pf-LSK-bybit-bitget-1789214499-678b13": {
+   "entry_gap_pct": 0.3606,
+   "n_common_settlements": 0,
+   "n_gap_kept_sign": 0,
+   "gaps_pct": [],
+   "settlements_long": 0,
+   "settlements_short": 0
+  },
+  "pf-LSK-bitget-bybit-1789215700-af5994": {
+   "entry_gap_pct": 0.2809,
+   "n_common_settlements": 0,
+   "n_gap_kept_sign": 0,
+   "gaps_pct": [],
+   "settlements_long": 0,
+   "settlements_short": 0
+  },
+  "pf-SIREN-bitget-bybit-1789216300-f1266f": {
+   "entry_gap_pct": 0.1571,
+   "n_common_settlements": 0,
+   "n_gap_kept_sign": 0,
+   "gaps_pct": [],
+   "settlements_long": 0,
+   "settlements_short": 0
+  },
+  "pf-LSK-bybit-bitget-1789216899-311bb3": {
+   "entry_gap_pct": 0.2482,
+   "n_common_settlements": 0,
+   "n_gap_kept_sign": 0,
+   "gaps_pct": [],
+   "settlements_long": 0,
+   "settlements_short": 0
+  },
+  "pf-SHEIN-bitget-bybit-1789216599-aeb54d": {
+   "entry_gap_pct": 0.1544,
+   "n_common_settlements": 0,
+   "n_gap_kept_sign": 0,
+   "gaps_pct": [],
+   "settlements_long": 0,
+   "settlements_short": 0
+  },
+  "pf-IOST-bybit-bitget-1789221699-fc1b06": {
+   "entry_gap_pct": 0.2009,
+   "n_common_settlements": 0,
+   "n_gap_kept_sign": 0,
+   "gaps_pct": [],
+   "settlements_long": 0,
+   "settlements_short": 0
+  },
+  "pf-TREE-bybit-bitget-1789218100-951d9e": {
+   "entry_gap_pct": 0.3279,
+   "n_common_settlements": 0,
+   "n_gap_kept_sign": 0,
+   "gaps_pct": [],
+   "settlements_long": 0,
+   "settlements_short": 0
+  },
+  "pf-TREE-bybit-bitget-1789222899-defd2c": {
+   "entry_gap_pct": 0.3404,
+   "n_common_settlements": 0,
+   "n_gap_kept_sign": 0,
+   "gaps_pct": [],
+   "settlements_long": 0,
+   "settlements_short": 0
+  }
+ },
+ "opportunity_persistence": [
+  {
+   "pair": "PUFFER bybit binance",
+   "pair_display": "PUFFER long@bybit short@binance",
+   "appearances": 118,
+   "cycles_pct": 20.0,
+   "longest_streak_cycles": 13,
+   "first_seen": "2026-09-10T14:36:06.994708+00:00",
+   "last_seen": "2026-09-12T15:31:59.017146+00:00",
+   "entered": false
+  },
+  {
+   "pair": "STORJ bybit binance",
+   "pair_display": "STORJ long@bybit short@binance",
+   "appearances": 49,
+   "cycles_pct": 8.3,
+   "longest_streak_cycles": 7,
+   "first_seen": "2026-09-10T16:21:41.893804+00:00",
+   "last_seen": "2026-09-12T14:06:40.187335+00:00",
+   "entered": false
+  },
+  {
+   "pair": "GPRO okx bybit",
+   "pair_display": "GPRO long@okx short@bybit",
+   "appearances": 42,
+   "cycles_pct": 7.1,
+   "longest_streak_cycles": 20,
+   "first_seen": "2026-09-10T17:21:54.355273+00:00",
+   "last_seen": "2026-09-10T21:51:39.471223+00:00",
+   "entered": false
+  },
+  {
+   "pair": "GPRO bybit okx",
+   "pair_display": "GPRO long@bybit short@okx",
+   "appearances": 28,
+   "cycles_pct": 4.7,
+   "longest_streak_cycles": 10,
+   "first_seen": "2026-09-11T16:26:40.141523+00:00",
+   "last_seen": "2026-09-11T23:46:43.148281+00:00",
+   "entered": false
+  },
+  {
+   "pair": "FLY okx bybit",
+   "pair_display": "FLY long@okx short@bybit",
+   "appearances": 27,
+   "cycles_pct": 4.6,
+   "longest_streak_cycles": 13,
+   "first_seen": "2026-09-11T15:01:54.387284+00:00",
+   "last_seen": "2026-09-11T21:11:39.636590+00:00",
+   "entered": false
+  },
+  {
+   "pair": "KR200 bitget okx",
+   "pair_display": "KR200 long@bitget short@okx",
+   "appearances": 21,
+   "cycles_pct": 3.6,
+   "longest_streak_cycles": 21,
+   "first_seen": "2026-09-10T14:36:00.653628+00:00",
+   "last_seen": "2026-09-10T16:06:41.862708+00:00",
+   "entered": true
+  },
+  {
+   "pair": "GPRO binance okx",
+   "pair_display": "GPRO long@binance short@okx",
+   "appearances": 20,
+   "cycles_pct": 3.4,
+   "longest_streak_cycles": 11,
+   "first_seen": "2026-09-11T22:56:42.590235+00:00",
+   "last_seen": "2026-09-12T03:11:42.234797+00:00",
+   "entered": false
+  },
+  {
+   "pair": "TREE bybit bitget",
+   "pair_display": "TREE long@bybit short@bitget",
+   "appearances": 11,
+   "cycles_pct": 1.9,
+   "longest_streak_cycles": 5,
+   "first_seen": "2026-09-12T00:01:42.240708+00:00",
+   "last_seen": "2026-09-12T14:21:40.071313+00:00",
+   "entered": true
+  },
+  {
+   "pair": "GPRO bitget bybit",
+   "pair_display": "GPRO long@bitget short@bybit",
+   "appearances": 10,
+   "cycles_pct": 1.7,
+   "longest_streak_cycles": 2,
+   "first_seen": "2026-09-10T16:36:53.681697+00:00",
+   "last_seen": "2026-09-10T20:11:41.807698+00:00",
+   "entered": false
+  },
+  {
+   "pair": "SHEIN okx bybit",
+   "pair_display": "SHEIN long@okx short@bybit",
+   "appearances": 10,
+   "cycles_pct": 1.7,
+   "longest_streak_cycles": 6,
+   "first_seen": "2026-09-12T12:11:41.062014+00:00",
+   "last_seen": "2026-09-12T13:21:39.692779+00:00",
+   "entered": false
+  },
+  {
+   "pair": "AMC bybit okx",
+   "pair_display": "AMC long@bybit short@okx",
+   "appearances": 8,
+   "cycles_pct": 1.4,
+   "longest_streak_cycles": 4,
+   "first_seen": "2026-09-11T21:16:39.888660+00:00",
+   "last_seen": "2026-09-11T23:01:42.300690+00:00",
+   "entered": false
+  },
+  {
+   "pair": "GPRO binance bybit",
+   "pair_display": "GPRO long@binance short@bybit",
+   "appearances": 8,
+   "cycles_pct": 1.4,
+   "longest_streak_cycles": 5,
+   "first_seen": "2026-09-10T17:27:29.341977+00:00",
+   "last_seen": "2026-09-12T03:06:41.967939+00:00",
+   "entered": true
+  },
+  {
+   "pair": "NEWT bybit bitget",
+   "pair_display": "NEWT long@bybit short@bitget",
+   "appearances": 8,
+   "cycles_pct": 1.4,
+   "longest_streak_cycles": 7,
+   "first_seen": "2026-09-10T23:36:40.302759+00:00",
+   "last_seen": "2026-09-11T00:41:39.635973+00:00",
+   "entered": true
+  },
+  {
+   "pair": "LSK bybit bitget",
+   "pair_display": "LSK long@bybit short@bitget",
+   "appearances": 7,
+   "cycles_pct": 1.2,
+   "longest_streak_cycles": 1,
+   "first_seen": "2026-09-12T04:01:40.487552+00:00",
+   "last_seen": "2026-09-12T13:16:39.810942+00:00",
+   "entered": true
+  },
+  {
+   "pair": "GPRO bitget okx",
+   "pair_display": "GPRO long@bitget short@okx",
+   "appearances": 5,
+   "cycles_pct": 0.8,
+   "longest_streak_cycles": 2,
+   "first_seen": "2026-09-11T23:36:40.484666+00:00",
+   "last_seen": "2026-09-12T03:11:42.234797+00:00",
+   "entered": false
+  },
+  {
+   "pair": "ONG bybit bitget",
+   "pair_display": "ONG long@bybit short@bitget",
+   "appearances": 5,
+   "cycles_pct": 0.8,
+   "longest_streak_cycles": 1,
+   "first_seen": "2026-09-10T21:31:54.485502+00:00",
+   "last_seen": "2026-09-12T04:01:40.487552+00:00",
+   "entered": true
+  },
+  {
+   "pair": "PUNDIX bybit bitget",
+   "pair_display": "PUNDIX long@bybit short@bitget",
+   "appearances": 5,
+   "cycles_pct": 0.8,
+   "longest_streak_cycles": 2,
+   "first_seen": "2026-09-12T04:01:40.487552+00:00",
+   "last_seen": "2026-09-12T04:56:40.117133+00:00",
+   "entered": true
+  },
+  {
+   "pair": "RAY okx binance",
+   "pair_display": "RAY long@okx short@binance",
+   "appearances": 5,
+   "cycles_pct": 0.8,
+   "longest_streak_cycles": 2,
+   "first_seen": "2026-09-11T15:26:39.951519+00:00",
+   "last_seen": "2026-09-11T15:56:41.304323+00:00",
+   "entered": false
+  },
+  {
+   "pair": "LSK bitget bybit",
+   "pair_display": "LSK long@bitget short@bybit",
+   "appearances": 4,
+   "cycles_pct": 0.7,
+   "longest_streak_cycles": 1,
+   "first_seen": "2026-09-11T15:01:54.387284+00:00",
+   "last_seen": "2026-09-12T12:21:42.334589+00:00",
+   "entered": true
+  },
+  {
+   "pair": "SIREN bybit bitget",
+   "pair_display": "SIREN long@bybit short@bitget",
+   "appearances": 4,
+   "cycles_pct": 0.7,
+   "longest_streak_cycles": 1,
+   "first_seen": "2026-09-11T16:01:43.805532+00:00",
+   "last_seen": "2026-09-12T08:01:41.048591+00:00",
+   "entered": true
+  },
+  {
+   "pair": "STORJ binance bybit",
+   "pair_display": "STORJ long@binance short@bybit",
+   "appearances": 4,
+   "cycles_pct": 0.7,
+   "longest_streak_cycles": 2,
+   "first_seen": "2026-09-11T15:26:39.951519+00:00",
+   "last_seen": "2026-09-11T15:56:41.304323+00:00",
+   "entered": false
+  },
+  {
+   "pair": "FLY bitget bybit",
+   "pair_display": "FLY long@bitget short@bybit",
+   "appearances": 3,
+   "cycles_pct": 0.5,
+   "longest_streak_cycles": 3,
+   "first_seen": "2026-09-11T18:12:00.661614+00:00",
+   "last_seen": "2026-09-11T18:21:54.111248+00:00",
+   "entered": true
+  },
+  {
+   "pair": "IOST bybit bitget",
+   "pair_display": "IOST long@bybit short@bitget",
+   "appearances": 3,
+   "cycles_pct": 0.5,
+   "longest_streak_cycles": 1,
+   "first_seen": "2026-09-12T03:01:42.096793+00:00",
+   "last_seen": "2026-09-12T14:01:40.034554+00:00",
+   "entered": true
+  },
+  {
+   "pair": "MTL binance bybit",
+   "pair_display": "MTL long@binance short@bybit",
+   "appearances": 3,
+   "cycles_pct": 0.5,
+   "longest_streak_cycles": 2,
+   "first_seen": "2026-09-12T08:16:39.797503+00:00",
+   "last_seen": "2026-09-12T11:41:42.276303+00:00",
+   "entered": true
+  },
+  {
+   "pair": "RVN okx bybit",
+   "pair_display": "RVN long@okx short@bybit",
+   "appearances": 3,
+   "cycles_pct": 0.5,
+   "longest_streak_cycles": 2,
+   "first_seen": "2026-09-10T14:36:00.653628+00:00",
+   "last_seen": "2026-09-10T15:11:54.245493+00:00",
+   "entered": true
+  },
+  {
+   "pair": "SHEIN bitget bybit",
+   "pair_display": "SHEIN long@bitget short@bybit",
+   "appearances": 3,
+   "cycles_pct": 0.5,
+   "longest_streak_cycles": 3,
+   "first_seen": "2026-09-12T12:26:42.138339+00:00",
+   "last_seen": "2026-09-12T12:36:40.093522+00:00",
+   "entered": true
+  },
+  {
+   "pair": "SIREN bitget bybit",
+   "pair_display": "SIREN long@bitget short@bybit",
+   "appearances": 3,
+   "cycles_pct": 0.5,
+   "longest_streak_cycles": 1,
+   "first_seen": "2026-09-11T20:01:42.035437+00:00",
+   "last_seen": "2026-09-12T12:31:40.628920+00:00",
+   "entered": true
+  },
+  {
+   "pair": "AMC bybit bitget",
+   "pair_display": "AMC long@bybit short@bitget",
+   "appearances": 2,
+   "cycles_pct": 0.3,
+   "longest_streak_cycles": 2,
+   "first_seen": "2026-09-11T22:46:43.372375+00:00",
+   "last_seen": "2026-09-11T22:51:41.250359+00:00",
+   "entered": false
+  },
+  {
+   "pair": "BZ bybit bitget",
+   "pair_display": "BZ long@bybit short@bitget",
+   "appearances": 2,
+   "cycles_pct": 0.3,
+   "longest_streak_cycles": 1,
+   "first_seen": "2026-09-11T01:11:39.665663+00:00",
+   "last_seen": "2026-09-11T16:11:40.342881+00:00",
+   "entered": true
+  },
+  {
+   "pair": "KSTR bitget binance",
+   "pair_display": "KSTR long@bitget short@binance",
+   "appearances": 2,
+   "cycles_pct": 0.3,
+   "longest_streak_cycles": 2,
+   "first_seen": "2026-09-11T15:07:00.714993+00:00",
+   "last_seen": "2026-09-11T15:11:59.239205+00:00",
+   "entered": true
+  },
+  {
+   "pair": "MTL bitget bybit",
+   "pair_display": "MTL long@bitget short@bybit",
+   "appearances": 2,
+   "cycles_pct": 0.3,
+   "longest_streak_cycles": 2,
+   "first_seen": "2026-09-12T08:16:39.797503+00:00",
+   "last_seen": "2026-09-12T08:21:40.239567+00:00",
+   "entered": true
+  },
+  {
+   "pair": "MTL bybit bitget",
+   "pair_display": "MTL long@bybit short@bitget",
+   "appearances": 2,
+   "cycles_pct": 0.3,
+   "longest_streak_cycles": 2,
+   "first_seen": "2026-09-12T05:46:39.923135+00:00",
+   "last_seen": "2026-09-12T05:51:39.725985+00:00",
+   "entered": true
+  },
+  {
+   "pair": "REZ bybit bitget",
+   "pair_display": "REZ long@bybit short@bitget",
+   "appearances": 2,
+   "cycles_pct": 0.3,
+   "longest_streak_cycles": 2,
+   "first_seen": "2026-09-12T14:11:39.989795+00:00",
+   "last_seen": "2026-09-12T14:16:42.274173+00:00",
+   "entered": false
+  },
+  {
+   "pair": "RVN bybit bitget",
+   "pair_display": "RVN long@bybit short@bitget",
+   "appearances": 2,
+   "cycles_pct": 0.3,
+   "longest_streak_cycles": 1,
+   "first_seen": "2026-09-12T08:26:39.915968+00:00",
+   "last_seen": "2026-09-12T12:06:42.170270+00:00",
+   "entered": true
+  },
+  {
+   "pair": "SOPH bybit bitget",
+   "pair_display": "SOPH long@bybit short@bitget",
+   "appearances": 2,
+   "cycles_pct": 0.3,
+   "longest_streak_cycles": 1,
+   "first_seen": "2026-09-10T16:01:54.806950+00:00",
+   "last_seen": "2026-09-12T00:41:40.613502+00:00",
+   "entered": true
+  },
+  {
+   "pair": "TSEM okx bybit",
+   "pair_display": "TSEM long@okx short@bybit",
+   "appearances": 2,
+   "cycles_pct": 0.3,
+   "longest_streak_cycles": 2,
+   "first_seen": "2026-09-11T03:41:39.940347+00:00",
+   "last_seen": "2026-09-11T03:46:39.590623+00:00",
+   "entered": false
+  },
+  {
+   "pair": "ZHIPU bybit okx",
+   "pair_display": "ZHIPU long@bybit short@okx",
+   "appearances": 2,
+   "cycles_pct": 0.3,
+   "longest_streak_cycles": 1,
+   "first_seen": "2026-09-12T08:56:39.802222+00:00",
+   "last_seen": "2026-09-12T09:06:40.092417+00:00",
+   "entered": true
+  },
+  {
+   "pair": "BLUR bybit bitget",
+   "pair_display": "BLUR long@bybit short@bitget",
+   "appearances": 1,
+   "cycles_pct": 0.2,
+   "longest_streak_cycles": 1,
+   "first_seen": "2026-09-11T16:01:43.805532+00:00",
+   "last_seen": "2026-09-11T16:01:43.805532+00:00",
+   "entered": true
+  },
+  {
+   "pair": "BNC binance bybit",
+   "pair_display": "BNC long@binance short@bybit",
+   "appearances": 1,
+   "cycles_pct": 0.2,
+   "longest_streak_cycles": 1,
+   "first_seen": "2026-09-11T00:06:39.792801+00:00",
+   "last_seen": "2026-09-11T00:06:39.792801+00:00",
+   "entered": false
+  },
+  {
+   "pair": "CL bybit bitget",
+   "pair_display": "CL long@bybit short@bitget",
+   "appearances": 1,
+   "cycles_pct": 0.2,
+   "longest_streak_cycles": 1,
+   "first_seen": "2026-09-10T21:56:40.015755+00:00",
+   "last_seen": "2026-09-10T21:56:40.015755+00:00",
+   "entered": true
+  },
+  {
+   "pair": "COOKIE bybit bitget",
+   "pair_display": "COOKIE long@bybit short@bitget",
+   "appearances": 1,
+   "cycles_pct": 0.2,
+   "longest_streak_cycles": 1,
+   "first_seen": "2026-09-12T04:06:39.908188+00:00",
+   "last_seen": "2026-09-12T04:06:39.908188+00:00",
+   "entered": true
+  },
+  {
+   "pair": "KSTR bitget bybit",
+   "pair_display": "KSTR long@bitget short@bybit",
+   "appearances": 1,
+   "cycles_pct": 0.2,
+   "longest_streak_cycles": 1,
+   "first_seen": "2026-09-11T08:56:39.966976+00:00",
+   "last_seen": "2026-09-11T08:56:39.966976+00:00",
+   "entered": false
+  },
+  {
+   "pair": "LA bybit bitget",
+   "pair_display": "LA long@bybit short@bitget",
+   "appearances": 1,
+   "cycles_pct": 0.2,
+   "longest_streak_cycles": 1,
+   "first_seen": "2026-09-11T00:11:40.054098+00:00",
+   "last_seen": "2026-09-11T00:11:40.054098+00:00",
+   "entered": true
+  },
+  {
+   "pair": "MOVE bitget bybit",
+   "pair_display": "MOVE long@bitget short@bybit",
+   "appearances": 1,
+   "cycles_pct": 0.2,
+   "longest_streak_cycles": 1,
+   "first_seen": "2026-09-12T00:01:42.240708+00:00",
+   "last_seen": "2026-09-12T00:01:42.240708+00:00",
+   "entered": false
+  },
+  {
+   "pair": "MOVE bybit bitget",
+   "pair_display": "MOVE long@bybit short@bitget",
+   "appearances": 1,
+   "cycles_pct": 0.2,
+   "longest_streak_cycles": 1,
+   "first_seen": "2026-09-10T20:01:45.946016+00:00",
+   "last_seen": "2026-09-10T20:01:45.946016+00:00",
+   "entered": false
+  },
+  {
+   "pair": "ORCA bybit bitget",
+   "pair_display": "ORCA long@bybit short@bitget",
+   "appearances": 1,
+   "cycles_pct": 0.2,
+   "longest_streak_cycles": 1,
+   "first_seen": "2026-09-12T00:16:42.464771+00:00",
+   "last_seen": "2026-09-12T00:16:42.464771+00:00",
+   "entered": true
+  },
+  {
+   "pair": "PIPPIN bitget bybit",
+   "pair_display": "PIPPIN long@bitget short@bybit",
+   "appearances": 1,
+   "cycles_pct": 0.2,
+   "longest_streak_cycles": 1,
+   "first_seen": "2026-09-11T20:46:43.546000+00:00",
+   "last_seen": "2026-09-11T20:46:43.546000+00:00",
+   "entered": true
+  },
+  {
+   "pair": "PURR okx bybit",
+   "pair_display": "PURR long@okx short@bybit",
+   "appearances": 1,
+   "cycles_pct": 0.2,
+   "longest_streak_cycles": 1,
+   "first_seen": "2026-09-12T08:36:39.742800+00:00",
+   "last_seen": "2026-09-12T08:36:39.742800+00:00",
+   "entered": false
+  },
+  {
+   "pair": "RIVER bitget bybit",
+   "pair_display": "RIVER long@bitget short@bybit",
+   "appearances": 1,
+   "cycles_pct": 0.2,
+   "longest_streak_cycles": 1,
+   "first_seen": "2026-09-12T08:01:41.048591+00:00",
+   "last_seen": "2026-09-12T08:01:41.048591+00:00",
+   "entered": true
+  },
+  {
+   "pair": "RVN okx bitget",
+   "pair_display": "RVN long@okx short@bitget",
+   "appearances": 1,
+   "cycles_pct": 0.2,
+   "longest_streak_cycles": 1,
+   "first_seen": "2026-09-10T14:36:00.653628+00:00",
+   "last_seen": "2026-09-10T14:36:00.653628+00:00",
+   "entered": true
+  },
+  {
+   "pair": "TSEM bybit okx",
+   "pair_display": "TSEM long@bybit short@okx",
+   "appearances": 1,
+   "cycles_pct": 0.2,
+   "longest_streak_cycles": 1,
+   "first_seen": "2026-09-11T15:16:54.731287+00:00",
+   "last_seen": "2026-09-11T15:16:54.731287+00:00",
+   "entered": false
+  },
+  {
+   "pair": "UNITREE bybit okx",
+   "pair_display": "UNITREE long@bybit short@okx",
+   "appearances": 1,
+   "cycles_pct": 0.2,
+   "longest_streak_cycles": 1,
+   "first_seen": "2026-09-11T02:11:39.856977+00:00",
+   "last_seen": "2026-09-11T02:11:39.856977+00:00",
+   "entered": true
+  },
+  {
+   "pair": "ZHIPU bybit bitget",
+   "pair_display": "ZHIPU long@bybit short@bitget",
+   "appearances": 1,
+   "cycles_pct": 0.2,
+   "longest_streak_cycles": 1,
+   "first_seen": "2026-09-11T12:16:40.262215+00:00",
+   "last_seen": "2026-09-11T12:16:40.262215+00:00",
+   "entered": true
+  }
+ ],
+ "backtest": {
+  "window": "2026-08-11T15:00Z -> 2026-09-10T14:00Z (30.0 days)",
+  "bases": [
+   "BTC",
+   "ETH",
+   "SOL"
+  ],
+  "venues": [
+   "binance",
+   "bitget",
+   "bybit",
+   "okx",
+   "hyperliquid"
+  ],
+  "rows_total": 27876,
+  "rows_pass_entry_thresholds": 0,
+  "trades": 0,
+  "fee_gate": {
+   "round_trip_taker_pct": 0.11,
+   "best_spread_pct": 0.0218,
+   "best_net_edge_pct": -0.0882,
+   "median_abs_net_edge_pct": 0.1084,
+   "breakeven_settlements_at_max_spread": 5.05,
+   "note": "Best per-settlement spread of the whole 30d window was 5x below the two-leg taker fee; spikes mean-revert within one settlement (p99 = 0.0000%)."
+  },
+  "thresholds": {
+   "min_spread_pct": 0.04,
+   "min_net_edge_pct": 0.02,
+   "exit_edge_pct": 0.01,
+   "max_pairs": 3,
+   "trade_usd": 5000
+  },
+  "variants": [
+   {
+    "file": "backtest_30d_btc_eth_sol.json",
+    "trade_count": 0
+   },
+   {
+    "file": "backtest_30d_mismatch.json",
+    "trade_count": 0
+   },
+   {
+    "file": "backtest_30d_permissive.json",
+    "trade_count": 0
+   },
+   {
+    "file": "backtest_30d_with_hl.json",
+    "trade_count": 0
+   }
+  ],
+  "small_caps_note": "small-cap/event segment is NOT covered by the 30d majors backtest \u2014 paper is the only evidence tier for it"
+ },
+ "totals": {
+  "price": 8.92,
+  "fees": -66.9,
+  "funding": 8.37,
+  "net": -49.61,
+  "retention_avg_pct": -329.3,
+  "wins": 13,
+  "closed": 59
+ }
+}

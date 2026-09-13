@@ -1,0 +1,359 @@
+{
+ "generated_at": "2026-09-10 17:18:12Z",
+ "stage": "INTERIM",
+ "day": 0.113,
+ "baseline_start": "2026-09-10 14:36:00Z",
+ "pre_baseline_cycles_excluded": 18,
+ "continuity": {
+  "sandbox": {
+   "journal_lines": 53,
+   "parse_errors": 0,
+   "incomplete_tail_ignored": false,
+   "ts_back_jumps": 0,
+   "duplicate_ts": 0,
+   "gaps_over_15min": [
+    "2026-09-10 13:06:26Z -> 2026-09-10 13:37:15Z (31m)",
+    "2026-09-10 14:01:51Z -> 2026-09-10 14:20:50Z (19m)"
+   ],
+   "positions_total": 4,
+   "duplicate_position_ids": [],
+   "journal_opens_without_position": [],
+   "closed_positions_without_close_action": [],
+   "open_now": 2,
+   "last_cycle_open_positions_field": 2
+  },
+  "actions": {
+   "cycles": 11,
+   "first": "2026-09-10 15:53:08Z",
+   "last": "2026-09-10 17:12:43Z",
+   "duplicate_ts": 0,
+   "gaps_over_10min": [
+    "2026-09-10 15:53:08Z -> 2026-09-10 16:21:15Z (28m)",
+    "2026-09-10 16:21:15Z -> 2026-09-10 16:32:52Z (12m)"
+   ],
+   "coverage_pct": 65.0,
+   "scan_rows_per_cycle_median": 302.0
+  },
+  "branch": {
+   "available": true,
+   "files": {
+    "sandbox_snapshots": {
+     "snapshot_commits": 3,
+     "first_snapshot": "2026-09-10T15:11:33Z",
+     "latest_snapshot": "2026-09-10T16:57:33Z",
+     "latest_line_count": 49,
+     "latest_last_ts": "2026-09-10T16:56:43.090156+00:00",
+     "line_count_resets": [],
+     "ts_resets": [],
+     "duplicate_lines_in_latest": 0
+    },
+    "github_actions": {
+     "snapshot_commits": 12,
+     "first_snapshot": "2026-09-10T15:53:09Z",
+     "latest_snapshot": "2026-09-10T17:17:50Z",
+     "latest_line_count": 12,
+     "latest_last_ts": "2026-09-10T17:17:49.779214+00:00",
+     "line_count_resets": [],
+     "ts_resets": [],
+     "duplicate_lines_in_latest": 0
+    }
+   }
+  },
+  "meta": {
+   "runner": {
+    "started_at": "2026-09-10 14:36:36Z",
+    "respawns": 4,
+    "last_check_age_s": 11.0,
+    "supervisor_alive": true
+   },
+   "snapshot_pusher": {
+    "runs": 1,
+    "ok": 1,
+    "last_result": "pushed",
+    "last_ok_age_s": 1234.0
+   }
+  }
+ },
+ "funnel": {
+  "sandbox": {
+   "cycles": 35,
+   "scan_sum": 79837,
+   "scan_median": 2473.0,
+   "candidates": 303,
+   "opens": 4,
+   "closes": 2,
+   "rejects": {
+    "depth_gate": 24,
+    "other": 7,
+    "mark_spread_gate/absurd(>=5%)": 10
+   }
+  },
+  "actions": {
+   "cycles": 11,
+   "scan_sum": 3314,
+   "candidates": 12,
+   "opens": 1,
+   "closes": 0,
+   "rejects": {
+    "mark_spread_gate/real(1-5%)": 1,
+    "depth_gate": 10
+   }
+  }
+ },
+ "pnl": [
+  {
+   "id": "pf-RVN-okx-bybit-1789053113-c4b85d",
+   "base": "RVN",
+   "pair": "okx/bybit",
+   "direction": "reverse",
+   "notional_usd": 500.0,
+   "hold_min": 50.0,
+   "expected_net_edge_pct": 0.529327,
+   "entry_spread_pct": 0.634327,
+   "entry_interval_h": 8.0,
+   "round_trip_fee_pct": 0.21,
+   "price_pnl_usd": 0.64,
+   "price_pnl_estimated": false,
+   "fees_usd": -1.05,
+   "exit_reason": "pair_disappeared",
+   "opened_at": 1789053113901,
+   "closed_at": 1789056113938,
+   "funding_usd": 3.94,
+   "net_usd": 3.53,
+   "net_pct": 0.706,
+   "n_settlements": 1,
+   "expected_lifetime_pct": 0.4243,
+   "retention_pct": 166.4
+  },
+  {
+   "id": "pf-RVN-okx-bitget-1789050960-1f2651",
+   "base": "RVN",
+   "pair": "okx/bitget",
+   "direction": "reverse",
+   "notional_usd": 500.0,
+   "hold_min": 105.7,
+   "expected_net_edge_pct": 0.3239,
+   "entry_spread_pct": 0.4339,
+   "entry_interval_h": 8.0,
+   "round_trip_fee_pct": 0.22,
+   "price_pnl_usd": -1.07,
+   "price_pnl_estimated": false,
+   "fees_usd": -1.1,
+   "exit_reason": "edge_below_exit",
+   "opened_at": 1789050960653,
+   "closed_at": 1789057301586,
+   "funding_usd": 3.74,
+   "net_usd": 1.57,
+   "net_pct": 0.314,
+   "n_settlements": 1,
+   "expected_lifetime_pct": 0.2139,
+   "retention_pct": 146.8
+  }
+ ],
+ "funding_recon": {
+  "pf-RVN-okx-bybit-1789053113-c4b85d": {
+   "symbol": "RVNUSDT",
+   "hold_window_utc": [
+    "2026-09-10 15:11:53Z",
+    "2026-09-10 16:01:53Z"
+   ],
+   "legs": {
+    "okx": {
+     "settlements": [
+      {
+       "ts": "2026-09-10 16:00:00Z",
+       "rate_pct": -1.0
+      }
+     ],
+     "cash_usd": 5.0
+    },
+    "bybit": {
+     "settlements": [
+      {
+       "ts": "2026-09-10 16:00:00Z",
+       "rate_pct": -0.2121
+      }
+     ],
+     "cash_usd": -1.06
+    }
+   },
+   "funding_usd": 3.94
+  },
+  "pf-RVN-okx-bitget-1789050960-1f2651": {
+   "symbol": "RVNUSDT",
+   "hold_window_utc": [
+    "2026-09-10 14:36:00Z",
+    "2026-09-10 16:21:41Z"
+   ],
+   "legs": {
+    "okx": {
+     "settlements": [
+      {
+       "ts": "2026-09-10 16:00:00Z",
+       "rate_pct": -1.0
+      }
+     ],
+     "cash_usd": 5.0
+    },
+    "bitget": {
+     "settlements": [
+      {
+       "ts": "2026-09-10 16:00:00Z",
+       "rate_pct": -0.2538
+      }
+     ],
+     "cash_usd": -1.26
+    }
+   },
+   "funding_usd": 3.74
+  }
+ },
+ "funding_persistence": {
+  "pf-RVN-okx-bybit-1789053113-c4b85d": {
+   "entry_gap_pct": 0.6343,
+   "n_common_settlements": 1,
+   "n_gap_kept_sign": 1,
+   "gaps_pct": [
+    0.7879
+   ],
+   "settlements_long": 1,
+   "settlements_short": 1
+  },
+  "pf-RVN-okx-bitget-1789050960-1f2651": {
+   "entry_gap_pct": 0.4339,
+   "n_common_settlements": 1,
+   "n_gap_kept_sign": 1,
+   "gaps_pct": [
+    0.7462
+   ],
+   "settlements_long": 1,
+   "settlements_short": 1
+  }
+ },
+ "opportunity_persistence": [
+  {
+   "pair": "KR200 long/short bitget long/short okx",
+   "appearances": 21,
+   "cycles_pct": 60.0,
+   "longest_streak_cycles": 21,
+   "first_seen": "2026-09-10T14:36:00.653628+00:00",
+   "last_seen": "2026-09-10T16:06:41.862708+00:00",
+   "entered": true
+  },
+  {
+   "pair": "STORJ long/short bybit long/short binance",
+   "appearances": 10,
+   "cycles_pct": 28.6,
+   "longest_streak_cycles": 7,
+   "first_seen": "2026-09-10T16:21:41.893804+00:00",
+   "last_seen": "2026-09-10T17:16:48.553951+00:00",
+   "entered": false
+  },
+  {
+   "pair": "PUFFER long/short bybit long/short binance",
+   "appearances": 7,
+   "cycles_pct": 20.0,
+   "longest_streak_cycles": 7,
+   "first_seen": "2026-09-10T14:36:06.994708+00:00",
+   "last_seen": "2026-09-10T15:01:42.619011+00:00",
+   "entered": false
+  },
+  {
+   "pair": "RVN long/short okx long/short bybit",
+   "appearances": 3,
+   "cycles_pct": 8.6,
+   "longest_streak_cycles": 2,
+   "first_seen": "2026-09-10T14:36:00.653628+00:00",
+   "last_seen": "2026-09-10T15:11:54.245493+00:00",
+   "entered": true
+  },
+  {
+   "pair": "GPRO long/short bitget long/short bybit",
+   "appearances": 2,
+   "cycles_pct": 5.7,
+   "longest_streak_cycles": 2,
+   "first_seen": "2026-09-10T16:36:53.681697+00:00",
+   "last_seen": "2026-09-10T16:41:53.658267+00:00",
+   "entered": false
+  },
+  {
+   "pair": "RVN long/short okx long/short bitget",
+   "appearances": 1,
+   "cycles_pct": 2.9,
+   "longest_streak_cycles": 1,
+   "first_seen": "2026-09-10T14:36:00.653628+00:00",
+   "last_seen": "2026-09-10T14:36:00.653628+00:00",
+   "entered": true
+  },
+  {
+   "pair": "SOPH long/short bybit long/short bitget",
+   "appearances": 1,
+   "cycles_pct": 2.9,
+   "longest_streak_cycles": 1,
+   "first_seen": "2026-09-10T16:01:54.806950+00:00",
+   "last_seen": "2026-09-10T16:01:54.806950+00:00",
+   "entered": true
+  }
+ ],
+ "backtest": {
+  "window": "2026-08-11T15:00Z -> 2026-09-10T14:00Z (30.0 days)",
+  "bases": [
+   "BTC",
+   "ETH",
+   "SOL"
+  ],
+  "venues": [
+   "binance",
+   "bitget",
+   "bybit",
+   "okx",
+   "hyperliquid"
+  ],
+  "rows_total": 27876,
+  "rows_pass_entry_thresholds": 0,
+  "trades": 0,
+  "fee_gate": {
+   "round_trip_taker_pct": 0.11,
+   "best_spread_pct": 0.0218,
+   "best_net_edge_pct": -0.0882,
+   "median_abs_net_edge_pct": 0.1084,
+   "breakeven_settlements_at_max_spread": 5.05,
+   "note": "Best per-settlement spread of the whole 30d window was 5x below the two-leg taker fee; spikes mean-revert within one settlement (p99 = 0.0000%)."
+  },
+  "thresholds": {
+   "min_spread_pct": 0.04,
+   "min_net_edge_pct": 0.02,
+   "exit_edge_pct": 0.01,
+   "max_pairs": 3,
+   "trade_usd": 5000
+  },
+  "variants": [
+   {
+    "file": "backtest_30d_btc_eth_sol.json",
+    "trade_count": 0
+   },
+   {
+    "file": "backtest_30d_mismatch.json",
+    "trade_count": 0
+   },
+   {
+    "file": "backtest_30d_permissive.json",
+    "trade_count": 0
+   },
+   {
+    "file": "backtest_30d_with_hl.json",
+    "trade_count": 0
+   }
+  ],
+  "small_caps_note": "small-cap/event segment is NOT covered by the 30d majors backtest \u2014 paper is the only evidence tier for it"
+ },
+ "totals": {
+  "price": -0.43,
+  "fees": -2.15,
+  "funding": 7.68,
+  "net": 5.1,
+  "retention_avg_pct": 156.6,
+  "wins": 2,
+  "closed": 2
+ }
+}
