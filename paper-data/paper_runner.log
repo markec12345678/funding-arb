@@ -694,3 +694,8 @@ open POLYX long@bybit short@bitget edge=1.7038% state=aborted
 open KSTR long@bybit short@bitget edge=0.3886% state=simulated
 open POLYX long@bybit short@bitget edge=1.7115% state=aborted
 open POLYX long@bybit short@bitget edge=1.6766% state=simulated
+close pf-PUNDIX-bybit-bitget-1789295505-f1f06a edge=-999.0000% state=simulated
+close pf-KSTR-bybit-bitget-1789304802-5e8e32 edge=-0.1150% state=simulated
+close pf-POLYX-bybit-bitget-1789305401-463b1d edge=-999.0000% state=simulated
+open CVC long@bitget short@bybit edge=0.2288% state=simulated
+open IOST long@bybit short@bitget edge=0.0662% state=simulated

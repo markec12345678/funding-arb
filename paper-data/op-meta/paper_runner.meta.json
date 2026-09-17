@@ -1,1 +1,1 @@
-{"respawns":10,"last_check":1789658216427,"last_spawn":1789658216443,"started_at":1789658216426,"gh_dispatches":316,"gh_last_dispatch":1789658216405,"gh_last_result":"http 204","standdown":false,"supervisor_standdown_capable":true}
+{"respawns":10,"last_check":1789658826140,"last_spawn":1789658216443,"started_at":1789658826140,"gh_dispatches":316,"gh_last_dispatch":1789658216405,"gh_last_result":"http 204","standdown":true,"supervisor_standdown_capable":true}
